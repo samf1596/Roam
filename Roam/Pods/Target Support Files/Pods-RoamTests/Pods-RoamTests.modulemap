@@ -1,0 +1,6 @@
+framework module Pods_RoamTests {
+  umbrella header "Pods-RoamTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
