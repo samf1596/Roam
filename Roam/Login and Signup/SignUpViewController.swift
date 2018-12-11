@@ -75,8 +75,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                 let firstname = self.newUserFirstName.text!
                 let lastname = self.newUserLastName.text!
                 let username = self.newUserUsername.text!
-                let email = user?.email
-                let userId = user?.uid
+                let email = user?.user.email
+                let userId = user?.user.uid
                 let newUser = NewUser(firstname: firstname, lastname: lastname, username: username, uid: userId!, email: email!)
                 
                 self.ref.child("Accounts").child(userId!).setValue(newUser.toObject());
