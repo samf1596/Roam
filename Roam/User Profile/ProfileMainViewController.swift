@@ -92,7 +92,7 @@ class ProfileMainViewController: UIViewController {
                 
                 let user = NewUser(snapshot: snapshot)
                 self.pageTitle = user.firstname
-                self.title = self.pageTitle
+                self.navigationController?.navigationBar.topItem?.title = self.pageTitle
             }
         }
     }
