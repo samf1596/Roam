@@ -61,9 +61,9 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.tintColor = UIColor.white
-                self.backgroundColor = UIColor.lightGray
+                self.backgroundColor = UIColor.gray
                 self.backgroundColorView.backgroundColor = UIColor.darkGray
-                self.contentView.backgroundColor = UIColor.lightGray
+                self.contentView.backgroundColor = UIColor.gray
             }
             else {
                 self.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)

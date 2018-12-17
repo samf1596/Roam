@@ -26,7 +26,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.globalTableView.tintColor = UIColor.white
-                self.globalTableView.backgroundColor = UIColor.lightGray
+                self.globalTableView.backgroundColor = UIColor.gray
             }
             else {
                 self.globalTableView.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
