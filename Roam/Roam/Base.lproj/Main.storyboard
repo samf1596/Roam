@@ -29,7 +29,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jy1-Da-WEE">
                                             <rect key="frame" x="5" y="0.0" width="373" height="564"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSd-PX-2nu">
+                                                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fSd-PX-2nu">
                                                     <rect key="frame" x="323" y="404" width="30" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="26" id="K0S-xs-G6h"/>
@@ -1044,7 +1044,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconLoadingScreen" translatesAutoresizingMaskIntoConstraints="NO" id="nBm-Qb-Ofm">
+                            <imageView opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIcon76x762x" translatesAutoresizingMaskIntoConstraints="NO" id="nBm-Qb-Ofm">
                                 <rect key="frame" x="95" y="94" width="184" height="156"/>
                                 <color key="backgroundColor" red="0.23512542247772217" green="0.77743071317672729" blue="0.99996262788772583" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
@@ -1148,7 +1148,7 @@
                                                 <segue destination="N5y-oS-j2R" kind="show" identifier="showHomeComments" id="gUz-HW-qux"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cy6-lt-agq">
+                                        <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cy6-lt-agq">
                                             <rect key="frame" x="328" y="403.5" width="30" height="26"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="26" id="yK8-WS-kmx"/>
@@ -1416,7 +1416,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppIconLoadingScreen" width="76" height="76"/>
+        <image name="AppIcon76x762x" width="152" height="152"/>
         <image name="addPhoto" width="512" height="512"/>
         <image name="globe_earth" width="30" height="30"/>
         <image name="home" width="30" height="30"/>

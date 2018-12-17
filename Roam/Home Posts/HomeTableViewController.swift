@@ -148,6 +148,13 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         cell.viewCommentsButton.tag = indexPath.section
         cell.segueButtonForImages.tag = indexPath.section
         cell.unfollowButton.layer.cornerRadius = 4.0
+        cell.globalPostFavButton.layer.cornerRadius = 4.0
+        if postsModel.postIdBookmarked(post) {
+            cell.globalPostFavButton.backgroundColor = UIColor.cyan
+        }
+        else {
+            cell.globalPostFavButton.backgroundColor = UIColor.clear
+        }
         return cell
     }
 

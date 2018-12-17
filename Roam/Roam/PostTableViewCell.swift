@@ -64,12 +64,24 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.backgroundColor = UIColor.gray
                 self.backgroundColorView.backgroundColor = UIColor.darkGray
                 self.contentView.backgroundColor = UIColor.gray
+                self.globalCommentTextView.backgroundColor = UIColor.white
+                self.globalPostDescriptionTextView.backgroundColor = UIColor.gray
+                self.globalPostExperienceDetails.setTitleColor(UIColor.black, for: .normal)
+                self.viewCommentsButton.setTitleColor(UIColor.black, for: .normal)
+                self.globalPosterUsername.textColor = UIColor.white
+                self.globalPostersName.textColor = UIColor.white
             }
             else {
                 self.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.contentView.backgroundColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.backgroundColorView.backgroundColor = UIColor.white
+                self.globalCommentTextView.backgroundColor = UIColor.white
+                self.globalPostDescriptionTextView.backgroundColor = UIColor.white
+                self.globalPostExperienceDetails.setTitleColor(UIColor.white, for: .normal)
+                self.viewCommentsButton.setTitleColor(UIColor.white, for: .normal)
+                self.globalPosterUsername.textColor = UIColor.lightGray
+                self.globalPostersName.textColor = UIColor.darkText
             }
         }
     }
@@ -123,10 +135,27 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     }
 
     @IBAction func bookmarkPost(_ sender: Any) {
-        let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
-        currentUser.child("Bookmarks").child(postID).setValue(true)
-        let selection = UISelectionFeedbackGenerator()
-        selection.selectionChanged()
+        if globalPostFavButton.backgroundColor == UIColor.cyan {
+            globalPostFavButton.backgroundColor = UIColor.clear
+            let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
+            currentUser.child("Bookmarks").child(postID).removeValue()
+            let selection = UISelectionFeedbackGenerator()
+            selection.selectionChanged()
+        }
+        else {
+            globalPostFavButton.backgroundColor = UIColor.cyan
+            UIView.animate(withDuration: 0.1, delay: 0.0,
+                           options: [AnimationOptions.curveEaseInOut], animations: {
+                self.globalPostFavButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            }) { (true) in
+                self.globalPostFavButton.transform = CGAffineTransform.identity
+            }
+
+            let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
+            currentUser.child("Bookmarks").child(postID).setValue(true)
+            let selection = UISelectionFeedbackGenerator()
+            selection.selectionChanged()
+        }
     }
     
     

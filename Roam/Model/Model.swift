@@ -149,6 +149,7 @@ class PostsModel {
     fileprivate var cachedPosts = [Post]()
     fileprivate var followingPosts = [Post]()
     fileprivate var bookmarkedPosts = [Post]()
+    fileprivate var bookmarkedPostIds = [String]()
     fileprivate var usersPosts = [Post]()
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
@@ -160,6 +161,16 @@ class PostsModel {
     var cachedFollowingPostsCount : Int {return followingPosts.count}
     var cachedBookmarkedPostsCount : Int {return bookmarkedPosts.count}
     var cachedUsersPostsCount : Int {return usersPosts.count}
+    
+    func postIdBookmarked(_ post: Post) -> Bool{
+        if self.bookmarkedPostIds.contains(post.postID) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    
     func postForSection(_ section: Int) -> Post{
         return cachedPosts[section]
     }
@@ -360,7 +371,7 @@ class PostsModel {
             ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Bookmarks").observe(.value) { (snapshot) in
                 var bookmarks = [String]()
                 self.bookmarkedPosts = []
-                
+                self.bookmarkedPostIds = []
                 for user in snapshot.children {
                     let temp = user as! DataSnapshot
                     bookmarks.append(temp.key)
@@ -368,6 +379,7 @@ class PostsModel {
                 for post in self.cachedPosts {
                     if bookmarks.contains(post.postID){
                         self.bookmarkedPosts.append(post)
+                        self.bookmarkedPostIds.append(post.postID)
                     }
                 }
             }

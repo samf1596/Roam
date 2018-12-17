@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "AppIcon76x762x.pdf",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "AppIcon76x76@2x.png",
       "scale" : "2x"
     },
     {
