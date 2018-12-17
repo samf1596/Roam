@@ -150,7 +150,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         cell.unfollowButton.layer.cornerRadius = 4.0
         cell.globalPostFavButton.layer.cornerRadius = 4.0
         if postsModel.postIdBookmarked(post) {
-            cell.globalPostFavButton.backgroundColor = UIColor.cyan
+            cell.globalPostFavButton.backgroundColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
         }
         else {
             cell.globalPostFavButton.backgroundColor = UIColor.clear
