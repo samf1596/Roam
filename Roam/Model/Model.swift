@@ -149,6 +149,7 @@ class PostsModel {
     fileprivate var cachedPosts = [Post]()
     fileprivate var followingPosts = [Post]()
     fileprivate var bookmarkedPosts = [Post]()
+    fileprivate var globalPosts = [Post]()
     fileprivate var bookmarkedPostIds = [String]()
     fileprivate var usersPosts = [Post]()
     fileprivate var ref : DatabaseReference!
@@ -158,6 +159,7 @@ class PostsModel {
     fileprivate var following = [String]()
     
     var cachedPostsCount : Int {return cachedPosts.count}
+    var cachedGlobalPostsCount : Int {return globalPosts.count}
     var cachedFollowingPostsCount : Int {return followingPosts.count}
     var cachedBookmarkedPostsCount : Int {return bookmarkedPosts.count}
     var cachedUsersPostsCount : Int {return usersPosts.count}
@@ -174,6 +176,9 @@ class PostsModel {
     func postForSection(_ section: Int) -> Post{
         return cachedPosts[section]
     }
+    func postForGlobalSection(_ section: Int) -> Post{
+         return globalPosts[section]
+    }
     func postForFollowingSection(_ section: Int) -> Post{
         return followingPosts[section]
     }
@@ -186,6 +191,9 @@ class PostsModel {
     
     func imagePathForPost(_ section: Int, _ imageIndex: Int) -> String {
         return cachedPosts[section].imagePath[imageIndex]
+    }
+    func imagePathForGlobalPost(_ section: Int, _ imageIndex: Int) -> String {
+        return globalPosts[section].imagePath[imageIndex]
     }
     func imagePathForFollowingPost(_ section: Int, _ imageIndex: Int) -> String {
         return followingPosts[section].imagePath[imageIndex]
@@ -225,6 +233,7 @@ class PostsModel {
                 self.findBookmarkedPosts()
                 self.findFollowingPosts()
                 self.findUsersPosts()
+                self.findGlobalPosts()
             }
             DispatchQueue.main.async(execute: block)
         }
@@ -274,6 +283,31 @@ class PostsModel {
             
             if getCachedImage(postID+"\(index).jpg") == nil && getImageFromDirectory(postID+"\(index).jpg") == nil {
                 let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath[index])
+                storage.getData(maxSize: 2*1024*1024) { (data, error) in
+                    if error == nil {
+                        //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
+                        let image = UIImage(data: data!)
+                        self.cacheImage(postID+"\(index).jpg", image!)
+                        self.saveImageInDirectory(image!, postID+"\(index).jpg")
+                    }
+                    else {
+                        print("Error:\(error ?? "" as! Error)")
+                    }
+                }
+            }
+            else {
+                let image = getImageFromDirectory(postID+"\(index).jpg")!
+                self.cacheImage(postID+"\(index).jpg", image)
+            }
+            
+        }
+    }
+    func downloadGlobalImage(_ indexPath: IndexPath, _ imageURL: String, _ postID: String) {
+        let numberOfImages = globalPosts[indexPath.section].imagePath.count
+        for index in 0..<numberOfImages {
+            
+            if getCachedImage(postID+"\(index).jpg") == nil && getImageFromDirectory(postID+"\(index).jpg") == nil {
+                let storage = storageRef.storage.reference(forURL: globalPosts[indexPath.section].imagePath[index])
                 storage.getData(maxSize: 2*1024*1024) { (data, error) in
                     if error == nil {
                         //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
@@ -385,7 +419,19 @@ class PostsModel {
             }
         }
     }
-    
+    func findGlobalPosts() {
+        if Auth.auth().currentUser != nil {
+            ref.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
+                self.globalPosts = []
+                let account = NewUser(snapshot: snapshot)
+                for post in self.cachedPosts {
+                    if account.username != post.username && post.isPublic == true{
+                        self.globalPosts.append(post)
+                    }
+                }
+            }
+        }
+    }
     func findFollowingPosts() {
         if Auth.auth().currentUser != nil {
             ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("following").observe(.value) { (snapshot) in

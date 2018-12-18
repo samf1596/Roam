@@ -66,10 +66,11 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.contentView.backgroundColor = UIColor.gray
                 self.globalCommentTextView.backgroundColor = UIColor.white
                 self.globalPostDescriptionTextView.backgroundColor = UIColor.gray
-                self.globalPostExperienceDetails.setTitleColor(UIColor.black, for: .normal)
-                self.viewCommentsButton.setTitleColor(UIColor.black, for: .normal)
+                self.globalPostExperienceDetails.setTitleColor(UIColor.white, for: .normal)
+                self.viewCommentsButton.setTitleColor(UIColor.white, for: .normal)
                 self.globalPosterUsername.textColor = UIColor.white
                 self.globalPostersName.textColor = UIColor.white
+                self.globalCommentTextView.keyboardAppearance = .dark
             }
             else {
                 self.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
@@ -78,10 +79,11 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.backgroundColorView.backgroundColor = UIColor.white
                 self.globalCommentTextView.backgroundColor = UIColor.white
                 self.globalPostDescriptionTextView.backgroundColor = UIColor.white
-                self.globalPostExperienceDetails.setTitleColor(UIColor.white, for: .normal)
-                self.viewCommentsButton.setTitleColor(UIColor.white, for: .normal)
+                self.globalPostExperienceDetails.setTitleColor(UIColor.black, for: .normal)
+                self.viewCommentsButton.setTitleColor(UIColor.black, for: .normal)
                 self.globalPosterUsername.textColor = UIColor.lightGray
                 self.globalPostersName.textColor = UIColor.darkText
+                self.globalCommentTextView.keyboardAppearance = .default
             }
         }
     }
@@ -95,8 +97,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         globalCommentTextView.returnKeyType = .done
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
-        backgroundColorView.layer.cornerRadius = 15
-        globalCommentTextView.layer.cornerRadius = 15
+        backgroundColorView.layer.cornerRadius = 3
+        globalCommentTextView.layer.cornerRadius = 3
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {

@@ -58,7 +58,7 @@ class AllImagesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if whichPosts == "Global" {
-            return postsModel.postForSection(postIndex).imagePath.count
+            return postsModel.postForGlobalSection(postIndex).imagePath.count
         }
         if whichPosts == "Home" {
             return postsModel.postForFollowingSection(postIndex).imagePath.count
@@ -71,10 +71,10 @@ class AllImagesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Image", for: indexPath) as! ImageViewPostTableViewCell
         
         if whichPosts == "Global" {
-            let post = postsModel.postForSection(postIndex)
+            let post = postsModel.postForGlobalSection(postIndex)
             
-            let imagePath = postsModel.imagePathForPost(postIndex, indexPath.row)
-            postsModel.downloadImage(indexPath, imagePath, post.postID)
+            let imagePath = postsModel.imagePathForGlobalPost(postIndex, indexPath.row)
+            postsModel.downloadGlobalImage(indexPath, imagePath, post.postID)
             
             cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }

@@ -22,6 +22,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet weak var addExperiences: UIButton!
     @IBOutlet weak var addFlightsAndStays: UIButton!
     @IBOutlet weak var postButton: UIButton!
+    @IBOutlet weak var publicOrPrivateSegmentedControl: UISegmentedControl!
     
     var selectedPictures = [TLPHAsset]()
     var imageURLSforUpload = [String]()
@@ -32,15 +33,23 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
-                self.view.tintColor = UIColor.darkGray
+                self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.darkGray
                 self.descriptionTextView.backgroundColor = UIColor.lightGray
+                self.descriptionTextView.keyboardAppearance = .dark
+                self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.darkGray
+                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .selected)
+                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .normal)
             }
             else {
-                self.view.tintColor = UIColor.white
+                self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.view.backgroundColor = UIColor.white
                 self.descriptionTextView.backgroundColor = UIColor(red: 0, green: 148.0/255.0, blue: 240.0/255.0, alpha: 0.1)
                 self.descriptionTextView.isOpaque = true
+                self.descriptionTextView.keyboardAppearance = .default
+                self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.white
+                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)], for: .normal)
             }
         }
         
@@ -327,8 +336,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
         account = NewUser(snapshot: snapshot)
         let postID = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
-            
-        let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.textToUpload, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: true, postID: postID)
+            let isPublic = self.publicOrPrivateSegmentedControl.selectedSegmentIndex == 0 ? false : true
+        let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.textToUpload, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: isPublic, postID: postID)
         
         self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).setValue(post.toObject())
             self.descriptionTextView.text = "Add a description of your trip here..."
@@ -339,6 +348,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             self.selectedImageCount = 0
             self.travels = [""]
             self.experiences = [""]
+            self.publicOrPrivateSegmentedControl.selectedSegmentIndex = 0
         }
     }
     

@@ -62,7 +62,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         self.homeTableView.addGestureRecognizer(swipeDown)
         self.tableViewSwipeDownGesture = swipeDown
         
-        navigationController?.hidesBarsOnSwipe = true
+        navigationController?.hidesBarsOnSwipe = false
         
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
@@ -86,7 +86,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     
     override var prefersStatusBarHidden: Bool {
-        return hideStatusBar
+        return false
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
@@ -99,7 +99,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's roam!")
         
         postsModel.findFollowingPosts()
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)

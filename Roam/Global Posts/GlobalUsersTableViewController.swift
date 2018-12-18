@@ -41,8 +41,16 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,8 +58,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         searchBar.sizeToFit()
         searchBar.barStyle = .default
         searchBar.delegate = self
-        searchBar.showsCancelButton = true
-        searchBar.scopeButtonTitles = ["User", "Location"]
+        searchBar.placeholder = "Search locations"
         self.navigationController?.navigationBar.topItem?.titleView = searchBar
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
@@ -72,8 +79,8 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
         }
         
-        navigationController?.hidesBarsOnSwipe = true
-        
+        navigationController?.hidesBarsOnSwipe = false
+        self.navigationController?.navigationBar.topItem?.hidesSearchBarWhenScrolling = true
 
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
@@ -84,8 +91,14 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         switch sender.direction {
             case UISwipeGestureRecognizer.Direction.down:
                 hideStatusBar = false
+                UIView.animate(withDuration: 1.0) {
+                    self.navigationController?.navigationBar.topItem?.titleView?.isHidden = false
+                }
             case UISwipeGestureRecognizer.Direction.up:
                 hideStatusBar = true
+                UIView.animate(withDuration: 1.0) {
+                    self.navigationController?.navigationBar.topItem?.titleView?.isHidden = true
+                }
             default:
                 break
         }
@@ -98,7 +111,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     }
     
     override var prefersStatusBarHidden: Bool {
-        return hideStatusBar
+        return false
     }
     
     override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
@@ -107,7 +120,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     
     override func viewWillAppear(_ animated: Bool) {
         
-        self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's GOOOOOO!!!!!")
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's roam!")
 
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
 
@@ -123,8 +136,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return postsModel.cachedPostsCount
-        //return self.cachedPosts.count
+        return postsModel.cachedGlobalPostsCount
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -144,11 +156,11 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
 
         //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
-        let imagePath = postsModel.imagePathForPost(indexPath.section, 0)
+        let imagePath = postsModel.imagePathForGlobalPost(indexPath.section, 0)
         
-        let post = postsModel.postForSection(indexPath.section)
+        let post = postsModel.postForGlobalSection(indexPath.section)
         
-        postsModel.downloadImage(indexPath, imagePath, post.postID)
+        postsModel.downloadGlobalImage(indexPath, imagePath, post.postID)
         
         cell.globalPostImageView.image = postsModel.getCachedImage(post.postID+"\(0)")
         cell.post = post
@@ -177,13 +189,13 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 let button = sender as? UIButton
                 let experienceDetailController = segue.destination as! PostExperienceDetailsTableViewController
                 let postIndex = button!.tag
-                let post = postsModel.postForSection(postIndex)
+                let post = postsModel.postForGlobalSection(postIndex)
                 self.navigationController?.navigationBar.isHidden = false
                 experienceDetailController.configure(post.travels, post.experiences)
             case "ShowComments":
                 let button = sender as? UIButton
                 let index = button!.tag
-                let postID = postsModel.postForSection(index).postID
+                let postID = postsModel.postForGlobalSection(index).postID
                 self.navigationController?.navigationBar.isHidden = false
                 let commentsViewController = segue.destination as! CommentsTableViewController
                 var comments = [String]()
