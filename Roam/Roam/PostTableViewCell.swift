@@ -137,6 +137,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBAction func bookmarkPost(_ sender: Any) {
         if globalPostFavButton.backgroundColor == UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0) {
             globalPostFavButton.backgroundColor = UIColor.clear
+            globalPostFavButton.imageView?.image = globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
+            globalPostFavButton.imageView!.tintColor = UIColor.black
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("Bookmarks").child(postID).removeValue()
             let selection = UISelectionFeedbackGenerator()
@@ -149,6 +151,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalPostFavButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
             }) { (true) in
                 self.globalPostFavButton.transform = CGAffineTransform.identity
+                self.globalPostFavButton.imageView?.image = self.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
+                self.globalPostFavButton.imageView!.tintColor = UIColor.white
             }
 
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)

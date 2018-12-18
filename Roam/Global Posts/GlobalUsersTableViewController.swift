@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import CoreData
 
-class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizerDelegate, UISearchBarDelegate {
 
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
@@ -39,8 +39,20 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
     }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        searchBar.barStyle = .default
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
+        searchBar.scopeButtonTitles = ["User", "Location"]
+        self.navigationController?.navigationBar.topItem?.titleView = searchBar
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
         swipeUp.direction = UISwipeGestureRecognizer.Direction.up
@@ -147,9 +159,13 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         cell.globalPostFavButton.layer.cornerRadius = 4.0
         if postsModel.postIdBookmarked(post) {
             cell.globalPostFavButton.backgroundColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
+            cell.globalPostFavButton.imageView!.tintColor = UIColor.white
         }
         else {
             cell.globalPostFavButton.backgroundColor = UIColor.clear
+            cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
+            cell.globalPostFavButton.imageView!.tintColor = UIColor.black
         }
         return cell
     }

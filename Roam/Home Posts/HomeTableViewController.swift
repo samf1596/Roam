@@ -151,9 +151,13 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         cell.globalPostFavButton.layer.cornerRadius = 4.0
         if postsModel.postIdBookmarked(post) {
             cell.globalPostFavButton.backgroundColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
+            cell.globalPostFavButton.imageView!.tintColor = UIColor.white
         }
         else {
             cell.globalPostFavButton.backgroundColor = UIColor.clear
+            cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
+            cell.globalPostFavButton.imageView!.tintColor = UIColor.black
         }
         return cell
     }
