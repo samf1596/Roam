@@ -392,6 +392,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             let travelController = segue.destination as! FlightsStaysTableViewController
             //let travelController = navController.topViewController as! FlightsStaysTableViewController
             travelController.delegate = self
+         case "ChooseLocation":
+            break
          default:
             assert(false, "Unhandled Segue")
          }
