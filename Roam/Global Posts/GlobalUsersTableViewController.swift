@@ -91,14 +91,8 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         switch sender.direction {
             case UISwipeGestureRecognizer.Direction.down:
                 hideStatusBar = false
-                UIView.animate(withDuration: 1.0) {
-                    self.navigationController?.navigationBar.topItem?.titleView?.isHidden = false
-                }
             case UISwipeGestureRecognizer.Direction.up:
                 hideStatusBar = true
-                UIView.animate(withDuration: 1.0) {
-                    self.navigationController?.navigationBar.topItem?.titleView?.isHidden = true
-                }
             default:
                 break
         }

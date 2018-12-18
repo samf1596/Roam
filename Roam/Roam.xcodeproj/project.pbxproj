@@ -30,6 +30,7 @@
 		22A18300218FF5F100DE3AC4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A182FF218FF5F100DE3AC4 /* FirstViewController.swift */; };
 		22A18302218FF5FB00DE3AC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */; };
 		22A18304218FF60500DE3AC4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18303218FF60500DE3AC4 /* SignUpViewController.swift */; };
+		22A4211121C9B39500E64F3D /* ChooseLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A4211021C9B39500E64F3D /* ChooseLocationTableViewController.swift */; };
 		22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */; };
 		22B7517721A612ED004B5FEC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517621A612ED004B5FEC /* ProfileViewController.swift */; };
 		22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */; };
@@ -76,6 +77,7 @@
 		22A182FF218FF5F100DE3AC4 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		22A18303218FF60500DE3AC4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		22A4211021C9B39500E64F3D /* ChooseLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationTableViewController.swift; sourceTree = "<group>"; };
 		22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		22B7517621A612ED004B5FEC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				22964CC821B4E9080096C6E8 /* MainTabBarViewController.swift */,
 				22E8AFD621BC6CC10028476F /* ImageViewPostTableViewCell.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
+				22A4211021C9B39500E64F3D /* ChooseLocationTableViewController.swift */,
 				22E8AFD421BC6AA90028476F /* AllImagesTableViewController.swift */,
 				22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */,
 				225A9468218E43D900C14B6B /* Assets.xcassets */,
@@ -434,6 +437,7 @@
 				226DB034218E4CAF00261560 /* Model.swift in Sources */,
 				220EA52D21990200003ACC06 /* PostExperienceDetailsTableViewController.swift in Sources */,
 				22F5E74D21B347C700CBF135 /* ProfileMainViewController.swift in Sources */,
+				22A4211121C9B39500E64F3D /* ChooseLocationTableViewController.swift in Sources */,
 				225A9462218E43D800C14B6B /* AppDelegate.swift in Sources */,
 				22E8AFD921BCCD260028476F /* LoadingScreenViewController.swift in Sources */,
 				2264B69C2197C2CE00A402A1 /* ExperienceTableViewCell.swift in Sources */,
