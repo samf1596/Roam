@@ -116,6 +116,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's roam!")
 
+        postsModel.findGlobalPosts()
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
 
         super.viewWillAppear(animated)

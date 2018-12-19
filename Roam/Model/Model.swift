@@ -469,6 +469,8 @@ class PostsModel {
         self.followingPosts = []
         self.following = []
         self.bookmarkedPosts = []
+        self.cachedPosts = []
+        self.globalPosts = []
     }
 }
 

@@ -277,7 +277,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
         for selectedImage in self.selectedPictures {
             
-            let imageToUploadResized = resizeImage(image: selectedImage.fullResolutionImage!, targetSize: CGSize(width: 425, height: 375))
+            let imageToUploadResized = resizeImage(image: selectedImage.fullResolutionImage!, targetSize: CGSize(width: 500, height: 500))
             
             let image = imageToUploadResized.jpegData(compressionQuality: 0.25)
             let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
