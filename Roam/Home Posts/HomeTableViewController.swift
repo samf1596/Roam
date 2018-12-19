@@ -8,8 +8,24 @@
 import UIKit
 import Firebase
 
-class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegate {
+class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegate, PostTableViewCellDelegate, UITabBarControllerDelegate {
 
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let tabBarIndex = tabBarController.selectedIndex
+        if tabBarIndex == 0 {
+            let indexPath = NSIndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+        }
+    }
+    
+    func presentInfoController(senderTag: Int, whichView: String) {
+        let alert = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
     
@@ -43,6 +59,9 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBarController?.delegate = self
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
@@ -100,14 +119,18 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     override func viewWillAppear(_ animated: Bool) {
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's roam!")
-        
+        self.tableView.isScrollEnabled = true
         postsModel.findFollowingPosts()
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
 
+        self.tabBarController?.delegate = self
         super.viewWillAppear(animated)
     }
     
-
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.tableView.isScrollEnabled = false
+    }
     
     
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
@@ -142,6 +165,8 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         let post = postsModel.postForFollowingSection(indexPath.section)
         postsModel.downloadFollowingImage(indexPath, imagePath, post.postID)
 
+        cell.delegate = self
+        cell.infoButton.tag = indexPath.section
         cell.globalPostImageView.image = postsModel.getCachedImage(post.postID+"\(0)")
         cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section

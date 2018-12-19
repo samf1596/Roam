@@ -8,14 +8,22 @@
 import UIKit
 import Firebase
 
+protocol PostTableViewCellDelegate {
+    func presentInfoController(senderTag:Int, whichView:String)
+}
+
 class PostTableViewCell: UITableViewCell, UITextViewDelegate {
 
+    func presentInfoController(senderTag:Int, whichView:String) {
+        delegate?.presentInfoController(senderTag: senderTag, whichView: whichView)
+    }
+    
+    var delegate : PostTableViewCellDelegate?
+    
     fileprivate var storageRef : StorageReference!
     fileprivate var downloadImageTask : StorageDownloadTask!
     fileprivate var databaseRef : DatabaseReference!
     
-    
-    @IBOutlet weak var backgroundColorView: UIView!
     @IBOutlet weak var globalPostersName: UILabel!
     @IBOutlet weak var globalPosterUsername: UILabel!
     @IBOutlet weak var globalPostImageView: UIImageView!
@@ -27,6 +35,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var unfollowButton: UIButton!
     @IBOutlet weak var viewCommentsButton: UIButton!
     @IBOutlet weak var segueButtonForImages: UIButton!
+    @IBOutlet weak var infoButton: UIButton!
+    
     
     var postID = String()
     
@@ -61,9 +71,9 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.tintColor = UIColor.white
-                self.backgroundColor = UIColor.gray
-                self.backgroundColorView.backgroundColor = UIColor.darkGray
-                self.contentView.backgroundColor = UIColor.gray
+                self.backgroundColor = UIColor.darkGray
+                //self.backgroundColorView.backgroundColor = UIColor.darkGray
+                self.contentView.backgroundColor = UIColor.darkGray
                 self.globalCommentTextView.backgroundColor = UIColor.white
                 self.globalPostDescriptionTextView.backgroundColor = UIColor.gray
                 self.globalPostExperienceDetails.setTitleColor(UIColor.white, for: .normal)
@@ -73,10 +83,10 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalCommentTextView.keyboardAppearance = .dark
             }
             else {
-                self.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.backgroundColor = UIColor.white
                 self.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
-                self.contentView.backgroundColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
-                self.backgroundColorView.backgroundColor = UIColor.white
+                self.contentView.backgroundColor = UIColor.white
+                //self.backgroundColorView.backgroundColor = UIColor.white
                 self.globalCommentTextView.backgroundColor = UIColor.white
                 self.globalPostDescriptionTextView.backgroundColor = UIColor.white
                 self.globalPostExperienceDetails.setTitleColor(UIColor.black, for: .normal)
@@ -97,7 +107,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         globalCommentTextView.returnKeyType = .done
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
-        backgroundColorView.layer.cornerRadius = 3
+        //backgroundColorView.layer.cornerRadius = 3
         globalCommentTextView.layer.cornerRadius = 3
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
@@ -176,6 +186,10 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         }
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+    }
+    
+    @IBAction func infoButtonPressed(_ sender: UIButton) {
+        presentInfoController(senderTag: sender.tag, whichView: "Fix")
     }
     
     override func prepareForReuse() {

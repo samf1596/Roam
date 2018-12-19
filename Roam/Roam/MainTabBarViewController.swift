@@ -65,10 +65,8 @@ class MainTabBarViewController: UITabBarController {
         if UserDefaults.standard.bool(forKey: "DarkMode") == true {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
         }
-        // Do any additional setup after loading the view.
     }
     
-
     /*
     // MARK: - Navigation
 

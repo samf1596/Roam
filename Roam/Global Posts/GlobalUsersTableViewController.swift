@@ -9,8 +9,24 @@ import UIKit
 import Firebase
 import CoreData
 
-class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizerDelegate, UISearchBarDelegate {
+class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizerDelegate, UISearchBarDelegate, PostTableViewCellDelegate, UITabBarControllerDelegate {
 
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let tabBarIndex = tabBarController.selectedIndex
+        if tabBarIndex == 1 {
+            let indexPath = NSIndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
+        }
+    }
+    
+    func presentInfoController(senderTag: Int, whichView: String) {
+        let alert = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
 
@@ -53,6 +69,8 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tabBarController?.delegate = self
         
         let searchBar = UISearchBar()
         searchBar.sizeToFit()
@@ -115,13 +133,19 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     override func viewWillAppear(_ animated: Bool) {
         
         self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's roam!")
-
+        self.tableView.isScrollEnabled = true
         postsModel.findGlobalPosts()
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
-
+        
+        self.tabBarController?.delegate = self
+        
         super.viewWillAppear(animated)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.tableView.isScrollEnabled = false
+    }
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
         
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
@@ -157,6 +181,8 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         
         postsModel.downloadGlobalImage(indexPath, imagePath, post.postID)
         
+        cell.delegate = self
+        cell.infoButton.tag = indexPath.section
         cell.globalPostImageView.image = postsModel.getCachedImage(post.postID+"\(0)")
         cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section
