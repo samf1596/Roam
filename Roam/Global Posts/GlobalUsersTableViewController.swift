@@ -22,6 +22,13 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     func presentInfoController(senderTag: Int, whichView: String) {
         let alert = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
         
+        alert.addAction(UIAlertAction(title: "Follow User", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "View Comments", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "View Post Details", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Bookmark Post", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Report Post", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Hide Post", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Block User", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
@@ -192,13 +199,11 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         cell.globalPostFavButton.layer.cornerRadius = 4.0
         if postsModel.postIdBookmarked(post) {
             cell.globalPostFavButton.backgroundColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
-            cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
-            cell.globalPostFavButton.imageView!.tintColor = UIColor.white
+                cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
         }
         else {
             cell.globalPostFavButton.backgroundColor = UIColor.clear
-            cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
-            cell.globalPostFavButton.imageView!.tintColor = UIColor.black
+            cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
         }
         return cell
     }

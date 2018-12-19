@@ -81,6 +81,11 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalPosterUsername.textColor = UIColor.white
                 self.globalPostersName.textColor = UIColor.white
                 self.globalCommentTextView.keyboardAppearance = .dark
+                
+                self.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
+                self.viewCommentsButton.imageView?.image = UIImage(named: "comments-white")
+                self.infoButton.imageView?.image = UIImage(named: "ellipsis-white")
+                self.globalPostExperienceDetails.imageView?.image = UIImage(named: "details-white")
             }
             else {
                 self.backgroundColor = UIColor.white
@@ -94,6 +99,11 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalPosterUsername.textColor = UIColor.lightGray
                 self.globalPostersName.textColor = UIColor.darkText
                 self.globalCommentTextView.keyboardAppearance = .default
+                
+                self.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
+                self.viewCommentsButton.imageView?.image = UIImage(named: "comments")
+                self.infoButton.imageView?.image = UIImage(named: "ellipsis")
+                self.globalPostExperienceDetails.imageView?.image = UIImage(named: "details")
             }
         }
     }
@@ -149,8 +159,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBAction func bookmarkPost(_ sender: Any) {
         if globalPostFavButton.backgroundColor == UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0) {
             globalPostFavButton.backgroundColor = UIColor.clear
-            globalPostFavButton.imageView?.image = globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
-            globalPostFavButton.imageView!.tintColor = UIColor.black
+            self.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("Bookmarks").child(postID).removeValue()
             let selection = UISelectionFeedbackGenerator()
@@ -163,8 +172,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalPostFavButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
             }) { (true) in
                 self.globalPostFavButton.transform = CGAffineTransform.identity
-                self.globalPostFavButton.imageView?.image = self.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
-                self.globalPostFavButton.imageView!.tintColor = UIColor.white
+                self.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
             }
 
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
