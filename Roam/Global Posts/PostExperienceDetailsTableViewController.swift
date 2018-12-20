@@ -38,7 +38,6 @@ class PostExperienceDetailsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.hidesBarsOnSwipe = true
         navigationController?.isNavigationBarHidden = false
         let selection = UISelectionFeedbackGenerator()
         selection.selectionChanged()

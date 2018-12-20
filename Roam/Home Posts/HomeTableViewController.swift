@@ -177,6 +177,19 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         
         let imagePath = postsModel.imagePathForFollowingPost(indexPath.section, 0)
         
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
+            cell.viewCommentsButton.imageView?.image = UIImage(named: "comments-white")
+            cell.infoButton.imageView?.image = UIImage(named: "ellipsis-white")
+            cell.globalPostExperienceDetails.imageView?.image = UIImage(named: "details-white")
+        }
+        else {
+            cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
+            cell.viewCommentsButton.imageView?.image = UIImage(named: "comments")
+            cell.infoButton.imageView?.image = UIImage(named: "ellipsis")
+            cell.globalPostExperienceDetails.imageView?.image = UIImage(named: "details")
+        }
+        
         let post = postsModel.postForFollowingSection(indexPath.section)
         postsModel.downloadFollowingImage(indexPath, imagePath, post.postID)
 

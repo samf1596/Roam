@@ -149,6 +149,17 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         super.viewWillAppear(animated)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        // TODO : Move this to when comments unwind
+        let searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        searchBar.barStyle = .default
+        searchBar.delegate = self
+        searchBar.placeholder = "Search locations"
+        self.navigationController?.navigationBar.topItem?.titleView = searchBar
+        super.viewDidAppear(animated)
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         self.tableView.isScrollEnabled = false
@@ -180,7 +191,20 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostTableViewCell
-
+        
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
+            cell.viewCommentsButton.imageView?.image = UIImage(named: "comments-white")
+            cell.infoButton.imageView?.image = UIImage(named: "ellipsis-white")
+            cell.globalPostExperienceDetails.imageView?.image = UIImage(named: "details-white")
+        }
+        else {
+            cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
+            cell.viewCommentsButton.imageView?.image = UIImage(named: "comments")
+            cell.infoButton.imageView?.image = UIImage(named: "ellipsis")
+            cell.globalPostExperienceDetails.imageView?.image = UIImage(named: "details")
+        }
+        
         //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
         let imagePath = postsModel.imagePathForGlobalPost(indexPath.section, 0)
         
@@ -217,6 +241,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 let postIndex = button!.tag
                 let post = postsModel.postForGlobalSection(postIndex)
                 self.navigationController?.navigationBar.isHidden = false
+                self.navigationController?.navigationBar.topItem?.titleView = nil
                 experienceDetailController.configure(post.travels, post.experiences)
             case "ShowComments":
                 let button = sender as? UIButton
@@ -224,6 +249,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 let postID = postsModel.postForGlobalSection(index).postID
                 self.navigationController?.navigationBar.isHidden = false
                 let commentsViewController = segue.destination as! CommentsTableViewController
+                self.navigationController?.navigationBar.topItem?.titleView = nil
                 var comments = [String]()
                 self.ref.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").observe(.value) { (snapshot) in
                     for comment in snapshot.children {
@@ -237,6 +263,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 let index = (sender as? UIButton)?.tag
                 viewController.configure(index!, "Global")
                 self.navigationController?.navigationBar.isHidden = false
+                self.navigationController?.navigationBar.topItem?.titleView = nil
             default:
                 assert(false, "Unhandled Segue")
         }
