@@ -262,7 +262,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
         let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
         
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        //UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+        UIGraphicsBeginImageContext(newSize)
         image.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -277,9 +278,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
         for selectedImage in self.selectedPictures {
             
-            let imageToUploadResized = resizeImage(image: selectedImage.fullResolutionImage!, targetSize: CGSize(width: 500, height: 500))
+            let imageToUploadResized = resizeImage(image: selectedImage.fullResolutionImage!, targetSize: CGSize(width: 800, height: 600))
             
-            let image = imageToUploadResized.jpegData(compressionQuality: 0.25)
+            let image = imageToUploadResized.jpegData(compressionQuality: 0.55)
             let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
             
             let metadata = StorageMetadata()
