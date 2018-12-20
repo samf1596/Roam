@@ -243,6 +243,8 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
             let index = (sender as? UIButton)?.tag
             viewController.configure(index!, "Home")
             self.navigationController?.navigationBar.isHidden = false
+        case "ShowLocationOnMap":
+            break
         default:
             assert(false, "Unhandled Segue")
         }

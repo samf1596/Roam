@@ -264,6 +264,8 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 viewController.configure(index!, "Global")
                 self.navigationController?.navigationBar.isHidden = false
                 self.navigationController?.navigationBar.topItem?.titleView = nil
+            case "ShowLocationOnMap":
+                self.navigationController?.navigationBar.topItem?.titleView = nil
             default:
                 assert(false, "Unhandled Segue")
         }
