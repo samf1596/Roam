@@ -239,10 +239,10 @@
             </objects>
             <point key="canvasLocation" x="-84" y="-1051.1244377811095"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="lgg-iU-NSF">
             <objects>
-                <viewController id="3fl-Z7-X5w" sceneMemberID="viewController">
+                <viewController id="3fl-Z7-X5w" customClass="MapViewController" customModule="Roam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oR8-RI-MGY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

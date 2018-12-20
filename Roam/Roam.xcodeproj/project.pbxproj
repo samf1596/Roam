@@ -31,6 +31,7 @@
 		22A18302218FF5FB00DE3AC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */; };
 		22A18304218FF60500DE3AC4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18303218FF60500DE3AC4 /* SignUpViewController.swift */; };
 		22A4211121C9B39500E64F3D /* ChooseLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A4211021C9B39500E64F3D /* ChooseLocationTableViewController.swift */; };
+		22A4211321CC472200E64F3D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A4211221CC472200E64F3D /* MapViewController.swift */; };
 		22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */; };
 		22B7517721A612ED004B5FEC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517621A612ED004B5FEC /* ProfileViewController.swift */; };
 		22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */; };
@@ -78,6 +79,7 @@
 		22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		22A18303218FF60500DE3AC4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		22A4211021C9B39500E64F3D /* ChooseLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationTableViewController.swift; sourceTree = "<group>"; };
+		22A4211221CC472200E64F3D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = "Post Information/MapViewController.swift"; sourceTree = SOURCE_ROOT; };
 		22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		22B7517621A612ED004B5FEC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 		225A9455218E43D800C14B6B = {
 			isa = PBXGroup;
 			children = (
+				22A4211421CC477C00E64F3D /* Post Information */,
 				22B7516C21A4C3C8004B5FEC /* User Profile */,
 				22B7516B21A4C3B9004B5FEC /* Home Posts */,
 				22B7516A21A4C39D004B5FEC /* Model */,
@@ -143,15 +146,9 @@
 		225A9460218E43D800C14B6B /* Roam */ = {
 			isa = PBXGroup;
 			children = (
-				228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */,
-				22E8AFD821BCCD260028476F /* LoadingScreenViewController.swift */,
-				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				22964CC821B4E9080096C6E8 /* MainTabBarViewController.swift */,
-				22E8AFD621BC6CC10028476F /* ImageViewPostTableViewCell.swift */,
+				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
-				22A4211021C9B39500E64F3D /* ChooseLocationTableViewController.swift */,
-				22E8AFD421BC6AA90028476F /* AllImagesTableViewController.swift */,
-				22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */,
 				225A9468218E43D900C14B6B /* Assets.xcassets */,
 				225A946A218E43D900C14B6B /* LaunchScreen.storyboard */,
 				225A946D218E43D900C14B6B /* Info.plist */,
@@ -176,8 +173,21 @@
 				2264B69421952E4500A402A1 /* ExperiencesTableViewController.swift */,
 				2264B69821952EB900A402A1 /* FlightsStaysTableViewController.swift */,
 				2264B69B2197C2CE00A402A1 /* ExperienceTableViewCell.swift */,
+				22A4211021C9B39500E64F3D /* ChooseLocationTableViewController.swift */,
 			);
 			path = "Create Post";
+			sourceTree = "<group>";
+		};
+		22A4211421CC477C00E64F3D /* Post Information */ = {
+			isa = PBXGroup;
+			children = (
+				228DA2BD218F8EAB007271A6 /* PostTableViewCell.swift */,
+				22E8AFD621BC6CC10028476F /* ImageViewPostTableViewCell.swift */,
+				22A4211221CC472200E64F3D /* MapViewController.swift */,
+				22E8AFD421BC6AA90028476F /* AllImagesTableViewController.swift */,
+				22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */,
+			);
+			path = "Post Information";
 			sourceTree = "<group>";
 		};
 		22B7516321A355CA004B5FEC /* Global Posts */ = {
@@ -194,6 +204,7 @@
 			children = (
 				22A18301218FF5FB00DE3AC4 /* LoginViewController.swift */,
 				22A182FF218FF5F100DE3AC4 /* FirstViewController.swift */,
+				22E8AFD821BCCD260028476F /* LoadingScreenViewController.swift */,
 				22A18303218FF60500DE3AC4 /* SignUpViewController.swift */,
 			);
 			path = "Login and Signup";
@@ -426,6 +437,7 @@
 				22A18300218FF5F100DE3AC4 /* FirstViewController.swift in Sources */,
 				22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */,
 				22964CC921B4E9080096C6E8 /* MainTabBarViewController.swift in Sources */,
+				22A4211321CC472200E64F3D /* MapViewController.swift in Sources */,
 				22F5E74B21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift in Sources */,
 				2264B69921952EB900A402A1 /* FlightsStaysTableViewController.swift in Sources */,
 				22F5E74921AF55E200CBF135 /* CommentsTableViewController.swift in Sources */,
