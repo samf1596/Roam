@@ -197,12 +197,16 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
             cell.viewCommentsButton.imageView?.image = UIImage(named: "comments-white")
             cell.infoButton.imageView?.image = UIImage(named: "ellipsis-white")
             cell.globalPostExperienceDetails.imageView?.image = UIImage(named: "details-white")
+            cell.mapLocationButton.backgroundColor = UIColor.darkGray
+            cell.mapLocationButton.setTitleColor(UIColor.white, for: .normal)
         }
         else {
             cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
             cell.viewCommentsButton.imageView?.image = UIImage(named: "comments")
             cell.infoButton.imageView?.image = UIImage(named: "ellipsis")
             cell.globalPostExperienceDetails.imageView?.image = UIImage(named: "details")
+            cell.mapLocationButton.backgroundColor = UIColor.white
+            cell.mapLocationButton.setTitleColor(UIColor.black, for: .normal)
         }
         
         //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)

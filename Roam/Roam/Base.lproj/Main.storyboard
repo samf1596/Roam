@@ -133,13 +133,13 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwc-ll-kne">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="23"/>
-                                            <color key="backgroundColor" red="0.4039215686" green="0.76862745099999996" blue="0.96231712079999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="23" id="jIM-al-fnk"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                             <state key="normal" title="Philadelphia">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </state>
                                             <connections>
                                                 <segue destination="3fl-Z7-X5w" kind="show" identifier="ShowLocationOnMap" id="YUR-bK-kZF"/>
@@ -202,6 +202,7 @@
                                     <outlet property="globalPosterUsername" destination="ARq-ED-dA8" id="P5T-cJ-nvn"/>
                                     <outlet property="globalPostersName" destination="MS3-oc-lUW" id="CJ3-Sd-oYW"/>
                                     <outlet property="infoButton" destination="j4X-lw-pDt" id="qOp-AO-hgV"/>
+                                    <outlet property="mapLocationButton" destination="fwc-ll-kne" id="Cgp-8V-kXa"/>
                                     <outlet property="segueButtonForImages" destination="4Az-fK-qKs" id="qdG-NH-G5T"/>
                                     <outlet property="viewCommentsButton" destination="geS-gv-Smz" id="GU1-KQ-IEW"/>
                                 </connections>
@@ -422,7 +423,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="location" textLabel="FAr-2n-bAY" detailTextLabel="tko-B9-Yy1" style="IBUITableViewCellStyleSubtitle" id="WZp-2e-LJn">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="location" textLabel="FAr-2n-bAY" detailTextLabel="tko-B9-Yy1" style="IBUITableViewCellStyleSubtitle" id="WZp-2e-LJn" customClass="LocationTableViewCell" customModule="Roam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WZp-2e-LJn" id="3QQ-pu-Esd">
@@ -1320,14 +1321,14 @@
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ad7-UY-9v3">
                                             <rect key="frame" x="0.0" y="0.0" width="383" height="23"/>
-                                            <color key="backgroundColor" red="0.4039215686" green="0.76862745099999996" blue="0.96231712079999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="NIT-dc-Xij"/>
                                                 <constraint firstAttribute="height" constant="23" id="jtd-tG-35u"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                             <state key="normal" title="Philadelphia">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </state>
                                             <connections>
                                                 <segue destination="3fl-Z7-X5w" kind="show" identifier="ShowLocationOnMap" id="zpS-8F-B8z"/>
@@ -1381,6 +1382,7 @@
                                     <outlet property="globalPosterUsername" destination="J6p-10-j3W" id="Fx7-dB-0gj"/>
                                     <outlet property="globalPostersName" destination="vlL-gf-Edi" id="SrF-nI-DSH"/>
                                     <outlet property="infoButton" destination="7cH-Vu-ubE" id="t3m-c5-4jc"/>
+                                    <outlet property="mapLocationButton" destination="Ad7-UY-9v3" id="Cxm-u2-Bwe"/>
                                     <outlet property="segueButtonForImages" destination="1Lj-FJ-eKz" id="ibY-dw-GnE"/>
                                     <outlet property="unfollowButton" destination="x9k-kK-Erf" id="Igs-MU-CPL"/>
                                     <outlet property="viewCommentsButton" destination="c34-i3-atr" id="83G-u1-uUb"/>
@@ -1582,7 +1584,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ecx-wU-qcy"/>
-        <segue reference="qMU-jx-Lfh"/>
+        <segue reference="euU-zT-1Vi"/>
         <segue reference="YUR-bK-kZF"/>
     </inferredMetricsTieBreakers>
 </document>

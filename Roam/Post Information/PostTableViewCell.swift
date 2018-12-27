@@ -36,6 +36,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var viewCommentsButton: UIButton!
     @IBOutlet weak var segueButtonForImages: UIButton!
     @IBOutlet weak var infoButton: UIButton!
+    @IBOutlet weak var mapLocationButton: UIButton!
+    
     
     
     var postID = String()
@@ -86,6 +88,9 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.viewCommentsButton.imageView?.image = UIImage(named: "comments-white")
                 self.infoButton.imageView?.image = UIImage(named: "ellipsis-white")
                 self.globalPostExperienceDetails.imageView?.image = UIImage(named: "details-white")
+                
+                mapLocationButton.backgroundColor = UIColor.darkGray
+                mapLocationButton.setTitleColor(UIColor.white, for: .normal)
             }
             else {
                 self.backgroundColor = UIColor.white
@@ -104,6 +109,9 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.viewCommentsButton.imageView?.image = UIImage(named: "comments")
                 self.infoButton.imageView?.image = UIImage(named: "ellipsis")
                 self.globalPostExperienceDetails.imageView?.image = UIImage(named: "details")
+                
+                mapLocationButton.backgroundColor = UIColor.white
+                mapLocationButton.setTitleColor(UIColor.black, for: .normal)
             }
         }
     }
