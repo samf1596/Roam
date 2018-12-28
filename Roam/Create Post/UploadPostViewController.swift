@@ -9,8 +9,14 @@ import UIKit
 import Firebase
 import Photos
 import TLPhotoPicker
-
-class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TLPhotosPickerViewControllerDelegate, TravelDelegate, ExperiencesDelegate, UITextViewDelegate {
+import MapKit
+class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TLPhotosPickerViewControllerDelegate, TravelDelegate, ExperiencesDelegate, UITextViewDelegate, ChooseLocationDelegate {
+    
+    var selectedLocations = [MKMapItem]()
+    
+    func saveChosenLocations(_ locations: [MKMapItem]) {
+        selectedLocations = locations
+    }
 
     static let uploadedImage = Notification.Name("uploadedImage")
     
@@ -333,12 +339,19 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     func uploadSuccess(_ imagePath : [String]) {
+        var uploadLocations = [String: [String:Double]]()
+        
+        for location in selectedLocations {
+            uploadLocations[location.name!] = ["lat":location.placemark.coordinate.latitude]
+            uploadLocations[location.name!]!["long"] = location.placemark.coordinate.longitude
+        }
+        
         var account : NewUser?
         databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
         account = NewUser(snapshot: snapshot)
         let postID = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
             let isPublic = self.publicOrPrivateSegmentedControl.selectedSegmentIndex == 0 ? false : true
-        let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.textToUpload, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: isPublic, postID: postID)
+            let post = Post(addedByUser: (account?.firstname)!, username: (account?.username)!, description: self.textToUpload, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: isPublic, postID: postID, locations: uploadLocations)
         
         self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).setValue(post.toObject())
             self.descriptionTextView.text = "Add a description of your trip here..."
@@ -350,6 +363,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             self.travels = [""]
             self.experiences = [""]
             self.publicOrPrivateSegmentedControl.selectedSegmentIndex = 0
+            self.selectedLocations = []
         }
     }
     
@@ -394,7 +408,12 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             //let travelController = navController.topViewController as! FlightsStaysTableViewController
             travelController.delegate = self
          case "ChooseLocation":
-            break
+            let backItem = UIBarButtonItem()
+            backItem.title = "Done"
+            navigationItem.backBarButtonItem = backItem
+            let chooseLocationController = segue.destination as! ChooseLocationTableViewController
+            chooseLocationController.configure(selectedLocations)
+            chooseLocationController.delegate = self
          default:
             assert(false, "Unhandled Segue")
          }

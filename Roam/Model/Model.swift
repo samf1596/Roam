@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import CoreData
+import MapKit
 
 // MARK: - ENUMS for attributes
 enum FirebaseFields: String {
@@ -26,6 +27,7 @@ enum PostAttributes: String {
     case travels
     case isPublic
     case postID
+    case locations
 }
 
 enum UserAttributes: String {
@@ -87,6 +89,7 @@ struct Post :  Codable  {
     let travels: [String]
     let isPublic: Bool
     let postID : String
+    let locations : [String: [String:Double]]?
     var cachedImage: UIImage? = nil
     
     var firstname : String {return addedByUser}
@@ -101,9 +104,10 @@ struct Post :  Codable  {
         case travels
         case isPublic
         case postID
+        case locations
     }
     
-    init(addedByUser: String, username: String, description: String, imagePath: [String], experiences: [String], travels: [String], isPublic: Bool, postID: String){
+    init(addedByUser: String, username: String, description: String, imagePath: [String], experiences: [String], travels: [String], isPublic: Bool, postID: String, locations: [String: [String:Double]]){
         self.addedByUser = addedByUser
         self.username = username
         self.description = description
@@ -112,6 +116,7 @@ struct Post :  Codable  {
         self.travels = travels
         self.isPublic = isPublic
         self.postID = postID
+        self.locations = locations
     }
     
     init(snapshot: DataSnapshot) {
@@ -124,6 +129,7 @@ struct Post :  Codable  {
         self.travels = snapshotValue[PostAttributes.travels.rawValue] as! [String]
         self.isPublic = snapshotValue[PostAttributes.isPublic.rawValue] as! Bool
         self.postID = snapshotValue[PostAttributes.postID.rawValue] as! String
+        self.locations = snapshotValue[PostAttributes.locations.rawValue] as? [String: [String:Double]]
     }
     
     func toObject() -> Any {
@@ -136,6 +142,7 @@ struct Post :  Codable  {
             PostAttributes.travels.rawValue: self.travels,
             PostAttributes.isPublic.rawValue: self.isPublic,
             PostAttributes.postID.rawValue: self.postID,
+            PostAttributes.locations.rawValue: self.locations!,
         ]
     }
 }

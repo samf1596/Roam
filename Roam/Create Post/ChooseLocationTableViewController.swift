@@ -9,10 +9,23 @@
 import UIKit
 import MapKit
 
+protocol ChooseLocationDelegate {
+    func saveChosenLocations(_ locations: [MKMapItem])
+}
+
 class ChooseLocationTableViewController: UITableViewController, UISearchBarDelegate {
 
+    var delegate: ChooseLocationDelegate?
     var locationsToDisplay = [MKMapItem]()
     var locationsSelected = [MKMapItem]()
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if self.isMovingFromParent {
+            delegate?.saveChosenLocations(locationsSelected)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +37,10 @@ class ChooseLocationTableViewController: UITableViewController, UISearchBarDeleg
         searchBar.placeholder = "Search locations"
         self.navigationItem.titleView = searchBar
         
+    }
+    
+    func configure(_ locations: [MKMapItem]) {
+        locationsSelected = locations
     }
 
     // Parse function adapted from https://www.thorntech.com/2016/01/how-to-search-for-location-using-apples-mapkit/
@@ -147,11 +164,13 @@ class ChooseLocationTableViewController: UITableViewController, UISearchBarDeleg
     }
  
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! LocationTableViewCell
-        if cell.location != nil {
-            locationsSelected.append(cell.location!)
+        if indexPath.section == 1 {
+            let cell = tableView.cellForRow(at: indexPath) as! LocationTableViewCell
+            if cell.location != nil {
+                locationsSelected.append(cell.location!)
+            }
+            tableView.reloadData()
         }
-        tableView.reloadData()
     }
 
     // Override to support conditional editing of the table view.
