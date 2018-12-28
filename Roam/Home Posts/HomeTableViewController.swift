@@ -206,6 +206,15 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         cell.segueButtonForImages.tag = indexPath.section
         cell.unfollowButton.layer.cornerRadius = 4.0
         cell.globalPostFavButton.layer.cornerRadius = 4.0
+        
+        if let locations = post.locations {
+            let locationOne = Array(locations.keys)[0] as String
+            cell.mapLocationButton.titleLabel?.text = locationOne
+        }
+        else {
+            cell.mapLocationButton.titleLabel?.text = ""
+        }
+        
         if postsModel.postIdBookmarked(post) {
             cell.globalPostFavButton.backgroundColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
             cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)

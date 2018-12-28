@@ -216,6 +216,14 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         
         postsModel.downloadGlobalImage(indexPath, imagePath, post.postID)
         
+        if let locations = post.locations {
+            let locationOne = Array(locations.keys)[0] as String
+            cell.mapLocationButton.titleLabel?.text = locationOne
+        }
+        else {
+            cell.mapLocationButton.titleLabel?.text = ""
+        }
+        
         cell.delegate = self
         cell.infoButton.tag = indexPath.section
         cell.globalPostImageView.image = postsModel.getCachedImage(post.postID+"\(0)")

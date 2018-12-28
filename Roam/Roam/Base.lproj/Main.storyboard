@@ -138,7 +138,7 @@
                                                 <constraint firstAttribute="height" constant="23" id="jIM-al-fnk"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                            <state key="normal" title="Philadelphia">
+                                            <state key="normal">
                                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </state>
                                             <connections>
@@ -1327,7 +1327,7 @@
                                                 <constraint firstAttribute="height" constant="23" id="jtd-tG-35u"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                            <state key="normal" title="Philadelphia">
+                                            <state key="normal">
                                                 <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </state>
                                             <connections>
@@ -1584,7 +1584,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ecx-wU-qcy"/>
-        <segue reference="euU-zT-1Vi"/>
-        <segue reference="YUR-bK-kZF"/>
+        <segue reference="qMU-jx-Lfh"/>
+        <segue reference="zpS-8F-B8z"/>
     </inferredMetricsTieBreakers>
 </document>
