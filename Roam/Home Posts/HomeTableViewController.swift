@@ -12,7 +12,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let tabBarIndex = tabBarController.selectedIndex
-        if tabBarIndex == 0 {
+        if tabBarIndex == 0 && self.tableView.numberOfSections > 1 {
             let indexPath = NSIndexPath(row: 0, section: 0)
             self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
         }
@@ -206,13 +206,17 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         cell.segueButtonForImages.tag = indexPath.section
         cell.unfollowButton.layer.cornerRadius = 4.0
         cell.globalPostFavButton.layer.cornerRadius = 4.0
+        cell.mapLocationButton.tag = indexPath.section
+        print(post.locations)
         
-        if let locations = post.locations {
-            let locationOne = Array(locations.keys)[0] as String
-            cell.mapLocationButton.titleLabel?.text = locationOne
+        let locationOne = Array(post.locations.keys)[0] as String
+        print(locationOne)
+        if locationOne == "NONE" {
+            cell.mapLocationButton.titleLabel?.text = ""
+            cell.mapLocationButton.setTitle("", for: .normal)
         }
         else {
-            cell.mapLocationButton.titleLabel?.text = ""
+            cell.mapLocationButton.setTitle(locationOne, for: .normal)
         }
         
         if postsModel.postIdBookmarked(post) {
@@ -257,7 +261,12 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
             viewController.configure(index!, "Home")
             self.navigationController?.navigationBar.isHidden = false
         case "ShowLocationOnMap":
-            break
+            self.navigationController?.navigationBar.topItem?.titleView = nil
+            let button = sender as? UIButton
+            let postIndex = button!.tag
+            let post = postsModel.postForGlobalSection(postIndex)
+            let mapViewController = segue.destination as! MapViewController
+            mapViewController.configure(post.locations)
         default:
             assert(false, "Unhandled Segue")
         }

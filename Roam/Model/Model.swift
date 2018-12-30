@@ -89,7 +89,7 @@ struct Post :  Codable  {
     let travels: [String]
     let isPublic: Bool
     let postID : String
-    let locations : [String: [String:Double]]?
+    let locations : [String: [String:Double]]
     var cachedImage: UIImage? = nil
     
     var firstname : String {return addedByUser}
@@ -129,7 +129,7 @@ struct Post :  Codable  {
         self.travels = snapshotValue[PostAttributes.travels.rawValue] as! [String]
         self.isPublic = snapshotValue[PostAttributes.isPublic.rawValue] as! Bool
         self.postID = snapshotValue[PostAttributes.postID.rawValue] as! String
-        self.locations = snapshotValue[PostAttributes.locations.rawValue] as? [String: [String:Double]]
+        self.locations = snapshotValue[PostAttributes.locations.rawValue] as! [String: [String:Double]]
     }
     
     func toObject() -> Any {
@@ -142,7 +142,7 @@ struct Post :  Codable  {
             PostAttributes.travels.rawValue: self.travels,
             PostAttributes.isPublic.rawValue: self.isPublic,
             PostAttributes.postID.rawValue: self.postID,
-            PostAttributes.locations.rawValue: self.locations!,
+            PostAttributes.locations.rawValue: self.locations,
         ]
     }
 }

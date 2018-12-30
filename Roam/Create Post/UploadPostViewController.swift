@@ -342,9 +342,16 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         var uploadLocations = [String: [String:Double]]()
         
         for location in selectedLocations {
-            uploadLocations[location.name!] = ["lat":location.placemark.coordinate.latitude]
-            uploadLocations[location.name!]!["long"] = location.placemark.coordinate.longitude
+            let name = location.name!.replacingOccurrences(of: ".", with: "")
+            uploadLocations[name] = ["lat":location.placemark.coordinate.latitude]
+            uploadLocations[name]!["long"] = location.placemark.coordinate.longitude
         }
+        
+        if selectedLocations.count < 1 {
+            uploadLocations = ["NONE": ["NONE":0]]
+        }
+        
+        print(uploadLocations)
         
         var account : NewUser?
         databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in

@@ -13,7 +13,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         let tabBarIndex = tabBarController.selectedIndex
-        if tabBarIndex == 1 {
+        if tabBarIndex == 1 && self.tableView.numberOfSections > 1 {
             let indexPath = NSIndexPath(row: 0, section: 0)
             self.tableView.scrollToRow(at: indexPath as IndexPath, at: .top, animated: true)
         }
@@ -216,14 +216,17 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         
         postsModel.downloadGlobalImage(indexPath, imagePath, post.postID)
         
-        if let locations = post.locations {
-            let locationOne = Array(locations.keys)[0] as String
-            cell.mapLocationButton.titleLabel?.text = locationOne
+        let locationOne = Array(post.locations.keys)[0] as String
+        print(locationOne)
+        if locationOne == "NONE" {
+            cell.mapLocationButton.titleLabel?.text = ""
+            cell.mapLocationButton.setTitle("", for: .normal)
         }
         else {
-            cell.mapLocationButton.titleLabel?.text = ""
+            cell.mapLocationButton.setTitle(locationOne, for: .normal)
         }
         
+        cell.mapLocationButton.tag = indexPath.section
         cell.delegate = self
         cell.infoButton.tag = indexPath.section
         cell.globalPostImageView.image = postsModel.getCachedImage(post.postID+"\(0)")
@@ -278,6 +281,11 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 self.navigationController?.navigationBar.topItem?.titleView = nil
             case "ShowLocationOnMap":
                 self.navigationController?.navigationBar.topItem?.titleView = nil
+                let button = sender as? UIButton
+                let postIndex = button!.tag
+                let post = postsModel.postForGlobalSection(postIndex)
+                let mapViewController = segue.destination as! MapViewController
+                mapViewController.configure(post.locations)
             default:
                 assert(false, "Unhandled Segue")
         }

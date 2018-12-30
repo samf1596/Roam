@@ -53,12 +53,14 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 globalPostDescriptionTextView.text = post.description
                 globalCommentTextView.text = "Leave a comment"
                 postID = post.postID
-                if let locations = post.locations {
-                    let locationOne = Array(locations.keys)[0] as String
-                    mapLocationButton.titleLabel?.text = locationOne
+                
+                let locationOne = Array(post.locations.keys)[0] as String
+                print(locationOne)
+                if locationOne == "NONE" {
+                    mapLocationButton.setTitle("", for: .normal)
                 }
                 else {
-                    mapLocationButton.titleLabel?.text = ""
+                    mapLocationButton.setTitle(locationOne, for: .normal)
                 }
             }
         }
