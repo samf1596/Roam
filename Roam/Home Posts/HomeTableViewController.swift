@@ -20,14 +20,9 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     func presentInfoController(senderTag: Int, whichView: String) {
         let alert = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "Follow User", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "View Comments", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "View Post Details", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Bookmark Post", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Report Post", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Hide Post", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Block User", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Report Post", style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "Hide Post", style: .destructive, handler: nil))
+        alert.addAction(UIAlertAction(title: "Block User", style: .destructive, handler: nil))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)

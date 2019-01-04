@@ -10,6 +10,7 @@
 		1B639BB35D83378B1873030D /* Pods_RoamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C84F842D42719D42562ED3 /* Pods_RoamTests.framework */; };
 		220EA52D21990200003ACC06 /* PostExperienceDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220EA52C21990200003ACC06 /* PostExperienceDetailsTableViewController.swift */; };
 		224BB6BB21D549BE00E61EBC /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BB6BA21D549BE00E61EBC /* LocationTableViewCell.swift */; };
+		224FE81321DF0CEB0042B889 /* ProfilePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FE81221DF0CEB0042B889 /* ProfilePostViewController.swift */; };
 		2253B78B251E96E817067F4D /* Pods_Roam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDBA419BF38FDBF08906C46E /* Pods_Roam.framework */; };
 		225A9462218E43D800C14B6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225A9461218E43D800C14B6B /* AppDelegate.swift */; };
 		225A9467218E43D800C14B6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 225A9465218E43D800C14B6B /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		15C84F842D42719D42562ED3 /* Pods_RoamTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RoamTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		220EA52C21990200003ACC06 /* PostExperienceDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExperienceDetailsTableViewController.swift; sourceTree = "<group>"; };
 		224BB6BA21D549BE00E61EBC /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
+		224FE81221DF0CEB0042B889 /* ProfilePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostViewController.swift; sourceTree = "<group>"; };
 		225A945E218E43D800C14B6B /* Roam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roam.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		225A9461218E43D800C14B6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		225A9466218E43D800C14B6B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				22F5E74A21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift */,
 				22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */,
 				22964CC621B456E10096C6E8 /* SettingsViewController.swift */,
+				224FE81221DF0CEB0042B889 /* ProfilePostViewController.swift */,
 			);
 			path = "User Profile";
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				22E8AFD921BCCD260028476F /* LoadingScreenViewController.swift in Sources */,
 				2264B69C2197C2CE00A402A1 /* ExperienceTableViewCell.swift in Sources */,
 				228DA2BE218F8EAB007271A6 /* PostTableViewCell.swift in Sources */,
+				224FE81321DF0CEB0042B889 /* ProfilePostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

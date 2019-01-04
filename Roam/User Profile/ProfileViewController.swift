@@ -9,10 +9,16 @@
 import UIKit
 import Firebase
 
+protocol ShowPostDelegate {
+    func showPost(show post: Post)
+}
+
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MainViewDelegate {
     
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
+    
+    var delegate : ShowPostDelegate?
     
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
@@ -102,6 +108,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             postModel.downloadBookmarkedImage(indexPath.row, imagePath, post.postID)
             cell.postImageView.image = postModel.getCachedImage(post.postID+"\(0)")
+            cell.post = post
         }
         else {
             let imagePath = postModel.imagePathForUsersPost(indexPath.row,0)
@@ -109,8 +116,14 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             postModel.downloadUsersPostImage(indexPath.row, imagePath, post.postID)
             cell.postImageView.image = postModel.getCachedImage(post.postID+"\(0)")
+            cell.post = post
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! ProfileCollectionViewCell
+        delegate?.showPost(show: cell.post!)
     }
     
 }

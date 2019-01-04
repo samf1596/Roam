@@ -13,10 +13,17 @@ protocol MainViewDelegate {
     func toggleCollectionViewType(show collection: String)
 }
 
-class ProfileMainViewController: UIViewController {
+class ProfileMainViewController: UIViewController, ShowPostDelegate {
 
     var delegate : MainViewDelegate?
     var pageTitle = String()
+    
+    var postToShow : Post?
+    
+    func showPost(show post: Post) {
+        self.postToShow = post
+        performSegue(withIdentifier: "ShowProfilePost", sender: self)
+    }
     
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
@@ -101,10 +108,14 @@ class ProfileMainViewController: UIViewController {
         switch segue.identifier {
         case "presentCollectionView":
             let controller = segue.destination as! ProfileViewController
-            self.delegate = controller
+            self.delegate = controller // in order to toggle which collection view is being shown
             
+            controller.delegate = self // to show the post the is selected in the collection view
         case "settings":
             _ = segue.destination as! SettingsViewController
+        case "ShowProfilePost":
+            let controller = segue.destination as! ProfilePostViewController
+            controller.configure(self.postToShow!)
         default:
             assert(false, "Unhandled Segue")
         }
