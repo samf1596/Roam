@@ -158,6 +158,7 @@ class PostsModel {
     fileprivate var bookmarkedPosts = [Post]()
     fileprivate var globalPosts = [Post]()
     fileprivate var bookmarkedPostIds = [String]()
+    fileprivate var followingUsers = [String]()
     fileprivate var usersPosts = [Post]()
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
@@ -173,6 +174,14 @@ class PostsModel {
     
     func postIdBookmarked(_ post: Post) -> Bool{
         if self.bookmarkedPostIds.contains(post.postID) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    func followingUser(_ post: Post) -> Bool{
+        if self.followingUsers.contains(post.username) {
             return true
         }
         else {
@@ -444,6 +453,7 @@ class PostsModel {
             ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("following").observe(.value) { (snapshot) in
                 self.following = []
                 self.followingPosts = []
+                self.followingUsers = []
                 for user in snapshot.children {
                     let temp = user as! DataSnapshot
                     self.following.append(temp.key)
@@ -451,6 +461,7 @@ class PostsModel {
                 for post in self.cachedPosts {
                     if self.following.contains(post.username){
                         self.followingPosts.append(post)
+                        self.followingUsers.append(post.username)
                     }
                 }
             }

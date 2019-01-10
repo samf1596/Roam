@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 protocol ShowPostDelegate {
-    func showPost(show post: Post)
+    func showPost(show post: Post, selected cell: Int)
 }
 
 class ProfileViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, MainViewDelegate {
@@ -123,7 +123,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! ProfileCollectionViewCell
-        delegate?.showPost(show: cell.post!)
+        delegate?.showPost(show: cell.post!, selected: indexPath.row)
     }
     
 }

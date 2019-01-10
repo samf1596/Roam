@@ -28,6 +28,12 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         
         self.present(alert, animated: true, completion: nil)
     }
+    func unfollowedUser(senderTag: Int) {
+        let alert = UIAlertController(title: "Options", message: "You have unfollowed this user and their posts will no longer appear on your home page.", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
@@ -212,7 +218,6 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         postsModel.downloadGlobalImage(indexPath, imagePath, post.postID)
         
         let locationOne = Array(post.locations.keys)[0] as String
-        print(locationOne)
         if locationOne == "NONE" {
             cell.mapLocationButton.titleLabel?.text = ""
             cell.mapLocationButton.setTitle("", for: .normal)
@@ -229,15 +234,22 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section
         cell.segueButtonForImages.tag = indexPath.section
+        cell.followButton.tag = indexPath.section
         cell.followButton.layer.cornerRadius = 4.0
         cell.globalPostFavButton.layer.cornerRadius = 4.0
         if postsModel.postIdBookmarked(post) {
-            cell.globalPostFavButton.backgroundColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            cell.globalPostFavButton.backgroundColor = UIColor.orange//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
         }
         else {
             cell.globalPostFavButton.backgroundColor = UIColor.clear
             cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
+        }
+        if postsModel.followingUser(post) {
+            cell.followButton.setTitle("Unfollow", for: .normal)
+        }
+        else {
+            cell.followButton.setTitle("Follow", for: .normal)
         }
         return cell
     }

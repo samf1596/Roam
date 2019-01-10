@@ -26,14 +26,12 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
-        /*
-        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
-            alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.darkGray
-        }
-        else {
-            alert.view.subviews.first?.subviews.first?.subviews.first?.backgroundColor = UIColor.white
-        }
-        */
+    }
+    func unfollowedUser(senderTag: Int) {
+        let alert = UIAlertController(title: "Options", message: "You have unfollowed this user and their posts will no longer appear on your home page once the page is refreshed.", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     fileprivate var ref : DatabaseReference!
@@ -199,13 +197,12 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section
         cell.segueButtonForImages.tag = indexPath.section
+        cell.unfollowButton.tag = indexPath.section
         cell.unfollowButton.layer.cornerRadius = 4.0
         cell.globalPostFavButton.layer.cornerRadius = 4.0
         cell.mapLocationButton.tag = indexPath.section
-        print(post.locations)
         
         let locationOne = Array(post.locations.keys)[0] as String
-        print(locationOne)
         if locationOne == "NONE" {
             cell.mapLocationButton.titleLabel?.text = ""
             cell.mapLocationButton.setTitle("", for: .normal)
@@ -215,7 +212,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         }
         
         if postsModel.postIdBookmarked(post) {
-            cell.globalPostFavButton.backgroundColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            cell.globalPostFavButton.backgroundColor = UIColor.orange//init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
             cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
             cell.globalPostFavButton.imageView!.tintColor = UIColor.white
         }
@@ -223,6 +220,12 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
             cell.globalPostFavButton.backgroundColor = UIColor.clear
             cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
             cell.globalPostFavButton.imageView!.tintColor = UIColor.black
+        }
+        if postsModel.followingUser(post) {
+            cell.unfollowButton.setTitle("Unfollow", for: .normal)
+        }
+        else {
+            cell.unfollowButton.setTitle("Follow", for: .normal)
         }
         return cell
     }

@@ -43,9 +43,16 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                 self.view.backgroundColor = UIColor.darkGray
                 self.descriptionTextView.backgroundColor = UIColor.lightGray
                 self.descriptionTextView.keyboardAppearance = .dark
+                /*
                 self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.darkGray
                 self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .selected)
                 self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .normal)
+                */
+                
+                self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.darkGray
+                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.orange], for: .normal)
+                self.publicOrPrivateSegmentedControl.tintColor = UIColor.orange
             }
             else {
                 self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
@@ -53,9 +60,14 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                 self.descriptionTextView.backgroundColor = UIColor(red: 0, green: 148.0/255.0, blue: 240.0/255.0, alpha: 0.1)
                 self.descriptionTextView.isOpaque = true
                 self.descriptionTextView.keyboardAppearance = .default
+                //self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.white
+                //self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
+                //self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)], for: .normal)
+                
                 self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.white
                 self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
-                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)], for: .normal)
+                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.orange], for: .normal)
+                self.publicOrPrivateSegmentedControl.tintColor = UIColor.orange
             }
         }
         

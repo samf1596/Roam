@@ -10,12 +10,16 @@ import Firebase
 
 protocol PostTableViewCellDelegate {
     func presentInfoController(senderTag:Int, whichView:String)
+    func unfollowedUser(senderTag:Int)
 }
 
 class PostTableViewCell: UITableViewCell, UITextViewDelegate {
 
     func presentInfoController(senderTag:Int, whichView:String) {
         delegate?.presentInfoController(senderTag: senderTag, whichView: whichView)
+    }
+    func unfollowedUser(senderTag:Int) {
+        delegate?.unfollowedUser(senderTag: senderTag)
     }
     
     var delegate : PostTableViewCellDelegate?
@@ -55,7 +59,6 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 postID = post.postID
                 
                 let locationOne = Array(post.locations.keys)[0] as String
-                print(locationOne)
                 if locationOne == "NONE" {
                     mapLocationButton.setTitle("", for: .normal)
                 }
@@ -174,7 +177,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     }
 
     @IBAction func bookmarkPost(_ sender: Any) {
-        if globalPostFavButton.backgroundColor == UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0) {
+        if globalPostFavButton.backgroundColor == UIColor.orange {//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0) {
             globalPostFavButton.backgroundColor = UIColor.clear
             self.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
@@ -183,7 +186,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
             selection.selectionChanged()
         }
         else {
-            globalPostFavButton.backgroundColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            globalPostFavButton.backgroundColor = UIColor.orange//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
             UIView.animate(withDuration: 0.1, delay: 0.0,
                            options: [AnimationOptions.curveEaseInOut], animations: {
                 self.globalPostFavButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
@@ -204,10 +207,13 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         if sender.titleLabel?.text == "Follow" {
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("following").child(globalPosterUsername!.text!).setValue(true)
+            sender.setTitle("Unfollow", for: .normal)
         }
         if sender.titleLabel?.text == "Unfollow" {
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("following").child(globalPosterUsername!.text!).removeValue()
+            sender.setTitle("Follow", for: .normal)
+            unfollowedUser(senderTag:sender.tag)
         }
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)

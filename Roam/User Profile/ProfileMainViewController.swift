@@ -19,9 +19,11 @@ class ProfileMainViewController: UIViewController, ShowPostDelegate {
     var pageTitle = String()
     
     var postToShow : Post?
+    var cellSelected : Int?
     
-    func showPost(show post: Post) {
+    func showPost(show post: Post, selected cell: Int) {
         self.postToShow = post
+        self.cellSelected = cell
         performSegue(withIdentifier: "ShowProfilePost", sender: self)
     }
     
@@ -115,7 +117,11 @@ class ProfileMainViewController: UIViewController, ShowPostDelegate {
             _ = segue.destination as! SettingsViewController
         case "ShowProfilePost":
             let controller = segue.destination as! ProfilePostViewController
-            controller.configure(self.postToShow!)
+            var usersPosts = true
+            if segmentedControl.selectedSegmentIndex == 1 {
+                usersPosts = false
+            }
+            controller.configure(self.postToShow!, self.cellSelected!, usersPosts)
         default:
             assert(false, "Unhandled Segue")
         }
