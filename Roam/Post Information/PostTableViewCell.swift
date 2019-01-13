@@ -9,14 +9,14 @@ import UIKit
 import Firebase
 
 protocol PostTableViewCellDelegate {
-    func presentInfoController(senderTag:Int, whichView:String)
+    func presentInfoController(senderTag:Int, whichView:String, post: Post)
     func unfollowedUser(senderTag:Int)
 }
 
 class PostTableViewCell: UITableViewCell, UITextViewDelegate {
 
-    func presentInfoController(senderTag:Int, whichView:String) {
-        delegate?.presentInfoController(senderTag: senderTag, whichView: whichView)
+    func presentInfoController(senderTag:Int, whichView:String, post: Post) {
+        delegate?.presentInfoController(senderTag: senderTag, whichView: whichView, post: post)
     }
     func unfollowedUser(senderTag:Int) {
         delegate?.unfollowedUser(senderTag: senderTag)
@@ -220,7 +220,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     }
     
     @IBAction func infoButtonPressed(_ sender: UIButton) {
-        presentInfoController(senderTag: sender.tag, whichView: "Fix")
+        presentInfoController(senderTag: sender.tag, whichView: "Fix", post: post!)
     }
     
     override func prepareForReuse() {

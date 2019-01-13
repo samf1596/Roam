@@ -16,6 +16,10 @@ enum FirebaseFields: String {
     case Posts
     case Users
     case Accounts
+    case Reported
+    case Blocked
+    case UnderReview
+    case Hidden
 }
 
 enum PostAttributes: String {
@@ -241,6 +245,7 @@ class PostsModel {
             var posts = [Post]()
             for postSnapshot in snapshot.children {
                 let post = Post(snapshot: postSnapshot as! DataSnapshot)
+                // only append if not in Hidden Posts
                 posts.append(post)
             }
             self.posts = posts
