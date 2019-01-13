@@ -427,14 +427,16 @@ class PostsModel {
                 var bookmarks = [String]()
                 self.bookmarkedPosts = []
                 self.bookmarkedPostIds = []
-                for user in snapshot.children {
-                    let temp = user as! DataSnapshot
-                    bookmarks.append(temp.key)
-                }
-                for post in self.cachedPosts {
-                    if bookmarks.contains(post.postID){
-                        self.bookmarkedPosts.append(post)
-                        self.bookmarkedPostIds.append(post.postID)
+                if snapshot.exists() {
+                    for user in snapshot.children {
+                        let temp = user as! DataSnapshot
+                        bookmarks.append(temp.key)
+                    }
+                    for post in self.cachedPosts {
+                        if bookmarks.contains(post.postID){
+                            self.bookmarkedPosts.append(post)
+                            self.bookmarkedPostIds.append(post.postID)
+                        }
                     }
                 }
             }
@@ -444,10 +446,12 @@ class PostsModel {
         if Auth.auth().currentUser != nil {
             ref.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
                 self.globalPosts = []
-                let account = NewUser(snapshot: snapshot)
-                for post in self.cachedPosts {
-                    if account.username != post.username && post.isPublic == true{
-                        self.globalPosts.append(post)
+                if snapshot.exists() {
+                    let account = NewUser(snapshot: snapshot)
+                    for post in self.cachedPosts {
+                        if account.username != post.username && post.isPublic == true{
+                            self.globalPosts.append(post)
+                        }
                     }
                 }
             }
@@ -459,14 +463,16 @@ class PostsModel {
                 self.following = []
                 self.followingPosts = []
                 self.followingUsers = []
-                for user in snapshot.children {
-                    let temp = user as! DataSnapshot
-                    self.following.append(temp.key)
-                }
-                for post in self.cachedPosts {
-                    if self.following.contains(post.username){
-                        self.followingPosts.append(post)
-                        self.followingUsers.append(post.username)
+                if snapshot.exists() {
+                    for user in snapshot.children {
+                        let temp = user as! DataSnapshot
+                        self.following.append(temp.key)
+                    }
+                    for post in self.cachedPosts {
+                        if self.following.contains(post.username){
+                            self.followingPosts.append(post)
+                            self.followingUsers.append(post.username)
+                        }
                     }
                 }
             }
@@ -476,11 +482,13 @@ class PostsModel {
     func findUsersPosts() {
         if Auth.auth().currentUser != nil {
             ref.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
-                self.usersPosts = []
-                let user = NewUser(snapshot: snapshot)
-                for post in self.cachedPosts {
-                    if post.username == user.username {
-                        self.usersPosts.append(post)
+                if snapshot.exists() {
+                    self.usersPosts = []
+                    let user = NewUser(snapshot: snapshot)
+                    for post in self.cachedPosts {
+                        if post.username == user.username {
+                            self.usersPosts.append(post)
+                        }
                     }
                 }
             }
