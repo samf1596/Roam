@@ -9,8 +9,69 @@
 import UIKit
 import Firebase
 
-class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
+class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITextViewDelegate, UINavigationControllerDelegate {
 
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = ""
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.count > 1 {
+            self.databaseRef.child(FirebaseFields.Posts.rawValue).child(post!.postID).child("Comments").child("\(Int(Date.timeIntervalSinceReferenceDate * 1000))").setValue(textView.text)
+            textView.text = "Leave a comment..."
+        }
+        else {
+            textView.text = "Leave a comment..."
+        }
+        textView.resignFirstResponder()
+    }
+    
+    var previousHeight : CGFloat = 25.0
+    var kKeyboardSize : CGFloat = 0.0
+    var keyboardVisible = false
+    
+    @objc func keyboardWillShow(notification:Notification) {
+        if !keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
+            let userInfo = notification.userInfo!
+            let keyboardSize = userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect
+            if self.view.frame.origin.y == previousHeight {
+                self.view.frame.origin.y -= ((keyboardSize!.height) - submitCommentTextView.frame.height)
+            }
+        }
+        
+        keyboardVisible = true
+    }
+    
+    @objc
+    func keyboardWillHide(notification:Notification) {
+        if keyboardVisible && ( self.view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.regular ) {
+            if self.view.frame.origin.y != previousHeight {
+                self.view.frame.origin.y = previousHeight
+            }
+        }
+        keyboardVisible = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        previousHeight = self.view.frame.origin.y
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name:
+            UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
@@ -67,6 +128,9 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        submitCommentTextView.delegate = self
+        submitCommentTextView.returnKeyType = .done
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
@@ -84,6 +148,9 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
             self.title = (post?.firstname)! + "'s" + " Post"
         }
         self.postLocationButton.setTitle(Array((post?.locations.keys)!)[0], for: .normal)
+        if Array((post?.locations.keys)!)[0] == "NONE" {
+            postLocationButton.isHidden = true
+        }
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
         if followUserButton.title(for: .normal) != "Delete" {
