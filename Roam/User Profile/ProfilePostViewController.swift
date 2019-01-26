@@ -134,14 +134,30 @@ class ProfilePostViewController: UIViewController {
         }
     }
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        switch segue.identifier {
+            case "ShowImages":
+                let viewController = segue.destination as! AllImagesTableViewController
+                let index = postIndex
+                var whatPosts = ""
+                if usersPosts {
+                    whatPosts = "User"
+                }
+                else {
+                    whatPosts = "Bookmarked"
+                }
+                viewController.configure(index, whatPosts)
+                self.navigationController?.navigationBar.isHidden = false
+            default:
+                assert(false, "Unhandled Segue")
+        }
     }
-    */
+    
 
 }

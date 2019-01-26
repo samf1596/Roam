@@ -63,6 +63,12 @@ class AllImagesTableViewController: UITableViewController {
         if whichPosts == "Home" {
             return postsModel.postForFollowingSection(postIndex).imagePath.count
         }
+        if whichPosts == "User"{
+            return postsModel.postForUsersSection(postIndex).imagePath.count
+        }
+        if whichPosts == "Bookmarked"{
+            return postsModel.postForBookmarkedSection(postIndex).imagePath.count
+        }
         return 0
     }
 
@@ -82,6 +88,18 @@ class AllImagesTableViewController: UITableViewController {
             let post = postsModel.postForFollowingSection(postIndex)
             let imagePath = postsModel.imagePathForFollowingPost(postIndex, indexPath.row)
             postsModel.downloadFollowingImage(indexPath, imagePath, post.postID)
+            cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+        }
+        if whichPosts == "User" {
+            let post = postsModel.postForUsersSection(postIndex)
+            let imagePath = postsModel.imagePathForPost(postIndex, indexPath.row)
+            postsModel.downloadUsersPostImage(postIndex, imagePath, post.postID)
+            cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+        }
+        if whichPosts == "Bookmarked" {
+            let post = postsModel.postForBookmarkedSection(postIndex)
+            let imagePath = postsModel.imagePathForPost(postIndex, indexPath.row)
+            postsModel.downloadBookmarkedImage(postIndex, imagePath, post.postID)
             cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }
 

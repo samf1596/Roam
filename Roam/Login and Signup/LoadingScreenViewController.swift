@@ -23,6 +23,7 @@ class LoadingScreenViewController: UIViewController {
     }
     
     @objc func onNotification(notification:Notification) {
+        /*
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.view.tintColor = UIColor.white
@@ -51,6 +52,7 @@ class LoadingScreenViewController: UIViewController {
                 buttonProxy.titleLabel?.textColor = UIColor.white
             }
         }
+        */
     }
     
     deinit {

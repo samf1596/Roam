@@ -18,6 +18,7 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Roam"
+        //self.navigationController?.navigationBar.isHidden = true
         _ = PostsModel.sharedInstance
         loginButton.layer.cornerRadius = 4.0
         signupButton.layer.cornerRadius = 4.0
@@ -31,6 +32,7 @@ class FirstViewController: UIViewController {
     }
     
     @objc func onNotification(notification:Notification) {
+        /*
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.view.tintColor = UIColor.white
@@ -59,6 +61,7 @@ class FirstViewController: UIViewController {
                 buttonProxy.titleLabel?.textColor = UIColor.white
             }
         }
+        */
     }
     
     deinit {
@@ -67,6 +70,7 @@ class FirstViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         if Auth.auth().currentUser != nil {
             _ = Timer.scheduledTimer(timeInterval: 2.0, target: self, selector: #selector(dataLoaded), userInfo: nil, repeats: false)
         }
