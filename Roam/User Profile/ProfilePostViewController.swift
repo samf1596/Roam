@@ -9,10 +9,10 @@
 import UIKit
 import Firebase
 
-class ProfilePostViewController: UIViewController {
+class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
 
     @IBOutlet weak var followUserButton: UIButton!
-    @IBOutlet weak var postersNameLabel: UILabel!
+    @IBOutlet weak var postLocationButton: UIButton!
     @IBOutlet weak var postFirstImageButton: UIButton!
     @IBOutlet weak var bookmarkPostButton: UIButton!
     @IBOutlet weak var postDetailsButton: UIButton!
@@ -36,11 +36,12 @@ class ProfilePostViewController: UIViewController {
         
         if usersPosts {
             followUserButton.isHidden = true
-            postersNameLabel.text = "You"
+            self.title = "You"
         }
         else {
-            postersNameLabel.text = post?.firstname
+            self.title = (post?.firstname)! + "'s" + " Post"
         }
+        self.postLocationButton.setTitle(Array((post?.locations.keys)!)[0], for: .normal)
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
         
@@ -53,10 +54,10 @@ class ProfilePostViewController: UIViewController {
             }
         }
         
+        postLocationButton.layer.cornerRadius = 4.0
         followUserButton.layer.cornerRadius = 4.0
         bookmarkPostButton.layer.cornerRadius = 4.0
         
-        self.title = Array((post?.locations.keys)!)[0]
         postDetailsTextView.text = post?.description
         if usersPosts {
             let imagePath = postsModel.imagePathForUsersPost(postIndex, 0)
@@ -154,6 +155,9 @@ class ProfilePostViewController: UIViewController {
                 }
                 viewController.configure(index, whatPosts)
                 self.navigationController?.navigationBar.isHidden = false
+            case "ShowMap":
+                let mapViewController = segue.destination as! MapViewController
+                mapViewController.configure(post!.locations)
             default:
                 assert(false, "Unhandled Segue")
         }
