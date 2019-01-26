@@ -84,25 +84,28 @@ class PostExperienceDetailsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Detail", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Detail", for: indexPath) as! CommentsTableViewCell
 
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
-            cell.textLabel?.textColor = UIColor.black
-            cell.textLabel?.backgroundColor = UIColor.white
+            cell.commentText.textColor = UIColor.black
+            cell.commentText.backgroundColor = UIColor.white
             cell.backgroundColor = UIColor.white
         }
         if UserDefaults.standard.bool(forKey: "DarkMode") == true {
-            cell.textLabel?.textColor = UIColor.white
-            cell.textLabel?.backgroundColor = UIColor.darkGray
+            cell.commentText.textColor = UIColor.white
+            cell.commentText.backgroundColor = UIColor.darkGray
             cell.backgroundColor = UIColor.darkGray
         }
         
         if indexPath.section == 0 {
-            cell.textLabel?.text = experiences[indexPath.row]
+            cell.commentText.text = experiences[indexPath.row]
         }
         if indexPath.section == 1 {
-            cell.textLabel?.text = travels[indexPath.row]
+            cell.commentText.text = travels[indexPath.row]
         }
+        
+        cell.adjustTextViewHeight(textview: cell.commentText)
+        
         return cell
     }
 

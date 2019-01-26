@@ -279,14 +279,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
             let index = button!.tag
             let postID = postsModel.postForFollowingSection(index).postID
             let commentsViewController = segue.destination as! CommentsTableViewController
-            var comments = [String]()
-            self.ref.child(FirebaseFields.Posts.rawValue).child(postID).child("Comments").observe(.value) { (snapshot) in
-                for comment in snapshot.children {
-                    let _comment = (comment as? DataSnapshot)?.value as! String
-                    comments.append(_comment)
-                }
-                commentsViewController.configure(comments)
-            }
+            commentsViewController.configure(postID)
         case "ShowImages":
             let viewController = segue.destination as! AllImagesTableViewController
             let index = (sender as? UIButton)?.tag

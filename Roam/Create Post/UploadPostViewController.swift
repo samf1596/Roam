@@ -232,7 +232,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         // if you want to used phasset.
     }
     func photoPickerDidCancel() {
-        // cancel
+        self.uploadImageView.image = UIImage(named: "addPhoto")
     }
     func dismissComplete() {
         // picker viewcontroller dismiss completion

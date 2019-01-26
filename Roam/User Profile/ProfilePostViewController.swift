@@ -35,8 +35,9 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
         super.viewDidLoad()
         
         if usersPosts {
-            followUserButton.isHidden = true
-            self.title = "You"
+            followUserButton.setTitle("Delete", for: .normal)
+            self.title = "Your Post"
+            moreActionsButton.isHidden = true
         }
         else {
             self.title = (post?.firstname)! + "'s" + " Post"
@@ -44,13 +45,14 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
         self.postLocationButton.setTitle(Array((post?.locations.keys)!)[0], for: .normal)
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
-        
-        if let currentPost = post {
-            if postsModel.followingUser(currentPost) {
-                followUserButton.setTitle("Unfollow", for: .normal)
-            }
-            else {
-                followUserButton.setTitle("Follow", for: .normal)
+        if followUserButton.title(for: .normal) != "Delete" {
+            if let currentPost = post {
+                if postsModel.followingUser(currentPost) {
+                    followUserButton.setTitle("Unfollow", for: .normal)
+                }
+                else {
+                    followUserButton.setTitle("Follow", for: .normal)
+                }
             }
         }
         
@@ -77,7 +79,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
         }
         
         if postsModel.postIdBookmarked(post!) {
-            bookmarkPostButton.backgroundColor = UIColor.orange//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            bookmarkPostButton.backgroundColor = UIColor.orange
             bookmarkPostButton.imageView?.image = bookmarkPostButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
             bookmarkPostButton.imageView!.tintColor = UIColor.white
         }
@@ -99,14 +101,26 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("following").child((post?.username)!).setValue(true)
             sender.setTitle("Unfollow", for: .normal)
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
         }
         if sender.titleLabel?.text == "Unfollow" {
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("following").child((post?.username)!).removeValue()
             sender.setTitle("Follow", for: .normal)
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
         }
-        let generator = UINotificationFeedbackGenerator()
-        generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+        if sender.titleLabel?.text == "Delete" {
+            let alert = UIAlertController(title: "Confirm", message: "Are you sure you want to delete this post? This cannot be undone.", preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                self.databaseRef.child(FirebaseFields.Posts.rawValue).child((self.post?.postID)!).removeValue()
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @IBAction func bookmarkButtonPressed(_ sender: UIButton) {
@@ -158,6 +172,12 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
             case "ShowMap":
                 let mapViewController = segue.destination as! MapViewController
                 mapViewController.configure(post!.locations)
+            case "ShowDetails":
+                let detailsController = segue.destination as! PostExperienceDetailsTableViewController
+                detailsController.configure((post?.travels)!, (post?.experiences)!)
+            case "ShowComments":
+                let commentsController = segue.destination as! CommentsTableViewController
+                commentsController.configure((post?.postID)!)
             default:
                 assert(false, "Unhandled Segue")
         }
