@@ -357,12 +357,6 @@
                                     <action selector="submitPost:" destination="U6f-mX-jWo" eventType="touchUpInside" id="uLM-gA-aDB"/>
                                 </connections>
                             </button>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="addPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="xkB-6x-b13">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="267"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="DMk-9K-Cvh"/>
-                                </constraints>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Add a description of your trip here..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Vhl-7F-9xJ">
                                 <rect key="frame" x="16" y="316" width="343" height="74"/>
                                 <color key="backgroundColor" red="0.0" green="0.58220354569999999" blue="0.93988827720000001" alpha="0.10266285211267606" colorSpace="custom" customColorSpace="displayP3"/>
@@ -375,6 +369,9 @@
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description of Trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hct-qj-ZaS">
                                 <rect key="frame" x="16" y="290" width="204" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="18" id="rLQ-M5-Thz"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -407,32 +404,45 @@
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TWW-O4-ZqW">
                                 <rect key="frame" x="84" y="467" width="207" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="rIf-wL-p0W"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Followers Only"/>
                                     <segment title="Public"/>
                                 </segments>
                             </segmentedControl>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6UU-BD-wrl">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="270"/>
+                            </scrollView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="VCX-PY-K4U">
+                                <rect key="frame" x="168" y="265" width="39" height="37"/>
+                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="currentPageIndicatorTintColor" red="0.23529411759999999" green="0.77647058820000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </pageControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="hct-qj-ZaS" firstAttribute="top" secondItem="6UU-BD-wrl" secondAttribute="bottom" constant="20" id="3yA-6z-7td"/>
                             <constraint firstItem="Vhl-7F-9xJ" firstAttribute="leading" secondItem="OtU-zn-zaO" secondAttribute="leading" constant="16" id="4O4-i1-g9j"/>
                             <constraint firstItem="Vhl-7F-9xJ" firstAttribute="top" secondItem="hct-qj-ZaS" secondAttribute="bottom" constant="8" id="9cu-W1-iBq"/>
-                            <constraint firstItem="xkB-6x-b13" firstAttribute="top" secondItem="OtU-zn-zaO" secondAttribute="top" id="HAy-Ww-F3w"/>
                             <constraint firstItem="vfR-pb-8lg" firstAttribute="centerX" secondItem="1rI-Rv-tLD" secondAttribute="centerX" id="HRh-Vr-Llg"/>
-                            <constraint firstItem="xkB-6x-b13" firstAttribute="trailing" secondItem="OtU-zn-zaO" secondAttribute="trailing" id="IOf-qQ-bzw"/>
+                            <constraint firstItem="VCX-PY-K4U" firstAttribute="centerX" secondItem="1rI-Rv-tLD" secondAttribute="centerX" id="IIL-xy-2dx"/>
+                            <constraint firstItem="6UU-BD-wrl" firstAttribute="trailing" secondItem="OtU-zn-zaO" secondAttribute="trailing" id="PzU-sY-Lb2"/>
                             <constraint firstItem="Pe6-ri-QnA" firstAttribute="top" secondItem="TWW-O4-ZqW" secondAttribute="bottom" constant="22" id="QYB-Tq-WKM"/>
                             <constraint firstItem="Pe6-ri-QnA" firstAttribute="centerX" secondItem="1rI-Rv-tLD" secondAttribute="centerX" id="QZ0-2N-JBd"/>
                             <constraint firstItem="OtU-zn-zaO" firstAttribute="bottom" secondItem="Pe6-ri-QnA" secondAttribute="bottom" constant="13" id="QZN-mV-yLx"/>
                             <constraint firstItem="Vhl-7F-9xJ" firstAttribute="centerX" secondItem="1rI-Rv-tLD" secondAttribute="centerX" id="X42-3P-GQg"/>
                             <constraint firstItem="Hpa-w2-f2j" firstAttribute="top" secondItem="Vhl-7F-9xJ" secondAttribute="bottom" constant="5" id="XKQ-kg-lu9"/>
                             <constraint firstItem="TWW-O4-ZqW" firstAttribute="centerX" secondItem="1rI-Rv-tLD" secondAttribute="centerX" id="YlG-wJ-47O"/>
-                            <constraint firstItem="hct-qj-ZaS" firstAttribute="top" secondItem="xkB-6x-b13" secondAttribute="bottom" constant="23" id="ZEQ-XC-s9r"/>
                             <constraint firstItem="hct-qj-ZaS" firstAttribute="leading" secondItem="OtU-zn-zaO" secondAttribute="leading" constant="16" id="ZoN-rZ-xxh"/>
                             <constraint firstItem="TWW-O4-ZqW" firstAttribute="top" secondItem="vfR-pb-8lg" secondAttribute="bottom" constant="16" id="Zsg-ie-0iA"/>
                             <constraint firstItem="Hpa-w2-f2j" firstAttribute="centerX" secondItem="1rI-Rv-tLD" secondAttribute="centerX" id="aMn-op-j2n"/>
                             <constraint firstItem="OtU-zn-zaO" firstAttribute="trailing" secondItem="Vhl-7F-9xJ" secondAttribute="trailing" constant="16" id="cGE-Ey-KhP"/>
+                            <constraint firstItem="6UU-BD-wrl" firstAttribute="top" secondItem="OtU-zn-zaO" secondAttribute="top" id="cbO-fu-j0L"/>
+                            <constraint firstItem="6UU-BD-wrl" firstAttribute="leading" secondItem="OtU-zn-zaO" secondAttribute="leading" id="dbj-uc-Rly"/>
                             <constraint firstItem="OtU-zn-zaO" firstAttribute="trailing" secondItem="hct-qj-ZaS" secondAttribute="trailing" constant="155" id="f7Z-T2-Pnd"/>
-                            <constraint firstItem="xkB-6x-b13" firstAttribute="leading" secondItem="OtU-zn-zaO" secondAttribute="leading" id="kOM-hh-juj"/>
+                            <constraint firstItem="Vhl-7F-9xJ" firstAttribute="top" secondItem="VCX-PY-K4U" secondAttribute="bottom" constant="14" id="fKP-5U-VG1"/>
                             <constraint firstItem="vfR-pb-8lg" firstAttribute="top" secondItem="Hpa-w2-f2j" secondAttribute="bottom" constant="8" id="pzh-PB-goY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OtU-zn-zaO"/>
@@ -449,9 +459,10 @@
                         <outlet property="addExperiences" destination="Hpa-w2-f2j" id="Nkx-Mm-nlw"/>
                         <outlet property="addFlightsAndStays" destination="vfR-pb-8lg" id="PPE-wM-iK4"/>
                         <outlet property="descriptionTextView" destination="Vhl-7F-9xJ" id="DSJ-Ew-vm9"/>
+                        <outlet property="pageControl" destination="VCX-PY-K4U" id="9T5-pJ-eAg"/>
                         <outlet property="postButton" destination="Pe6-ri-QnA" id="hOd-PY-bn4"/>
                         <outlet property="publicOrPrivateSegmentedControl" destination="TWW-O4-ZqW" id="dYj-sS-3ET"/>
-                        <outlet property="uploadImageView" destination="xkB-6x-b13" id="Qvr-4U-9e5"/>
+                        <outlet property="scrollView" destination="6UU-BD-wrl" id="Eg2-5K-bMd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wwh-fx-pN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1819,7 +1830,6 @@
     </scenes>
     <resources>
         <image name="AppIcon76x762x" width="152" height="152"/>
-        <image name="addPhoto" width="512" height="512"/>
         <image name="bookmark" width="50" height="50"/>
         <image name="comments" width="50" height="50"/>
         <image name="details" width="50" height="50"/>

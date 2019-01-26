@@ -10,7 +10,91 @@ import Firebase
 import Photos
 import TLPhotoPicker
 import MapKit
-class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TLPhotosPickerViewControllerDelegate, TravelDelegate, ExperiencesDelegate, UITextViewDelegate, ChooseLocationDelegate {
+class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TLPhotosPickerViewControllerDelegate, TravelDelegate, ExperiencesDelegate, UITextViewDelegate, ChooseLocationDelegate, UIScrollViewDelegate {
+    
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var scrollView: UIScrollView!
+    var slides = [ImageSlide]()
+    
+    func createSlides(_ images: [TLPHAsset]) -> [ImageSlide] {
+        var slides = [ImageSlide]()
+        
+        for i in images {
+            let slide:ImageSlide = Bundle.main.loadNibNamed("ImageSlide", owner: self, options: nil)?.first as! ImageSlide
+            slide.imageView.image = i.fullResolutionImage
+            if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+                slide.imageView.backgroundColor = .white
+            }
+            if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+                slide.imageView.backgroundColor = UIColor.darkGray
+            }
+            slides.append(slide)
+        }
+        
+        return slides
+    }
+    
+    func setupScrollView(_ imageSlides: [ImageSlide]) {
+        //scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(imageSlides.count), height: scrollView.frame.height)
+        scrollView.isPagingEnabled = true
+        
+        for i in 0 ..< imageSlides.count {
+            imageSlides[i].frame = CGRect(x: scrollView.frame.width * CGFloat(i), y: 0, width: view.frame.width, height: scrollView.frame.height)
+            scrollView.addSubview(imageSlides[i])
+        }
+        
+        pageControl.numberOfPages = imageSlides.count
+        pageControl.currentPage = 0
+        self.view.bringSubviewToFront(pageControl)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageIndex = round(scrollView.contentOffset.x/view.frame.width)
+        pageControl.currentPage = Int(pageIndex)
+        
+        let maximumHorizontalOffset: CGFloat = scrollView.contentSize.width - scrollView.frame.width
+        let currentHorizontalOffset: CGFloat = scrollView.contentOffset.x
+        
+        // vertical
+        let maximumVerticalOffset: CGFloat = scrollView.contentSize.height - scrollView.frame.height
+        let currentVerticalOffset: CGFloat = scrollView.contentOffset.y
+        
+
+        let percentageHorizontalOffset: CGFloat = currentHorizontalOffset / maximumHorizontalOffset
+        let percentageVerticalOffset: CGFloat = currentVerticalOffset / maximumVerticalOffset
+ 
+        /*
+         * below code changes the background color of view on paging the scrollview
+         */
+        //        self.scrollView(scrollView, didScrollToPercentageOffset: percentageHorizontalOffset)
+        
+        
+        /*
+         * below code scales the imageview on paging the scrollview
+         */
+        /*
+        let percentOffset: CGPoint = CGPoint(x: percentageHorizontalOffset, y: percentageVerticalOffset)
+        
+        if(percentOffset.x > 0 && percentOffset.x <= 0.25) {
+         
+            slides[0].imageView.transform = CGAffineTransform(scaleX: (0.25-percentOffset.x)/0.25, y: (0.25-percentOffset.x)/0.25)
+            slides[1].imageView.transform = CGAffineTransform(scaleX: percentOffset.x/0.25, y: percentOffset.x/0.25)
+         
+        } else if(percentOffset.x > 0.25 && percentOffset.x <= 0.50) {
+            slides[1].imageView.transform = CGAffineTransform(scaleX: (0.50-percentOffset.x)/0.25, y: (0.50-percentOffset.x)/0.25)
+            slides[2].imageView.transform = CGAffineTransform(scaleX: percentOffset.x/0.50, y: percentOffset.x/0.50)
+         
+        } else if(percentOffset.x > 0.50 && percentOffset.x <= 0.75) {
+            slides[2].imageView.transform = CGAffineTransform(scaleX: (0.75-percentOffset.x)/0.25, y: (0.75-percentOffset.x)/0.25)
+            slides[3].imageView.transform = CGAffineTransform(scaleX: percentOffset.x/0.75, y: percentOffset.x/0.75)
+         
+        } else if(percentOffset.x > 0.75 && percentOffset.x <= 1) {
+            slides[3].imageView.transform = CGAffineTransform(scaleX: (1-percentOffset.x)/0.25, y: (1-percentOffset.x)/0.25)
+            slides[4].imageView.transform = CGAffineTransform(scaleX: percentOffset.x, y: percentOffset.x)
+        }
+        */
+    }
     
     var selectedLocations = [MKMapItem]()
     
@@ -54,6 +138,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                 self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
                 self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.orange], for: .normal)
                 self.publicOrPrivateSegmentedControl.tintColor = UIColor.orange
+                scrollView.backgroundColor = UIColor.darkGray
             }
             else {
                 self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
@@ -70,6 +155,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                 self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
                 self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.orange], for: .normal)
                 self.publicOrPrivateSegmentedControl.tintColor = UIColor.orange
+                scrollView.backgroundColor = UIColor.white
             }
         }
         
@@ -78,8 +164,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             if uploadCount >= selectedImageCount && imageURLSforUpload.count > 0 {
                 self.uploadSuccess(self.imageURLSforUpload)
                 self.showNetworkActivityIndicator = false
-                self.uploadImageView.image = UIImage(named: "addPhoto")
-                self.uploadImageView.alpha = 1.0
+                //self.uploadImageView.image = UIImage(named: "addPhoto")
+                resetScrollViewSlides()
+                //self.uploadImageView.alpha = 1.0
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
             }
@@ -103,8 +190,22 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet var uploadImageView: UIImageView!
     @IBOutlet weak var descriptionTextView: UITextView!
     
+    func resetScrollViewSlides() {
+        let slide:ImageSlide = Bundle.main.loadNibNamed("ImageSlide", owner: self, options: nil)?.first as! ImageSlide
+        slide.imageView.image = UIImage(named: "addPhoto")
+        setupScrollView([slide])
+        pageControl.numberOfPages = 1
+        pageControl.currentPage = 0
+        self.view.bringSubviewToFront(pageControl)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.delegate = self
+        
+        resetScrollViewSlides()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: UploadPostViewController.uploadedImage, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
@@ -132,7 +233,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
         let addImageGesture = UITapGestureRecognizer(target: self, action: #selector(UploadPostViewController.selectImage(_:)))
         addImageGesture.numberOfTapsRequired = 1
-        uploadImageView.addGestureRecognizer(addImageGesture)
+        scrollView.addGestureRecognizer(addImageGesture)
+        //uploadImageView.addGestureRecognizer(addImageGesture)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -225,14 +327,20 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
         // use selected order, fullresolution image
         self.selectedPictures = withTLPHAssets
-        uploadImageView.image = self.selectedPictures[0].fullResolutionImage
+        //uploadImageView.image = self.selectedPictures[0].fullResolutionImage
+        
+        let slides = createSlides(selectedPictures)
+        setupScrollView(slides)
+        
         self.selectedImageCount = self.selectedPictures.count
     }
     func dismissPhotoPicker(withPHAssets: [PHAsset]) {
         // if you want to used phasset.
     }
     func photoPickerDidCancel() {
-        self.uploadImageView.image = UIImage(named: "addPhoto")
+        selectedPictures = []
+        slides = []
+        resetScrollViewSlides()
     }
     func dismissComplete() {
         // picker viewcontroller dismiss completion

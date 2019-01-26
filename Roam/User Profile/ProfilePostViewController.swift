@@ -11,6 +11,39 @@ import Firebase
 
 class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
 
+    @objc func onNotification(notification:Notification) {
+        if notification.name == Notification.Name("settingsChanged") {
+            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
+                self.view.backgroundColor = UIColor.darkGray
+                //self.backgroundColorView.backgroundColor = UIColor.darkGray
+                self.submitCommentTextView.backgroundColor = UIColor.white
+                self.postDetailsTextView.backgroundColor = UIColor.gray
+                self.submitCommentTextView.keyboardAppearance = .dark
+                
+                self.bookmarkPostButton.imageView?.image = UIImage(named: "bookmark-white")
+                self.postViewCommentsButton.imageView?.image = UIImage(named: "comments-white")
+                self.moreActionsButton.imageView?.image = UIImage(named: "ellipsis-white")
+                self.postDetailsButton.imageView?.image = UIImage(named: "details-white")
+            }
+            else {
+                self.view.backgroundColor = UIColor.white
+                //self.backgroundColorView.backgroundColor = UIColor.darkGray
+                self.submitCommentTextView.backgroundColor = UIColor.white
+                self.postDetailsTextView.backgroundColor = UIColor.white
+                self.submitCommentTextView.keyboardAppearance = .default
+                
+                self.bookmarkPostButton.imageView?.image = UIImage(named: "bookmark")
+                self.postViewCommentsButton.imageView?.image = UIImage(named: "comments")
+                self.moreActionsButton.imageView?.image = UIImage(named: "ellipsis")
+                self.postDetailsButton.imageView?.image = UIImage(named: "details")
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
+    }
+    
     @IBOutlet weak var followUserButton: UIButton!
     @IBOutlet weak var postLocationButton: UIButton!
     @IBOutlet weak var postFirstImageButton: UIButton!
@@ -33,6 +66,14 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
+        }
         
         if usersPosts {
             followUserButton.setTitle("Delete", for: .normal)

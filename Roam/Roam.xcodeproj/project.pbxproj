@@ -42,6 +42,8 @@
 		22E8AFD921BCCD260028476F /* LoadingScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E8AFD821BCCD260028476F /* LoadingScreenViewController.swift */; };
 		22F2BECA21FA88B9000F47B6 /* IndividualSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2BEC921FA88B9000F47B6 /* IndividualSignupViewController.swift */; };
 		22F2BECC21FD036A000F47B6 /* CommentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2BECB21FD036A000F47B6 /* CommentsTableViewCell.swift */; };
+		22F2BECE21FD161B000F47B6 /* ImageSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2BECD21FD161B000F47B6 /* ImageSlide.swift */; };
+		22F2BED021FD163F000F47B6 /* ImageSlide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22F2BECF21FD163F000F47B6 /* ImageSlide.xib */; };
 		22F5E74921AF55E200CBF135 /* CommentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */; };
 		22F5E74B21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74A21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift */; };
 		22F5E74D21B347C700CBF135 /* ProfileMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */; };
@@ -94,6 +96,8 @@
 		22E8AFD821BCCD260028476F /* LoadingScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenViewController.swift; sourceTree = "<group>"; };
 		22F2BEC921FA88B9000F47B6 /* IndividualSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualSignupViewController.swift; sourceTree = "<group>"; };
 		22F2BECB21FD036A000F47B6 /* CommentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableViewCell.swift; sourceTree = "<group>"; };
+		22F2BECD21FD161B000F47B6 /* ImageSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSlide.swift; sourceTree = "<group>"; };
+		22F2BECF21FD163F000F47B6 /* ImageSlide.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageSlide.xib; sourceTree = "<group>"; };
 		22F5E74821AF55E200CBF135 /* CommentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableViewController.swift; sourceTree = "<group>"; };
 		22F5E74A21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		22F5E74C21B347C700CBF135 /* ProfileMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileMainViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 				22964CC821B4E9080096C6E8 /* MainTabBarViewController.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
+				22F2BECD21FD161B000F47B6 /* ImageSlide.swift */,
+				22F2BECF21FD163F000F47B6 /* ImageSlide.xib */,
 				22F2BECB21FD036A000F47B6 /* CommentsTableViewCell.swift */,
 				225A9468218E43D900C14B6B /* Assets.xcassets */,
 				225A946A218E43D900C14B6B /* LaunchScreen.storyboard */,
@@ -355,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				225A946C218E43D900C14B6B /* LaunchScreen.storyboard in Resources */,
+				22F2BED021FD163F000F47B6 /* ImageSlide.xib in Resources */,
 				22A9B3F421EABE5B00193175 /* GoogleService-Info.plist in Resources */,
 				225A9469218E43D900C14B6B /* Assets.xcassets in Resources */,
 				225A9467218E43D800C14B6B /* Main.storyboard in Resources */,
@@ -452,6 +459,7 @@
 				22A4211321CC472200E64F3D /* MapViewController.swift in Sources */,
 				22F5E74B21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift in Sources */,
 				2264B69921952EB900A402A1 /* FlightsStaysTableViewController.swift in Sources */,
+				22F2BECE21FD161B000F47B6 /* ImageSlide.swift in Sources */,
 				22F5E74921AF55E200CBF135 /* CommentsTableViewController.swift in Sources */,
 				22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */,
 				22F2BECA21FA88B9000F47B6 /* IndividualSignupViewController.swift in Sources */,
