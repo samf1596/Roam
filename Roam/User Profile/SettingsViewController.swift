@@ -22,15 +22,15 @@ class SettingsViewController: UIViewController {
                 self.view.backgroundColor = UIColor.darkGray
                 
                 self.navigationController?.navigationBar.barTintColor = UIColor.darkGray
-                self.navigationController?.navigationBar.tintColor = UIColor.white
+                self.navigationController?.navigationBar.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 self.navigationController?.navigationBar.barStyle = .blackOpaque
-                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
                 
                 let proxy = UINavigationBar.appearance()
-                proxy.barTintColor = UIColor.darkGray
+                //proxy.barTintColor = UIColor.darkGray
                 proxy.tintColor = UIColor.white
                 proxy.barStyle = .blackOpaque
-                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
                 
                 let buttonProxy = UIButton.appearance()
                 buttonProxy.titleLabel?.textColor = UIColor.darkGray
@@ -40,18 +40,18 @@ class SettingsViewController: UIViewController {
                 self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 
                 self.navigationController?.navigationBar.barTintColor = UIColor.white
-                self.navigationController?.navigationBar.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.navigationController?.navigationBar.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 self.navigationController?.navigationBar.barStyle = .default
-                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)]
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
                 
                 let proxy = UINavigationBar.appearance()
-                proxy.barTintColor = UIColor.white
-                proxy.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                //proxy.barTintColor = UIColor.white
+                proxy.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 proxy.barStyle = .default
-                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)]
+                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
                 
                 let buttonProxy = UIButton.appearance()
-                buttonProxy.titleLabel?.textColor = UIColor.white
+                buttonProxy.titleLabel?.textColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
             }
         }
     }
@@ -125,10 +125,10 @@ class SettingsViewController: UIViewController {
             UserDefaults.standard.set(true, forKey: "DarkMode")
             
             let proxy = UINavigationBar.appearance()
-            proxy.barTintColor = UIColor.darkGray
-            proxy.tintColor = UIColor.white
+            //proxy.barTintColor = UIColor.darkGray
+            proxy.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
             proxy.barStyle = .blackOpaque
-            proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+            proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
             
         }
         else {
@@ -136,10 +136,10 @@ class SettingsViewController: UIViewController {
             UserDefaults.standard.set(false, forKey: "DarkMode")
             
             let proxy = UINavigationBar.appearance()
-            proxy.barTintColor = UIColor.white
-            proxy.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+            //proxy.barTintColor = UIColor.white
+            proxy.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
             proxy.barStyle = .default
-            proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)]
+            proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
         }
     }
     

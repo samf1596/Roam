@@ -33,15 +33,21 @@ class ProfileMainViewController: UIViewController, ShowPostDelegate {
                 self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.darkGray
                 self.segmentedControl.backgroundColor = UIColor.darkGray
-                self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .selected)
+                self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
                 self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .normal)
+                self.segmentedControl.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+                self.navigationController?.navigationBar.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
             }
             else {
                 self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.view.backgroundColor = UIColor.white
                 self.segmentedControl.backgroundColor = UIColor.white
                 self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
-                self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)], for: .normal)
+                self.segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)], for: .normal)
+                self.segmentedControl.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+                self.navigationController?.navigationBar.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+                self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
             }
         }
     }

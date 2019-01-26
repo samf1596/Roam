@@ -32,7 +32,7 @@ class MainTabBarViewController: UITabBarController {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.tabBar.barTintColor = UIColor.darkGray
-                self.tabBar.tintColor = UIColor.white
+                self.tabBar.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 
                 self.navigationController?.navigationBar.barStyle = .blackOpaque
                 self.navigationController?.navigationBar.barTintColor = UIColor.darkGray
@@ -50,7 +50,7 @@ class MainTabBarViewController: UITabBarController {
             }
             else {
                 self.tabBar.barTintColor = UIColor.white
-                self.tabBar.tintColor = self.view.tintColor
+                self.tabBar.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 
                 self.navigationController?.navigationBar.barTintColor = UIColor.white
                 self.navigationController?.navigationBar.barStyle = .default

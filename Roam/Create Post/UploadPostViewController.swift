@@ -41,6 +41,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.view.tintColor = UIColor.white
                 self.view.backgroundColor = UIColor.darkGray
+                self.navigationController?.navigationBar.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 self.descriptionTextView.backgroundColor = UIColor.lightGray
                 self.descriptionTextView.keyboardAppearance = .dark
                 /*
@@ -57,6 +58,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             else {
                 self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.view.backgroundColor = UIColor.white
+                self.navigationController?.navigationBar.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 self.descriptionTextView.backgroundColor = UIColor(red: 0, green: 148.0/255.0, blue: 240.0/255.0, alpha: 0.1)
                 self.descriptionTextView.isOpaque = true
                 self.descriptionTextView.keyboardAppearance = .default
