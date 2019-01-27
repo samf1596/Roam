@@ -106,8 +106,9 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case TaskSection.tasks:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Travel", for: indexPath)
-            cell.textLabel?.text = model.travelAtIndex(indexPath.row)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Travel", for: indexPath) as! DetailsTableViewCell
+            cell.detailTextView.text = model.travelAtIndex(indexPath.row)
+            cell.adjustTextViewHeight(textview: cell.detailTextView)
             return cell
         case TaskSection.add:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddTravel", for: indexPath) as! ExperienceTableViewCell

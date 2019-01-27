@@ -69,7 +69,6 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         }
     }
     
-    
     func downloadImage(from imagePath: String) {
         let storage = storageRef.storage.reference(forURL: imagePath)
         storage.getData(maxSize: 2*1024*1024) { (data, error) in

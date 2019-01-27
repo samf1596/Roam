@@ -63,6 +63,18 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         previousHeight = self.view.frame.origin.y
+        
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            self.postViewCommentsButton.imageView?.image = UIImage(named: "comments")
+            self.moreActionsButton.imageView?.image = UIImage(named: "ellipsis")
+            self.postDetailsButton.imageView?.image = UIImage(named: "details")
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            self.postViewCommentsButton.imageView?.image = UIImage(named: "comments-white")
+            self.moreActionsButton.imageView?.image = UIImage(named: "ellipsis-white")
+            self.postDetailsButton.imageView?.image = UIImage(named: "details-white")
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

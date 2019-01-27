@@ -107,8 +107,9 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     switch indexPath.section {
         case TaskSection.tasks:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Experience", for: indexPath)
-            cell.textLabel?.text = model.experienceAtIndex(indexPath.row)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Experience", for: indexPath) as! DetailsTableViewCell
+            cell.detailTextView.text = model.experienceAtIndex(indexPath.row)
+            cell.adjustTextViewHeight(textview: cell.detailTextView)
             return cell
         case TaskSection.add:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddExperience", for: indexPath) as! ExperienceTableViewCell
