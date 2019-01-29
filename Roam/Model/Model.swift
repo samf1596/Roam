@@ -161,14 +161,22 @@ class PostsModel {
     fileprivate var followingPosts = [Post]()
     fileprivate var bookmarkedPosts = [Post]()
     fileprivate var globalPosts = [Post]()
+    fileprivate var usersPosts = [Post]()
+    
     fileprivate var bookmarkedPostIds = [String]()
     fileprivate var followingUsers = [String]()
-    fileprivate var usersPosts = [Post]()
+    fileprivate var following = [String]()
+    
+    fileprivate var blockedUsers = [String]()
+    fileprivate var hiddenPostIds = [String]()
+    fileprivate var postsUnderReview = [String]()
+    
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
+    
     fileprivate let fileManager = FileManager()
     fileprivate let imageCache = NSCache<AnyObject, AnyObject>()
-    fileprivate var following = [String]()
+    
     
     var cachedPostsCount : Int {return cachedPosts.count}
     var cachedGlobalPostsCount : Int {return globalPosts.count}
@@ -237,7 +245,53 @@ class PostsModel {
     fileprivate init(){
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
+        /*
+        getBlockedUsers()
+        getHiddenPosts()
+        getReportedPosts()
+        // Only call downloadPosts when all hidden/blocked posts have been collected
         downloadPosts()
+        */
+        // This call will run getBlockedUsers/getHiddenPosts and then call downloadPosts once it is done it's own operation
+        // MARK - TODO: Make this better
+        getReportedPosts()
+    }
+    
+    func getBlockedUsers() {
+        self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Blocked").observe(.value) { (snapshot) in
+            var _blockedUsers = [String]()
+            for postSnapshot in snapshot.children {
+                _blockedUsers.append((postSnapshot as! DataSnapshot).key)
+            }
+            self.blockedUsers = _blockedUsers
+            self.downloadPosts()
+        }
+    }
+    
+    func getHiddenPosts() {
+        self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Hidden").observe(.value) { (snapshot) in
+            var _hiddenPostIds = [String]()
+            for postSnapshot in snapshot.children {
+                _hiddenPostIds.append((postSnapshot as! DataSnapshot).key)
+            }
+            self.hiddenPostIds = _hiddenPostIds
+            self.downloadPosts()
+        }
+    }
+
+    func getReportedPosts() {
+        self.ref.child(FirebaseFields.UnderReview.rawValue).observe(.value) { (snapshot) in
+            self.getHiddenPosts()
+            self.getBlockedUsers()
+            var _postsUnderReview = [String]()
+            for postSnapshot in snapshot.children {
+                if ((postSnapshot as! DataSnapshot).value as! Int) >= 3 {
+                    _postsUnderReview.append((postSnapshot as! DataSnapshot).key)
+                }
+            }
+            self.postsUnderReview = _postsUnderReview
+            self.downloadPosts()
+        }
     }
     
     func downloadPosts() {
@@ -245,8 +299,10 @@ class PostsModel {
             var posts = [Post]()
             for postSnapshot in snapshot.children {
                 let post = Post(snapshot: postSnapshot as! DataSnapshot)
-                // only append if not in Hidden Posts
-                posts.append(post)
+                // only append if not in Hidden or Blocked Posts
+                if !(self.blockedUsers.contains(post.username)) && !self.postsUnderReview.contains(post.postID) && !self.hiddenPostIds.contains(post.postID){
+                    posts.append(post)
+                }
             }
             self.posts = posts
             let block = {
@@ -262,7 +318,9 @@ class PostsModel {
     
     func refreshContent(for tableView: UITableView, with refreshControl: UIRefreshControl?) {
         let block = {
+            //self.getReportedPosts()
             self.cachedPosts = self.posts.reversed()
+            // MARK - TODO: only reload data when all posts collection is done
             tableView.reloadData()
             refreshControl?.endRefreshing()
         }

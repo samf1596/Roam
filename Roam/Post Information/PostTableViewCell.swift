@@ -53,7 +53,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                     downloadImage(from: post.imagePath[0])
                 }
                 globalPostersName.text = post.addedByUser
-                globalPosterUsername.text = ""
+                globalPosterUsername.text = post.username
                 globalPostDescriptionTextView.text = post.description
                 globalCommentTextView.text = "Leave a comment"
                 postID = post.postID
