@@ -10,6 +10,8 @@ import Firebase
 import Photos
 import TLPhotoPicker
 import MapKit
+//import SpectrumKit
+
 class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TLPhotosPickerViewControllerDelegate, TravelDelegate, ExperiencesDelegate, UITextViewDelegate, ChooseLocationDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var pageControl: UIPageControl!
@@ -410,6 +412,14 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             
             let image = imageToUploadResized.jpegData(compressionQuality: 0.55)
             let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
+            
+            /*
+            let resizeRequirement = ResizeRequirement.init(mode: ResizeRequirementMode.exactOrSmaller, targetSize: CGSize(width: 800, height: 600))
+            let encodeRequirement = EncodeRequirement.init(format: .jpeg, mode: .lossy, quality: 80)
+            let options = EncodeOptions.init(encodeRequirement: encodeRequirement, transformations: Transformations.init(resizeRequirement: resizeRequirement, rotateRequirement: nil, cropRequirement: nil), metadata: nil, configuration: nil, outputPixelSpecificationRequirement: nil)
+            
+            let result = Spectrum.shared.encodeImage(selectedImage.fullResolutionImage!, options: options, error: nil)
+            */
             
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"

@@ -63,18 +63,6 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         previousHeight = self.view.frame.origin.y
-        
-        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
-            self.postViewCommentsButton.imageView?.image = UIImage(named: "comments")
-            self.moreActionsButton.imageView?.image = UIImage(named: "ellipsis")
-            self.postDetailsButton.imageView?.image = UIImage(named: "details")
-        }
-        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
-            self.postViewCommentsButton.imageView?.image = UIImage(named: "comments-white")
-            self.moreActionsButton.imageView?.image = UIImage(named: "ellipsis-white")
-            self.postDetailsButton.imageView?.image = UIImage(named: "details-white")
-        }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,6 +72,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
@@ -95,6 +84,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
                 
                 self.bookmarkPostButton.imageView?.image = UIImage(named: "bookmark-white")
                 self.postViewCommentsButton.imageView?.image = UIImage(named: "comments-white")
+                self.bookmarkPostButton.imageView?.image = UIImage(named: "bookmark-white")
                 self.moreActionsButton.imageView?.image = UIImage(named: "ellipsis-white")
                 self.postDetailsButton.imageView?.image = UIImage(named: "details-white")
             }
@@ -109,6 +99,11 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
                 self.postViewCommentsButton.imageView?.image = UIImage(named: "comments")
                 self.moreActionsButton.imageView?.image = UIImage(named: "ellipsis")
                 self.postDetailsButton.imageView?.image = UIImage(named: "details")
+                self.bookmarkPostButton.imageView?.image = UIImage(named: "bookmark")
+            }
+            if postsModel.postIdBookmarked(post!) {
+                bookmarkPostButton.backgroundColor = UIColor.orange//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+                bookmarkPostButton.imageView?.image = UIImage(named: "bookmark-white")
             }
         }
     }
@@ -197,17 +192,6 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
             postFirstImageButton.setBackgroundImage(image, for: .normal)
             postFirstImageButton.setBackgroundImage(image, for: .selected)
         }
-        
-        if postsModel.postIdBookmarked(post!) {
-            bookmarkPostButton.backgroundColor = UIColor.orange
-            bookmarkPostButton.imageView?.image = bookmarkPostButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
-            bookmarkPostButton.imageView!.tintColor = UIColor.white
-        }
-        else {
-            bookmarkPostButton.backgroundColor = UIColor.clear
-            bookmarkPostButton.imageView?.image = bookmarkPostButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
-            bookmarkPostButton.imageView!.tintColor = UIColor.black
-        }
     }
     
     func configure(_ post: Post, _ cellSelected: Int, _ usersPosts: Bool) {
@@ -246,7 +230,12 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
     @IBAction func bookmarkButtonPressed(_ sender: UIButton) {
         if bookmarkPostButton.backgroundColor == UIColor.orange {//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0) {
             bookmarkPostButton.backgroundColor = UIColor.clear
-            self.bookmarkPostButton.imageView?.image = UIImage(named: "bookmark")
+            if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+                self.bookmarkPostButton.imageView?.image = UIImage(named: "bookmark-white")
+            }
+            else {
+                self.bookmarkPostButton.imageView?.image = UIImage(named: "bookmark")
+            }
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("Bookmarks").child((post?.postID)!).removeValue()
             let selection = UISelectionFeedbackGenerator()

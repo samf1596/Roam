@@ -98,7 +98,7 @@ class AllImagesTableViewController: UITableViewController {
         }
         if whichPosts == "Bookmarked" {
             let post = postsModel.postForBookmarkedSection(postIndex)
-            let imagePath = postsModel.imagePathForPost(postIndex, indexPath.row)
+            let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, indexPath.row)
             postsModel.downloadBookmarkedImage(postIndex, imagePath, post.postID)
             cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }
