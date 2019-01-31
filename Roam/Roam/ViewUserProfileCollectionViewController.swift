@@ -15,6 +15,7 @@ class ViewUserProfileCollectionViewController: UICollectionViewController {
     fileprivate var storageRef : StorageReference!
     
     let postModel = PostsModel.sharedInstance
+    var cellSelected = IndexPath()
     
     func configure(_ index: Int, _ sender: String) {
         if sender == "Home" {
@@ -42,15 +43,20 @@ class ViewUserProfileCollectionViewController: UICollectionViewController {
         storageRef = Storage.storage().reference()
     }
 
-    /*
-    // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+            switch segue.identifier {
+            case "ShowPost":
+                let controller = segue.destination as! ProfilePostViewController
+                let post = (sender as! ProfileCollectionViewCell).post
+                
+                controller.configure(post!, self.cellSelected.row, false, true)
+            default:
+                assert(false, "Unhandled Segue")
+            }
     }
-    */
+ 
 
     // MARK: UICollectionViewDataSource
 
@@ -76,6 +82,12 @@ class ViewUserProfileCollectionViewController: UICollectionViewController {
         cell.postImageView.image = postModel.getCachedImage(post.postID+"\(0)")
     
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.cellSelected = indexPath
+        let cell = collectionView.cellForItem(at: indexPath) as! ProfileCollectionViewCell
+        self.performSegue(withIdentifier: "ShowPost", sender: cell)
     }
 
     // MARK: UICollectionViewDelegate

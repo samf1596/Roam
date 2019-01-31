@@ -126,6 +126,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
     var post : Post?
     var postIndex = 0
     var usersPosts = true
+    var viewUserProfile = false
     
     let postsModel = PostsModel.sharedInstance
     
@@ -146,14 +147,17 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
         if UserDefaults.standard.bool(forKey: "DarkMode") == true {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
         }
-        
-        if usersPosts {
-            followUserButton.setTitle("Delete", for: .normal)
-            self.title = "Your Post"
-            moreActionsButton.isHidden = true
-        }
-        else {
-            self.title = (post?.firstname)! + "'s" + " Post"
+        if viewUserProfile {
+                self.title = (post?.firstname)! + "'s" + " Post"
+        } else {
+            if usersPosts {
+                followUserButton.setTitle("Delete", for: .normal)
+                self.title = "Your Post"
+                moreActionsButton.isHidden = true
+            }
+            else {
+                self.title = (post?.firstname)! + "'s" + " Post"
+            }
         }
         self.postLocationButton.setTitle(Array((post?.locations.keys)!)[0], for: .normal)
         if Array((post?.locations.keys)!)[0] == "NONE" {
@@ -177,30 +181,39 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
         bookmarkPostButton.layer.cornerRadius = 4.0
         postFirstImageButton.imageView?.contentMode = UIView.ContentMode.scaleAspectFill
         postDetailsTextView.text = post?.description
-        if usersPosts {
-            let imagePath = postsModel.imagePathForUsersPost(postIndex, 0)
-            postsModel.downloadUsersPostImage(postIndex, imagePath, post!.postID)
+        if viewUserProfile {
+                let imagePath = postsModel.imagePathForUserToViewPost(postIndex, 0)
+                postsModel.downloadUsersPostToViewImage(postIndex, imagePath, post!.postID)
             
-            let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
-            firstImageView.image = image
-            //postFirstImageButton.setBackgroundImage(image, for: .normal)
-            //postFirstImageButton.setBackgroundImage(image, for: .selected)
-        }
-        else {
-            let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, 0)
-            postsModel.downloadBookmarkedImage(postIndex, imagePath, post!.postID)
+                let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
+                firstImageView.image = image
+        } else {
+            if usersPosts {
+                let imagePath = postsModel.imagePathForUsersPost(postIndex, 0)
+                postsModel.downloadUsersPostImage(postIndex, imagePath, post!.postID)
+                
+                let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
+                firstImageView.image = image
+                //postFirstImageButton.setBackgroundImage(image, for: .normal)
+                //postFirstImageButton.setBackgroundImage(image, for: .selected)
+            }
+            else {
+                let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, 0)
+                postsModel.downloadBookmarkedImage(postIndex, imagePath, post!.postID)
 
-            let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
-            firstImageView.image = image
-            //postFirstImageButton.setBackgroundImage(image, for: .normal)
-            //postFirstImageButton.setBackgroundImage(image, for: .selected)
+                let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
+                firstImageView.image = image
+                //postFirstImageButton.setBackgroundImage(image, for: .normal)
+                //postFirstImageButton.setBackgroundImage(image, for: .selected)
+            }
         }
     }
     
-    func configure(_ post: Post, _ cellSelected: Int, _ usersPosts: Bool) {
+    func configure(_ post: Post, _ cellSelected: Int, _ usersPosts: Bool, _ viewUserProfile: Bool = false) {
         self.post = post
         self.postIndex = cellSelected
         self.usersPosts = usersPosts
+        self.viewUserProfile = viewUserProfile
     }
 
     @IBAction func followButtonPressed(_ sender: UIButton) {
@@ -273,11 +286,15 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
                 let viewController = segue.destination as! AllImagesTableViewController
                 let index = postIndex
                 var whatPosts = ""
-                if usersPosts {
-                    whatPosts = "User"
-                }
-                else {
-                    whatPosts = "Bookmarked"
+                if viewUserProfile{
+                    whatPosts = "ViewUserProfile"
+                } else {
+                    if usersPosts {
+                        whatPosts = "User"
+                    }
+                    else {
+                        whatPosts = "Bookmarked"
+                    }
                 }
                 viewController.configure(index, whatPosts)
                 self.navigationController?.navigationBar.isHidden = false

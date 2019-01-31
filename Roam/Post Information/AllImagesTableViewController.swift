@@ -69,6 +69,9 @@ class AllImagesTableViewController: UITableViewController {
         if whichPosts == "Bookmarked"{
             return postsModel.postForBookmarkedSection(postIndex).imagePath.count
         }
+        if whichPosts == "ViewUserProfile" {
+            return postsModel.postForUserPostToViewSection(postIndex).imagePath.count
+        }
         return 0
     }
 
@@ -100,6 +103,12 @@ class AllImagesTableViewController: UITableViewController {
             let post = postsModel.postForBookmarkedSection(postIndex)
             let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, indexPath.row)
             postsModel.downloadBookmarkedImage(postIndex, imagePath, post.postID)
+            cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+        }
+        if whichPosts == "ViewUserProfile" {
+            let post = postsModel.postForUserPostToViewSection(postIndex)
+            let imagePath = postsModel.imagePathForUserToViewPost(postIndex, indexPath.row)
+            postsModel.downloadUsersPostToViewImage(postIndex, imagePath, post.postID)
             cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }
 

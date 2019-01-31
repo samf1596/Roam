@@ -1273,7 +1273,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1PO-ti-QE2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-962.39999999999998" y="1341.6791604197902"/>
+            <point key="canvasLocation" x="1778" y="762"/>
         </scene>
         <!--Post Experience Details Table View Controller-->
         <scene sceneID="huk-2E-dDt">
@@ -1846,6 +1846,9 @@
                             <outlet property="delegate" destination="L3L-nP-D0e" id="vp0-Xl-uEl"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <segue destination="qOg-VU-f9a" kind="show" identifier="ShowPost" id="Wxj-iE-yhv"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BEF-ss-vYb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1968,6 +1971,7 @@
         <segue reference="eh3-r3-Xgq"/>
         <segue reference="sbl-GS-dzn"/>
         <segue reference="QET-EK-3Dg"/>
+        <segue reference="Wxj-iE-yhv"/>
         <segue reference="lRo-i4-oHA"/>
         <segue reference="EQV-EI-T5b"/>
     </inferredMetricsTieBreakers>
