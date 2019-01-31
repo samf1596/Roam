@@ -92,7 +92,7 @@ class AllImagesTableViewController: UITableViewController {
         }
         if whichPosts == "User" {
             let post = postsModel.postForUsersSection(postIndex)
-            let imagePath = postsModel.imagePathForPost(postIndex, indexPath.row)
+            let imagePath = postsModel.imagePathForUsersPost(postIndex, indexPath.row)
             postsModel.downloadUsersPostImage(postIndex, imagePath, post.postID)
             cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }

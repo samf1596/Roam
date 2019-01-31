@@ -121,6 +121,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
     @IBOutlet weak var moreActionsButton: UIButton!
     @IBOutlet weak var postDetailsTextView: UITextView!
     @IBOutlet weak var submitCommentTextView: UITextView!
+    @IBOutlet weak var firstImageView: UIImageView!
     
     var post : Post?
     var postIndex = 0
@@ -174,25 +175,26 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
         postLocationButton.layer.cornerRadius = 4.0
         followUserButton.layer.cornerRadius = 4.0
         bookmarkPostButton.layer.cornerRadius = 4.0
-        
+        postFirstImageButton.imageView?.contentMode = UIView.ContentMode.scaleAspectFill
         postDetailsTextView.text = post?.description
         if usersPosts {
             let imagePath = postsModel.imagePathForUsersPost(postIndex, 0)
             postsModel.downloadUsersPostImage(postIndex, imagePath, post!.postID)
             
             let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
-            postFirstImageButton.setBackgroundImage(image, for: .normal)
-            postFirstImageButton.setBackgroundImage(image, for: .selected)
+            firstImageView.image = image
+            //postFirstImageButton.setBackgroundImage(image, for: .normal)
+            //postFirstImageButton.setBackgroundImage(image, for: .selected)
         }
         else {
             let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, 0)
             postsModel.downloadBookmarkedImage(postIndex, imagePath, post!.postID)
 
             let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
-            postFirstImageButton.setBackgroundImage(image, for: .normal)
-            postFirstImageButton.setBackgroundImage(image, for: .selected)
+            firstImageView.image = image
+            //postFirstImageButton.setBackgroundImage(image, for: .normal)
+            //postFirstImageButton.setBackgroundImage(image, for: .selected)
         }
-        postFirstImageButton.imageView?.contentMode = .scaleAspectFit
     }
     
     func configure(_ post: Post, _ cellSelected: Int, _ usersPosts: Bool) {
