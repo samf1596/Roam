@@ -162,7 +162,7 @@ class PostsModel {
     fileprivate var bookmarkedPosts = [Post]()
     fileprivate var globalPosts = [Post]()
     fileprivate var usersPosts = [Post]()
-    
+    fileprivate var userPostsToView = [Post]()
     fileprivate var bookmarkedPostIds = [String]()
     fileprivate var followingUsers = [String]()
     fileprivate var following = [String]()
@@ -183,6 +183,7 @@ class PostsModel {
     var cachedFollowingPostsCount : Int {return followingPosts.count}
     var cachedBookmarkedPostsCount : Int {return bookmarkedPosts.count}
     var cachedUsersPostsCount : Int {return usersPosts.count}
+    var cachedUserPostToViewCount : Int {return userPostsToView.count}
     
     func postIdBookmarked(_ post: Post) -> Bool{
         if self.bookmarkedPostIds.contains(post.postID) {
@@ -216,6 +217,9 @@ class PostsModel {
     func postForUsersSection(_ section: Int) -> Post {
         return usersPosts[section]
     }
+    func postForUserPostToViewSection(_ section: Int) -> Post {
+        return userPostsToView[section]
+    }
     
     func imagePathForPost(_ section: Int, _ imageIndex: Int) -> String {
         return cachedPosts[section].imagePath[imageIndex]
@@ -231,6 +235,9 @@ class PostsModel {
     }
     func imagePathForUsersPost(_ section: Int, _ imageIndex: Int) -> String {
         return usersPosts[section].imagePath[imageIndex]
+    }
+    func imagePathForUserToViewPost(_ section: Int, _ imageIndex: Int) -> String {
+        return userPostsToView[section].imagePath[imageIndex]
     }
     
     func cacheImage(_ imageURL: String, _ image: UIImage) {
@@ -257,32 +264,36 @@ class PostsModel {
         getReportedPosts()
     }
     
-    func getBlockedUsers() {
+    func getBlockedUsers(_ download: Bool = true) {
         self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Blocked").observe(.value) { (snapshot) in
             var _blockedUsers = [String]()
             for postSnapshot in snapshot.children {
                 _blockedUsers.append((postSnapshot as! DataSnapshot).key)
             }
             self.blockedUsers = _blockedUsers
-            self.downloadPosts()
+            if download == true {
+                self.downloadPosts()
+            }
         }
     }
     
-    func getHiddenPosts() {
+    func getHiddenPosts(_ download: Bool = true) {
         self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Hidden").observe(.value) { (snapshot) in
             var _hiddenPostIds = [String]()
             for postSnapshot in snapshot.children {
                 _hiddenPostIds.append((postSnapshot as! DataSnapshot).key)
             }
             self.hiddenPostIds = _hiddenPostIds
-            self.downloadPosts()
+            if download == true {
+                self.downloadPosts()
+            }
         }
     }
 
     func getReportedPosts() {
         self.ref.child(FirebaseFields.UnderReview.rawValue).observe(.value) { (snapshot) in
-            self.getHiddenPosts()
-            self.getBlockedUsers()
+            self.getHiddenPosts(false)
+            self.getBlockedUsers(false)
             var _postsUnderReview = [String]()
             for postSnapshot in snapshot.children {
                 if ((postSnapshot as! DataSnapshot).value as! Int) >= 3 {
@@ -478,6 +489,30 @@ class PostsModel {
             }
         }
     }
+    func downloadUsersPostToViewImage(_ postIndex: Int, _ imageURL: String, _ postID: String) {
+        let numberOfImages = userPostsToView[postIndex].imagePath.count
+        
+        for index in 0..<numberOfImages {
+            if getCachedImage(postID+"\(index).jpg") == nil && getImageFromDirectory(postID+"\(index).jpg") == nil {
+                let storage = storageRef.storage.reference(forURL: userPostsToView[postIndex].imagePath[index])
+                storage.getData(maxSize: 2*1024*1024) { (data, error) in
+                    if error == nil {
+                        //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
+                        let image = UIImage(data: data!)
+                        self.cacheImage(postID+"\(index).jpg", image!)
+                        self.saveImageInDirectory(image!, postID+"\(index).jpg")
+                    }
+                    else {
+                        print("Error:\(error ?? "" as! Error)")
+                    }
+                }
+            }
+            else {
+                let image = getImageFromDirectory(postID+"\(index).jpg")!
+                self.cacheImage(postID+"\(index).jpg", image)
+            }
+        }
+    }
     
     func findBookmarkedPosts() {
         if Auth.auth().currentUser != nil {
@@ -553,6 +588,25 @@ class PostsModel {
         }
     }
     
+    func findPostsForUserWithID(_ UID: String, _ whichPosts: String) {
+        self.userPostsToView = []
+        
+        if whichPosts == "Home" {
+            for post in self.cachedPosts {
+                if post.username == UID {
+                    self.userPostsToView.append(post)
+                }
+            }
+        } else {
+            for post in self.cachedPosts {
+                if post.username == UID && post.isPublic == true {
+                    self.userPostsToView.append(post)
+                }
+            }
+        }
+        
+    }
+    
     func clearFollowingUsersAndBookmarks() {
         self.usersPosts = []
         self.followingPosts = []
@@ -560,6 +614,7 @@ class PostsModel {
         self.bookmarkedPosts = []
         self.cachedPosts = []
         self.globalPosts = []
+        self.userPostsToView = []
     }
 }
 

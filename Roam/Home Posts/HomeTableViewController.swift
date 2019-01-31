@@ -235,14 +235,16 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         cell.unfollowButton.layer.cornerRadius = 4.0
         cell.globalPostFavButton.layer.cornerRadius = 4.0
         cell.mapLocationButton.tag = indexPath.section
-        
+        cell.viewUserProfileButton.tag = indexPath.section
         let locationOne = Array(post.locations.keys)[0] as String
         if locationOne == "NONE" {
             cell.mapLocationButton.titleLabel?.text = ""
             cell.mapLocationButton.setTitle("", for: .normal)
+            cell.mapLocationButton.isEnabled = false
         }
         else {
             cell.mapLocationButton.setTitle(locationOne, for: .normal)
+            cell.mapLocationButton.isEnabled = true
         }
         
         if postsModel.postIdBookmarked(post) {
@@ -292,6 +294,11 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
             let post = postsModel.postForGlobalSection(postIndex)
             let mapViewController = segue.destination as! MapViewController
             mapViewController.configure(post.locations)
+        case "ShowUserProfile":
+            let viewController = segue.destination as! ViewUserProfileCollectionViewController
+            let index = (sender as? UIButton)?.tag
+            viewController.configure(index!, "Home")
+            self.navigationController?.navigationBar.isHidden = false
         default:
             assert(false, "Unhandled Segue")
         }

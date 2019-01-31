@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1B639BB35D83378B1873030D /* Pods_RoamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C84F842D42719D42562ED3 /* Pods_RoamTests.framework */; };
 		220EA52D21990200003ACC06 /* PostExperienceDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220EA52C21990200003ACC06 /* PostExperienceDetailsTableViewController.swift */; };
+		222BBA0F2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BBA0E2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift */; };
 		224BB6BB21D549BE00E61EBC /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BB6BA21D549BE00E61EBC /* LocationTableViewCell.swift */; };
 		224FE81321DF0CEB0042B889 /* ProfilePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FE81221DF0CEB0042B889 /* ProfilePostViewController.swift */; };
 		2253B78B251E96E817067F4D /* Pods_Roam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDBA419BF38FDBF08906C46E /* Pods_Roam.framework */; };
@@ -63,6 +64,7 @@
 /* Begin PBXFileReference section */
 		15C84F842D42719D42562ED3 /* Pods_RoamTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RoamTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		220EA52C21990200003ACC06 /* PostExperienceDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExperienceDetailsTableViewController.swift; sourceTree = "<group>"; };
+		222BBA0E2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUserProfileCollectionViewController.swift; sourceTree = "<group>"; };
 		224BB6BA21D549BE00E61EBC /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		224FE81221DF0CEB0042B889 /* ProfilePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostViewController.swift; sourceTree = "<group>"; };
 		225A945E218E43D800C14B6B /* Roam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roam.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +165,7 @@
 				22964CC821B4E9080096C6E8 /* MainTabBarViewController.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
+				222BBA0E2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift */,
 				22F2BED121FD37E6000F47B6 /* DetailsTableViewCell.swift */,
 				22F2BECD21FD161B000F47B6 /* ImageSlide.swift */,
 				22F2BECF21FD163F000F47B6 /* ImageSlide.xib */,
@@ -481,6 +484,7 @@
 				22E8AFD921BCCD260028476F /* LoadingScreenViewController.swift in Sources */,
 				2264B69C2197C2CE00A402A1 /* ExperienceTableViewCell.swift in Sources */,
 				228DA2BE218F8EAB007271A6 /* PostTableViewCell.swift in Sources */,
+				222BBA0F2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift in Sources */,
 				224FE81321DF0CEB0042B889 /* ProfilePostViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

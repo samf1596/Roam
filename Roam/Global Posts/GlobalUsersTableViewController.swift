@@ -113,6 +113,10 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
     }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -259,9 +263,11 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         if locationOne == "NONE" {
             cell.mapLocationButton.titleLabel?.text = ""
             cell.mapLocationButton.setTitle("", for: .normal)
+            cell.mapLocationButton.isEnabled = false
         }
         else {
             cell.mapLocationButton.setTitle(locationOne, for: .normal)
+            cell.mapLocationButton.isEnabled = true
         }
         
         cell.mapLocationButton.tag = indexPath.section

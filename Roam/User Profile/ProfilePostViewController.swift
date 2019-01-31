@@ -192,6 +192,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
             postFirstImageButton.setBackgroundImage(image, for: .normal)
             postFirstImageButton.setBackgroundImage(image, for: .selected)
         }
+        postFirstImageButton.imageView?.contentMode = .scaleAspectFit
     }
     
     func configure(_ post: Post, _ cellSelected: Int, _ usersPosts: Bool) {

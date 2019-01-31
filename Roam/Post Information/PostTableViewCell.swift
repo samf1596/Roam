@@ -41,7 +41,11 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var segueButtonForImages: UIButton!
     @IBOutlet weak var infoButton: UIButton!
     @IBOutlet weak var mapLocationButton: UIButton!
+    @IBOutlet weak var viewUserProfileButton: UIButton!
     
+    @IBAction func viewUserProfileAction(_ sender: Any) {
+        print("did something")
+    }
     
     
     var postID = String()
@@ -132,6 +136,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
+        globalPosterUsername.isHidden  = true
         globalCommentTextView.delegate = self
         globalCommentTextView.returnKeyType = .done
         storageRef = Storage.storage().reference()
