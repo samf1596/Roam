@@ -542,7 +542,7 @@ class PostsModel {
                 if snapshot.exists() {
                     let account = NewUser(snapshot: snapshot)
                     for post in self.cachedPosts {
-                        if account.username != post.username && post.isPublic == true{
+                        if account.username != post.username && post.isPublic == true {
                             self.globalPosts.append(post)
                         }
                     }

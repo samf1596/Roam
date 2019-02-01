@@ -291,7 +291,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
             self.navigationController?.navigationBar.topItem?.titleView = nil
             let button = sender as? UIButton
             let postIndex = button!.tag
-            let post = postsModel.postForGlobalSection(postIndex)
+            let post = postsModel.postForFollowingSection(postIndex)
             let mapViewController = segue.destination as! MapViewController
             mapViewController.configure(post.locations)
         case "ShowUserProfile":

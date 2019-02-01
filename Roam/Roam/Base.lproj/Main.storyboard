@@ -1971,12 +1971,12 @@
         <image name="user_male" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="W3A-eh-Aqr"/>
+        <segue reference="A1B-8b-ru2"/>
         <segue reference="eh3-r3-Xgq"/>
-        <segue reference="euU-zT-1Vi"/>
-        <segue reference="xnr-Oh-u9t"/>
+        <segue reference="qMU-jx-Lfh"/>
+        <segue reference="hg9-PE-Upv"/>
         <segue reference="Wxj-iE-yhv"/>
-        <segue reference="5Ad-bQ-TVm"/>
-        <segue reference="YUR-bK-kZF"/>
+        <segue reference="uEd-XA-raW"/>
+        <segue reference="zpS-8F-B8z"/>
     </inferredMetricsTieBreakers>
 </document>
