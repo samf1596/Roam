@@ -281,6 +281,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         cell.followButton.tag = indexPath.section
         cell.followButton.layer.cornerRadius = 4.0
         cell.globalPostFavButton.layer.cornerRadius = 4.0
+        cell.viewUserProfileButton.tag = indexPath.section
         if postsModel.postIdBookmarked(post) {
             cell.globalPostFavButton.backgroundColor = UIColor.orange//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
@@ -330,6 +331,11 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 let post = postsModel.postForGlobalSection(postIndex)
                 let mapViewController = segue.destination as! MapViewController
                 mapViewController.configure(post.locations)
+            case "ShowUserProfile":
+                let viewController = segue.destination as! ViewUserProfileCollectionViewController
+                let index = (sender as? UIButton)?.tag
+                viewController.configure(index!, "Global")
+                self.navigationController?.navigationBar.isHidden = false
             default:
                 assert(false, "Unhandled Segue")
         }

@@ -173,6 +173,9 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="GnJ-QY-zB8"/>
                                             </constraints>
+                                            <connections>
+                                                <segue destination="L3L-nP-D0e" kind="show" identifier="ShowUserProfile" id="W3A-eh-Aqr"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1968,11 +1971,12 @@
         <image name="user_male" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="W3A-eh-Aqr"/>
         <segue reference="eh3-r3-Xgq"/>
-        <segue reference="sbl-GS-dzn"/>
-        <segue reference="QET-EK-3Dg"/>
+        <segue reference="euU-zT-1Vi"/>
+        <segue reference="xnr-Oh-u9t"/>
         <segue reference="Wxj-iE-yhv"/>
-        <segue reference="lRo-i4-oHA"/>
-        <segue reference="EQV-EI-T5b"/>
+        <segue reference="5Ad-bQ-TVm"/>
+        <segue reference="YUR-bK-kZF"/>
     </inferredMetricsTieBreakers>
 </document>
