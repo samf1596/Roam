@@ -106,10 +106,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UlY-SZ-QAo">
-                                            <rect key="frame" x="312" y="27" width="55" height="19"/>
+                                            <rect key="frame" x="287" y="27" width="80" height="19"/>
                                             <color key="backgroundColor" red="0.40595656633377075" green="0.76684266328811646" blue="0.98042386770248413" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="55" id="1SI-wx-rAJ"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="1SI-wx-rAJ"/>
                                                 <constraint firstAttribute="height" constant="19" id="vCU-hi-qDF"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
@@ -1661,10 +1661,10 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x9k-kK-Erf">
-                                            <rect key="frame" x="293" y="27" width="74" height="19"/>
+                                            <rect key="frame" x="287" y="27" width="80" height="19"/>
                                             <color key="backgroundColor" red="0.23529411759999999" green="0.77647058820000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="74" id="J63-7Q-YfP"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="80" id="J63-7Q-YfP"/>
                                                 <constraint firstAttribute="height" constant="19" id="K3K-2H-0cf"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
