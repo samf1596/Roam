@@ -274,6 +274,50 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
         }
     }
     
+    @IBAction func moreOptions(_ sender: Any) {
+        let alert = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Report Post", style: .destructive) { (action) in
+            
+            self.databaseRef.child(FirebaseFields.Reported.rawValue).child(self.post!.postID).child("Times").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.exists(){
+                    print(snapshot)
+                    let count = snapshot.value as! Int
+                    
+                    if count + 1 > 2 {
+                        self.databaseRef.child(FirebaseFields.UnderReview.rawValue).child(self.post!.postID).setValue(true)
+                    }
+                    else {
+                        let post = self.databaseRef.child(FirebaseFields.Reported.rawValue).child(self.post!.postID)
+                        post.child("Times").setValue(count+1)
+                    }
+                }
+                else {
+                    let post = self.databaseRef.child(FirebaseFields.Reported.rawValue).child(self.post!.postID)
+                    post.child("Times").setValue(1)
+                }
+                let currentUser = self.databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
+                currentUser.child("Hidden").child(self.post!.postID).setValue(true)
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+            })
+        })
+        alert.addAction(UIAlertAction(title: "Hide Post", style: .destructive) { (action) in
+            let currentUser = self.databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
+            currentUser.child("Hidden").child(self.post!.postID).setValue(true)
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+        })
+        alert.addAction(UIAlertAction(title: "Block User", style: .destructive) { (action) in
+            let currentUser = self.databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
+            currentUser.child("Blocked").child(self.post!.username).setValue(true)
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     // MARK: - Navigation
 

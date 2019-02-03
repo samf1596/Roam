@@ -63,10 +63,16 @@ class PostExperienceDetailsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return experiences.count
+            if experiences.count > 0 && experiences[0] != "" {
+                return experiences.count
+            }
+            return 0
         }
         else if section == 1 {
-            return travels.count
+            if travels.count > 0 && travels[0] != "" {
+                return travels.count
+            }
+            return 0
         }
         else {
             return 0

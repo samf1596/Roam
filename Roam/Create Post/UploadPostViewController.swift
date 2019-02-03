@@ -120,7 +120,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     var imageURLSforUpload = [String]()
     var uploadCount = 0
     var selectedImageCount = 0
-    var textToUpload = "Add a description of your trip here..."
+    var textToUpload = "NOTEXT"
     
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
@@ -274,7 +274,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        textView.text = self.textToUpload != "Add a description of your trip here..." ? self.textToUpload : ""
+        textView.text = self.textToUpload != "NOTEXT" ? self.textToUpload : ""
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -340,9 +340,11 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         // if you want to used phasset.
     }
     func photoPickerDidCancel() {
+        /*
         selectedPictures = []
         slides = []
         resetScrollViewSlides()
+        */
     }
     func dismissComplete() {
         // picker viewcontroller dismiss completion
@@ -470,6 +472,32 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
 
     }
     
+    @IBAction func deletePost(_ sender: Any) {
+        let alertController = UIAlertController(title: "Confirm", message: "Are you sure you want to cancel this post?", preferredStyle: .actionSheet)
+ 
+        let yesAlert = UIAlertAction(title: "Yes", style: .default) { (action) in
+            self.selectedPictures = []
+            self.slides = []
+            self.resetScrollViewSlides()
+            self.descriptionTextView.text = "Add a description of your trip here..."
+            self.textToUpload = "NOTEXT"
+            self.selectedPictures = [TLPHAsset]()
+            self.imageURLSforUpload = [String]()
+            self.uploadCount = 0
+            self.selectedImageCount = 0
+            self.travels = [""]
+            self.experiences = [""]
+            self.publicOrPrivateSegmentedControl.selectedSegmentIndex = 0
+            self.selectedLocations = []
+        }
+        alertController.addAction(yesAlert)
+        
+        let cancelAlert = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        alertController.addAction(cancelAlert)
+        self.present(alertController, animated: true)
+    }
+    
+    
     func uploadSuccess(_ imagePath : [String]) {
         var uploadLocations = [String: [String:Double]]()
         
@@ -494,7 +522,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
         self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).setValue(post.toObject())
             self.descriptionTextView.text = "Add a description of your trip here..."
-            self.textToUpload = "Add a description of your trip here..."
+            self.textToUpload = "NOTEXT"
             self.selectedPictures = [TLPHAsset]()
             self.imageURLSforUpload = [String]()
             self.uploadCount = 0

@@ -26,13 +26,13 @@ class IndividualSignupViewController: UIViewController, UITextFieldDelegate {
     func registerUser() {
         Auth.auth().createUser(withEmail: previousInfo["EmailAddress"]!, password: previousInfo["Password"]!) { (user, error) in
             if error == nil {
-                
+
                 let firstname = self.previousInfo["FirstName"]!
                 let lastname = self.previousInfo["LastName"]!
-                let username = ""
+                let username = user?.user.uid
                 let email = user?.user.email
                 let userId = user?.user.uid
-                let newUser = NewUser(firstname: firstname, lastname: lastname, username: username, uid: userId!, email: email!)
+                let newUser = NewUser(firstname: firstname, lastname: lastname, username: username!, uid: userId!, email: email!)
                 
                 self.ref.child("Accounts").child(userId!).setValue(newUser.toObject());
                 
