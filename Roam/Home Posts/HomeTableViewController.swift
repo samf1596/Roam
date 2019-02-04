@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import FirebaseUI
 
 class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegate, PostTableViewCellDelegate, UITabBarControllerDelegate {
 
@@ -226,7 +227,9 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
 
         cell.delegate = self
         cell.infoButton.tag = indexPath.section
-        cell.globalPostImageView.image = postsModel.getCachedImage(post.postID+"\(0)")
+        
+        let storageImagePath = storageRef.storage.reference(forURL: post.imagePath[0])
+        cell.globalPostImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto")) //.image = postsModel.getCachedImage(post.postID+"\(0)")
         cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section

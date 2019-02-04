@@ -10,6 +10,8 @@
 		1B639BB35D83378B1873030D /* Pods_RoamTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15C84F842D42719D42562ED3 /* Pods_RoamTests.framework */; };
 		220EA52D21990200003ACC06 /* PostExperienceDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 220EA52C21990200003ACC06 /* PostExperienceDetailsTableViewController.swift */; };
 		222BBA0F2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BBA0E2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift */; };
+		222BBA1D22079CD100756CF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 222BBA1C22079CD000756CF0 /* GoogleService-Info.plist */; };
+		222BBA1E22079CD100756CF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 222BBA1C22079CD000756CF0 /* GoogleService-Info.plist */; };
 		224BB6BB21D549BE00E61EBC /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BB6BA21D549BE00E61EBC /* LocationTableViewCell.swift */; };
 		224FE81321DF0CEB0042B889 /* ProfilePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FE81221DF0CEB0042B889 /* ProfilePostViewController.swift */; };
 		2253B78B251E96E817067F4D /* Pods_Roam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDBA419BF38FDBF08906C46E /* Pods_Roam.framework */; };
@@ -33,8 +35,6 @@
 		22A18304218FF60500DE3AC4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A18303218FF60500DE3AC4 /* SignUpViewController.swift */; };
 		22A4211121C9B39500E64F3D /* ChooseLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A4211021C9B39500E64F3D /* ChooseLocationTableViewController.swift */; };
 		22A4211321CC472200E64F3D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A4211221CC472200E64F3D /* MapViewController.swift */; };
-		22A9B3F421EABE5B00193175 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22A9B3F321EABE5A00193175 /* GoogleService-Info.plist */; };
-		22A9B3F521EABE5B00193175 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22A9B3F321EABE5A00193175 /* GoogleService-Info.plist */; };
 		22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */; };
 		22B7517721A612ED004B5FEC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517621A612ED004B5FEC /* ProfileViewController.swift */; };
 		22B7517921A619A0004B5FEC /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */; };
@@ -65,6 +65,7 @@
 		15C84F842D42719D42562ED3 /* Pods_RoamTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RoamTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		220EA52C21990200003ACC06 /* PostExperienceDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExperienceDetailsTableViewController.swift; sourceTree = "<group>"; };
 		222BBA0E2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUserProfileCollectionViewController.swift; sourceTree = "<group>"; };
+		222BBA1C22079CD000756CF0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		224BB6BA21D549BE00E61EBC /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		224FE81221DF0CEB0042B889 /* ProfilePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostViewController.swift; sourceTree = "<group>"; };
 		225A945E218E43D800C14B6B /* Roam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roam.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,7 +91,6 @@
 		22A18303218FF60500DE3AC4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		22A4211021C9B39500E64F3D /* ChooseLocationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseLocationTableViewController.swift; sourceTree = "<group>"; };
 		22A4211221CC472200E64F3D /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapViewController.swift; path = "Post Information/MapViewController.swift"; sourceTree = SOURCE_ROOT; };
-		22A9B3F321EABE5A00193175 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		22B7516521A47FD6004B5FEC /* HomeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		22B7517621A612ED004B5FEC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		22B7517821A619A0004B5FEC /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 				225A9468218E43D900C14B6B /* Assets.xcassets */,
 				225A946A218E43D900C14B6B /* LaunchScreen.storyboard */,
 				225A946D218E43D900C14B6B /* Info.plist */,
-				22A9B3F321EABE5A00193175 /* GoogleService-Info.plist */,
+				222BBA1C22079CD000756CF0 /* GoogleService-Info.plist */,
 			);
 			path = Roam;
 			sourceTree = "<group>";
@@ -368,7 +368,7 @@
 			files = (
 				225A946C218E43D900C14B6B /* LaunchScreen.storyboard in Resources */,
 				22F2BED021FD163F000F47B6 /* ImageSlide.xib in Resources */,
-				22A9B3F421EABE5B00193175 /* GoogleService-Info.plist in Resources */,
+				222BBA1D22079CD100756CF0 /* GoogleService-Info.plist in Resources */,
 				225A9469218E43D900C14B6B /* Assets.xcassets in Resources */,
 				225A9467218E43D800C14B6B /* Main.storyboard in Resources */,
 			);
@@ -378,7 +378,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A9B3F521EABE5B00193175 /* GoogleService-Info.plist in Resources */,
+				222BBA1E22079CD100756CF0 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +430,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Roam/Pods-Roam-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/TLPhotoPicker/TLPhotoPicker.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -438,6 +439,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TLPhotoPicker.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -649,17 +651,19 @@
 			baseConfigurationReference = 85DA8AB04C1FF571B3AC644E /* Pods-Roam.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U3Y4H3FKHQ;
+				DEVELOPMENT_TEAM = 42E68FFSUE;
 				INFOPLIST_FILE = Roam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sfoxpro.Roam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sfoxpro.roumnew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -668,17 +672,19 @@
 			baseConfigurationReference = 3B581254E6D9073F72B698E6 /* Pods-Roam.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U3Y4H3FKHQ;
+				DEVELOPMENT_TEAM = 42E68FFSUE;
 				INFOPLIST_FILE = Roam/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sfoxpro.Roam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sfoxpro.roumnew;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -12,7 +12,7 @@ class LoadingScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Roam"
+        self.title = "Roum"
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])

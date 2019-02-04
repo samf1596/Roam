@@ -56,7 +56,7 @@ class IndividualSignupViewController: UIViewController, UITextFieldDelegate {
         infoTextField.delegate = self
         infoTextField.becomeFirstResponder()
         
-        self.title = "Signup for Roam!"
+        self.title = "Signup for Roum!"
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])

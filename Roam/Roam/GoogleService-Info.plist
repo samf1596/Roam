@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>247829114127-oc1u6bddip9qfsufnc8ah56q6bv3vs98.apps.googleusercontent.com</string>
+	<string>549205418956-b4lf2vbntmhn08sav4t4a0a1s7ljfr8e.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.247829114127-oc1u6bddip9qfsufnc8ah56q6bv3vs98</string>
+	<string>com.googleusercontent.apps.549205418956-b4lf2vbntmhn08sav4t4a0a1s7ljfr8e</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBOiTYLhPxgj9KFNuh9ulxsfxu4fkzRBzI</string>
+	<string>AIzaSyCGngebbMZicxz-JDBPO56kQBeSNmCbllk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>247829114127</string>
+	<string>549205418956</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sfoxpro.Roam</string>
+	<string>com.sfoxpro.roumnew</string>
 	<key>PROJECT_ID</key>
-	<string>travel-project-fb3df</string>
+	<string>roum-cced2</string>
 	<key>STORAGE_BUCKET</key>
-	<string>travel-project-fb3df.appspot.com</string>
+	<string>roum-cced2.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:247829114127:ios:b118df4e7858d923</string>
+	<string>1:549205418956:ios:0dc67f843d39dd42</string>
 	<key>DATABASE_URL</key>
-	<string>https://travel-project-fb3df.firebaseio.com</string>
+	<string>https://roum-cced2.firebaseio.com</string>
 </dict>
 </plist>

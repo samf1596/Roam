@@ -412,7 +412,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             
             let imageToUploadResized = resizeImage(image: selectedImage.fullResolutionImage!, targetSize: CGSize(width: 800, height: 600))
             
-            let image = imageToUploadResized.jpegData(compressionQuality: 0.55)
+            let image = imageToUploadResized.jpegData(compressionQuality: 0.65)
             let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
             
             /*
@@ -512,6 +512,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         }
         
         print(uploadLocations)
+        if self.textToUpload == "" {
+            self.textToUpload = "NOTEXT"
+        }
         
         var account : NewUser?
         databaseRef.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
@@ -542,7 +545,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        self.descriptionTextView.text = "Add a description of your trip here..."
+        self.descriptionTextView.text = textToUpload != "NOTEXT" ? textToUpload : "Add a description of your trip here..."
     }
     
     func saveExperiences(_ experiences: [String]) {
@@ -554,7 +557,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     // MARK: - Navigation
 
     @IBAction func unwindToUploadPost(segue:UIStoryboardSegue) {
-        self.descriptionTextView.text = self.textToUpload
+        self.descriptionTextView.text = self.textToUpload != "NOTEXT" ? self.textToUpload : "Add a description of your trip here..."
     }
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -563,14 +566,14 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
          case "AddExperiences":
             let impact = UIImpactFeedbackGenerator(style: .medium)
             impact.impactOccurred()
-            self.textToUpload = self.descriptionTextView.text
+            self.textToUpload = self.textToUpload != "NOTEXT" ? self.descriptionTextView.text : "NOTEXT"
             let experiencesController = segue.destination as! ExperiencesTableViewController
             //let experiencesController = navController.topViewController as! ExperiencesTableViewController
             experiencesController.delegate = self
          case "AddTravel":
             let impact = UIImpactFeedbackGenerator(style: .medium)
             impact.impactOccurred()
-            self.textToUpload = self.descriptionTextView.text
+            self.textToUpload = self.textToUpload != "NOTEXT" ? self.descriptionTextView.text : "NOTEXT"
             let travelController = segue.destination as! FlightsStaysTableViewController
             //let travelController = navController.topViewController as! FlightsStaysTableViewController
             travelController.delegate = self

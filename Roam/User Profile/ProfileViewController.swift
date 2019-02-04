@@ -101,21 +101,25 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCell", for: indexPath) as! ProfileCollectionViewCell
-        
+
         if collectionToShow == "BookmarkedPosts"{
             let imagePath = postModel.imagePathForBookmarkedPost(indexPath.row, 0)
             let post = postModel.postForBookmarkedSection(indexPath.row)
             
-            postModel.downloadBookmarkedImage(indexPath.row, imagePath, post.postID)
-            cell.postImageView.image = postModel.getCachedImage(post.postID+"\(0)")
+            //postModel.downloadBookmarkedImage(indexPath.row, imagePath, post.postID)
+            //cell.postImageView.image = postModel.getCachedImage(post.postID+"\(0)")
+            let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
             cell.post = post
         }
         else {
             let imagePath = postModel.imagePathForUsersPost(indexPath.row,0)
             let post = postModel.postForUsersSection(indexPath.row)
             
-            postModel.downloadUsersPostImage(indexPath.row, imagePath, post.postID)
-            cell.postImageView.image = postModel.getCachedImage(post.postID+"\(0)")
+            //postModel.downloadUsersPostImage(indexPath.row, imagePath, post.postID)
+            //cell.postImageView.image = postModel.getCachedImage(post.postID+"\(0)")
+            let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
             cell.post = post
         }
         return cell

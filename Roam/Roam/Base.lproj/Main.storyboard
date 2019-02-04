@@ -1019,7 +1019,7 @@
                     </view>
                     <connections>
                         <outlet property="infoTextField" destination="IVR-H8-VRp" id="4dc-ds-ULJ"/>
-                        <segue destination="CAC-4Y-Muz" kind="show" identifier="SignupToHomeSegue" id="Bsm-Vt-RYb"/>
+                        <segue destination="CAC-4Y-Muz" kind="showDetail" identifier="SignupToHomeSegue" id="Bsm-Vt-RYb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o4Z-x1-I8v" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1985,7 +1985,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="A1B-8b-ru2"/>
-        <segue reference="eh3-r3-Xgq"/>
+        <segue reference="Bsm-Vt-RYb"/>
         <segue reference="qMU-jx-Lfh"/>
         <segue reference="hg9-PE-Upv"/>
         <segue reference="Wxj-iE-yhv"/>

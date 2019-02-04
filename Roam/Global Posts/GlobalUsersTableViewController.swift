@@ -273,7 +273,9 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         cell.mapLocationButton.tag = indexPath.section
         cell.delegate = self
         cell.infoButton.tag = indexPath.section
-        cell.globalPostImageView.image = postsModel.getCachedImage(post.postID+"\(0)")
+        
+        let storageImagePath = storageRef.storage.reference(forURL: post.imagePath[0])
+        cell.globalPostImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section

@@ -35,9 +35,12 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     var post: Post? {
         didSet {
             if let post = post {
+                print("")
+                /*
                 if postImageView.image == nil {
                     downloadImage(from: post.imagePath[0])
                 }
+                */
             }
         }
     }

@@ -53,12 +53,14 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     var post: Post? {
         didSet {
             if let post = post {
+                /*
                 if globalPostImageView.image == nil {
                     downloadImage(from: post.imagePath[0])
                 }
+                */
                 globalPostersName.text = post.addedByUser
                 globalPosterUsername.text = post.username
-                globalPostDescriptionTextView.text = post.description
+                globalPostDescriptionTextView.text = post.description == "NOTEXT" ? "" : post.description
                 globalCommentTextView.text = "Leave a comment"
                 postID = post.postID
                 

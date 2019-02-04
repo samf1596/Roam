@@ -42,6 +42,11 @@ PODS:
     - FirebaseAuthInterop (~> 1.0)
     - FirebaseCore (~> 5.1)
     - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseUI/Database (5.2.2):
+    - Firebase/Database (~> 5.0)
+  - FirebaseUI/Storage (5.2.2):
+    - Firebase/Storage (~> 5.0)
+    - SDWebImage (~> 4.0)
   - GoogleAppMeasurement (5.4.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -73,6 +78,9 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - SDWebImage (4.4.3):
+    - SDWebImage/Core (= 4.4.3)
+  - SDWebImage/Core (4.4.3)
   - TLPhotoPicker (1.7.8)
 
 DEPENDENCIES:
@@ -80,6 +88,8 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
+  - FirebaseUI/Database (~> 5.0)
+  - FirebaseUI/Storage (~> 5.0)
   - TLPhotoPicker
 
 SPEC REPOS:
@@ -92,11 +102,13 @@ SPEC REPOS:
     - FirebaseDatabase
     - FirebaseInstanceID
     - FirebaseStorage
+    - FirebaseUI
     - GoogleAppMeasurement
     - GoogleUtilities
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - SDWebImage
     - TLPhotoPicker
 
 SPEC CHECKSUMS:
@@ -108,13 +120,15 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 0621689f77528d62b47e1c06ca737c4c19275d1a
   FirebaseInstanceID: e2fa4cb35ef5558c200f7f0ad8a53e212215f93e
   FirebaseStorage: 3d22c041370593e639fba013d1eb698a8dae2881
+  FirebaseUI: 09519bf436a055cd696bf68687d624423150e4c0
   GoogleAppMeasurement: 98b71f5e04142793729a5ef23e5b96651ff4b70f
   GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
   TLPhotoPicker: bf191c78f50aea0ee6785ce3499556164b014339
 
-PODFILE CHECKSUM: 4e9e1d2aa1c0f53a471c79321ec8001f28f403a0
+PODFILE CHECKSUM: 36082ea754fcd8aa85ff10408b4a70c6035b5e3e
 
 COCOAPODS: 1.5.3

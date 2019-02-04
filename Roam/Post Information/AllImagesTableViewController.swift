@@ -7,9 +7,15 @@
 //
 
 import UIKit
+import FirebaseUI
+import Firebase
 
 class AllImagesTableViewController: UITableViewController {
 
+    
+    fileprivate var ref : DatabaseReference!
+    fileprivate var storageRef : StorageReference!
+    
     var images = [UIImage]()
     var imageURLS = [String]()
     var postIndex = Int()
@@ -34,6 +40,9 @@ class AllImagesTableViewController: UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ref = Database.database().reference()
+        storageRef = Storage.storage().reference()
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
@@ -83,33 +92,42 @@ class AllImagesTableViewController: UITableViewController {
             let post = postsModel.postForGlobalSection(postIndex)
             
             let imagePath = postsModel.imagePathForGlobalPost(postIndex, indexPath.row)
-            postsModel.downloadGlobalImage(indexPath, imagePath, post.postID)
+            //postsModel.downloadGlobalImage(indexPath, imagePath, post.postID)
             
-            cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }
         if whichPosts == "Home" {
             let post = postsModel.postForFollowingSection(postIndex)
             let imagePath = postsModel.imagePathForFollowingPost(postIndex, indexPath.row)
-            postsModel.downloadFollowingImage(indexPath, imagePath, post.postID)
-            cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            //postsModel.downloadFollowingImage(indexPath, imagePath, post.postID)
+            
+            let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }
         if whichPosts == "User" {
             let post = postsModel.postForUsersSection(postIndex)
             let imagePath = postsModel.imagePathForUsersPost(postIndex, indexPath.row)
-            postsModel.downloadUsersPostImage(postIndex, imagePath, post.postID)
-            cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            //postsModel.downloadUsersPostImage(postIndex, imagePath, post.postID)
+            
+            let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }
         if whichPosts == "Bookmarked" {
             let post = postsModel.postForBookmarkedSection(postIndex)
             let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, indexPath.row)
-            postsModel.downloadBookmarkedImage(postIndex, imagePath, post.postID)
-            cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            //postsModel.downloadBookmarkedImage(postIndex, imagePath, post.postID)
+            
+            let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }
         if whichPosts == "ViewUserProfile" {
             let post = postsModel.postForUserPostToViewSection(postIndex)
             let imagePath = postsModel.imagePathForUserToViewPost(postIndex, indexPath.row)
-            postsModel.downloadUsersPostToViewImage(postIndex, imagePath, post.postID)
-            cell.postImageView.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            //postsModel.downloadUsersPostToViewImage(postIndex, imagePath, post.postID)
+            
+            let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
         }
 
         return cell

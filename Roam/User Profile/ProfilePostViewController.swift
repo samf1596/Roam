@@ -183,17 +183,21 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
         postDetailsTextView.text = post?.description
         if viewUserProfile {
                 let imagePath = postsModel.imagePathForUserToViewPost(postIndex, 0)
-                postsModel.downloadUsersPostToViewImage(postIndex, imagePath, post!.postID)
+                //postsModel.downloadUsersPostToViewImage(postIndex, imagePath, post!.postID)
+                let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+                firstImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
             
+                /*
                 let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
                 firstImageView.image = image
+                */
         } else {
             if usersPosts {
                 let imagePath = postsModel.imagePathForUsersPost(postIndex, 0)
                 postsModel.downloadUsersPostImage(postIndex, imagePath, post!.postID)
                 
-                let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
-                firstImageView.image = image
+                let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+                firstImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
                 //postFirstImageButton.setBackgroundImage(image, for: .normal)
                 //postFirstImageButton.setBackgroundImage(image, for: .selected)
             }
@@ -201,8 +205,8 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
                 let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, 0)
                 postsModel.downloadBookmarkedImage(postIndex, imagePath, post!.postID)
 
-                let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
-                firstImageView.image = image
+                let storageImagePath = storageRef.storage.reference(forURL: imagePath)
+                firstImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
                 //postFirstImageButton.setBackgroundImage(image, for: .normal)
                 //postFirstImageButton.setBackgroundImage(image, for: .selected)
             }

@@ -11,6 +11,11 @@ target 'Roam' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'TLPhotoPicker'
+  # Only pull in FirebaseUI Database features
+  pod 'FirebaseUI/Database', '~> 5.0'
+
+  # Only pull in FirebaseUI Storage features
+  pod 'FirebaseUI/Storage', '~> 5.0'
 
   target 'RoamTests' do
     inherit! :search_paths
