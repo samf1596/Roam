@@ -107,15 +107,15 @@ class ChooseLocationTableViewController: UITableViewController, UISearchBarDeleg
         searchBar.resignFirstResponder()
         self.locationsToDisplay = []
         self.tableView.reloadData()
-        searchBar.showsCancelButton = false
+        searchBar.setShowsCancelButton(false, animated: true)
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
+        searchBar.setShowsCancelButton(true, animated: true)
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
+        searchBar.setShowsCancelButton(false, animated: true)
     }
     
     // MARK: - Table view data source

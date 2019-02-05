@@ -89,10 +89,16 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.globalTableView.tintColor = UIColor.white
                 self.globalTableView.backgroundColor = UIColor.gray
+                let proxy = UISearchBar.appearance()
+                proxy.keyboardAppearance = .dark
+                //(self.navigationController?.navigationBar.topItem?.titleView as! UISearchBar).keyboardAppearance = .dark
             }
             else {
                 self.globalTableView.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.globalTableView.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                let proxy = UISearchBar.appearance()
+                proxy.keyboardAppearance = .light
+                //(self.navigationController?.navigationBar.topItem?.titleView.keyboardAppearance = .light
             }
         }
     }
@@ -103,13 +109,13 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        searchBar.showsCancelButton = false
+        searchBar.setShowsCancelButton(false, animated: true)
         postsModel.searchCanceled()
         self.tableView.reloadData()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = true
+        searchBar.setShowsCancelButton(true, animated: true)
         if let text = searchBar.text {
             postsModel.filterGlobalPostsForLocation(text)
             self.tableView.reloadData()
@@ -122,10 +128,11 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchBar.showsCancelButton = false
+        //searchBar.setShowsCancelButton(false, animated: true)
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
         if let text = searchBar.text {
             postsModel.filterGlobalPostsForLocation(text)
             self.tableView.reloadData()
