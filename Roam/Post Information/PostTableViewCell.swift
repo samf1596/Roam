@@ -185,7 +185,15 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBAction func bookmarkPost(_ sender: Any) {
         if globalPostFavButton.backgroundColor == UIColor.orange {//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0) {
             globalPostFavButton.backgroundColor = UIColor.clear
-            self.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
+            
+            if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+                self.globalPostFavButton.setImage(UIImage(named: "bookmark"), for: .normal)
+                self.globalPostFavButton.setImage(UIImage(named: "bookmark"), for: .selected)
+            }
+            else {
+                self.globalPostFavButton.setImage(UIImage(named: "bookmark-white"), for: .normal)
+                self.globalPostFavButton.setImage(UIImage(named: "bookmark-white"), for: .selected)
+            }
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("Bookmarks").child(postID).removeValue()
             let selection = UISelectionFeedbackGenerator()
