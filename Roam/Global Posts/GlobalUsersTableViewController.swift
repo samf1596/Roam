@@ -104,17 +104,32 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
+        postsModel.searchCanceled()
+        self.tableView.reloadData()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
+        if let text = searchBar.text {
+            postsModel.filterGlobalPostsForLocation(text)
+            self.tableView.reloadData()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            postsModel.filterGlobalPostsForLocation(searchText)
+            self.tableView.reloadData()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
     }
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+        if let text = searchBar.text {
+            postsModel.filterGlobalPostsForLocation(text)
+            self.tableView.reloadData()
+        }
     }
     
     override func viewDidLoad() {
@@ -126,7 +141,8 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         searchBar.sizeToFit()
         searchBar.barStyle = .default
         searchBar.delegate = self
-        searchBar.placeholder = "Search locations"
+        searchBar.placeholder = "Search locations and people"
+        //searchBar.scopeButtonTitles = ["Locations", "People"]
         self.navigationController?.navigationBar.topItem?.titleView = searchBar
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
@@ -198,7 +214,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         searchBar.sizeToFit()
         searchBar.barStyle = .default
         searchBar.delegate = self
-        searchBar.placeholder = "Search locations"
+        searchBar.placeholder = "Search locations and people"
         self.navigationController?.navigationBar.topItem?.titleView = searchBar
         super.viewDidAppear(animated)
     }

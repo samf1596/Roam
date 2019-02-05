@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 import CoreData
 import MapKit
+import FirebaseUI
 
 // MARK: - ENUMS for attributes
 enum FirebaseFields: String {
@@ -161,6 +162,7 @@ class PostsModel {
     fileprivate var followingPosts = [Post]()
     fileprivate var bookmarkedPosts = [Post]()
     fileprivate var globalPosts = [Post]()
+    fileprivate var searchingGlobalPosts = [Post]()
     fileprivate var usersPosts = [Post]()
     fileprivate var userPostsToView = [Post]()
     fileprivate var bookmarkedPostIds = [String]()
@@ -249,9 +251,25 @@ class PostsModel {
         return imageCache.object(forKey: imageURL+".jpg" as AnyObject) as? UIImage
     }
     
+    static let dataDownloaded = Notification.Name("dataDownloaded")
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: PostsModel.dataDownloaded, object: nil)
+    }
+    
+    @objc func onNotification(notification:Notification) {
+        if notification.name == Notification.Name("dataDownloaded") {
+            (notification.userInfo!["tableView"] as! UITableView).reloadData()
+            (notification.userInfo!["refreshControl"] as! UIRefreshControl).endRefreshing()
+        }
+        
+    }
     fileprivate init(){
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: PostsModel.dataDownloaded, object: nil)
+        
         /*
         getBlockedUsers()
         getHiddenPosts()
@@ -261,51 +279,79 @@ class PostsModel {
         */
         // This call will run getBlockedUsers/getHiddenPosts and then call downloadPosts once it is done it's own operation
         // MARK - TODO: Make this better
+        /*
+        let allPosts = FUIArray(query:
+            ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
+                var posts = [Post]()
+                for postSnapshot in snapshot.children {
+                    let post = Post(snapshot: postSnapshot as! DataSnapshot)
+                    // only append if not in Hidden or Blocked Posts
+                    if !(self.blockedUsers.contains(post.username)) && !self.postsUnderReview.contains(post.postID) && !self.hiddenPostIds.contains(post.postID){
+                        posts.append(post)
+                    }
+                }
+                self.posts = posts
+                let block = {
+                    self.cachedPosts = self.posts.reversed()
+                    self.findBookmarkedPosts()
+                    self.findFollowingPosts()
+                    self.findUsersPosts()
+                    self.findGlobalPosts()
+                }
+                DispatchQueue.main.async(execute: block)
+                } as! FUIDataObservable)//[Post]()
+        */
         getReportedPosts()
     }
     
     func getBlockedUsers(_ download: Bool = true) {
-        self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Blocked").observe(.value) { (snapshot) in
-            var _blockedUsers = [String]()
-            for postSnapshot in snapshot.children {
-                _blockedUsers.append((postSnapshot as! DataSnapshot).key)
-            }
-            self.blockedUsers = _blockedUsers
-            if download == true {
-                self.downloadPosts()
+        if Auth.auth().currentUser != nil {
+            self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Blocked").observe(.value) { (snapshot) in
+                var _blockedUsers = [String]()
+                for postSnapshot in snapshot.children {
+                    _blockedUsers.append((postSnapshot as! DataSnapshot).key)
+                }
+                self.blockedUsers = _blockedUsers
+                if download == true {
+                    self.downloadPosts()
+                }
             }
         }
     }
     
     func getHiddenPosts(_ download: Bool = true) {
-        self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Hidden").observe(.value) { (snapshot) in
-            var _hiddenPostIds = [String]()
-            for postSnapshot in snapshot.children {
-                _hiddenPostIds.append((postSnapshot as! DataSnapshot).key)
-            }
-            self.hiddenPostIds = _hiddenPostIds
-            if download == true {
-                self.downloadPosts()
+        if Auth.auth().currentUser != nil {
+            self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Hidden").observe(.value) { (snapshot) in
+                var _hiddenPostIds = [String]()
+                for postSnapshot in snapshot.children {
+                    _hiddenPostIds.append((postSnapshot as! DataSnapshot).key)
+                }
+                self.hiddenPostIds = _hiddenPostIds
+                if download == true {
+                    self.downloadPosts()
+                }
             }
         }
     }
 
-    func getReportedPosts() {
-        self.ref.child(FirebaseFields.UnderReview.rawValue).observe(.value) { (snapshot) in
-            self.getHiddenPosts(false)
-            self.getBlockedUsers(false)
-            var _postsUnderReview = [String]()
-            for postSnapshot in snapshot.children {
-                if ((postSnapshot as! DataSnapshot).value as! Int) >= 3 {
-                    _postsUnderReview.append((postSnapshot as! DataSnapshot).key)
+    func getReportedPosts(forThis tableView: UITableView? = nil, with refreshControl: UIRefreshControl? = nil) {
+        if Auth.auth().currentUser != nil {
+            self.ref.child(FirebaseFields.UnderReview.rawValue).observe(.value) { (snapshot) in
+                self.getHiddenPosts(false)
+                self.getBlockedUsers(false)
+                var _postsUnderReview = [String]()
+                for postSnapshot in snapshot.children {
+                    if ((postSnapshot as! DataSnapshot).value as! Int) >= 3 {
+                        _postsUnderReview.append((postSnapshot as! DataSnapshot).key)
+                    }
                 }
+                self.postsUnderReview = _postsUnderReview
+                self.downloadPosts(forThis: tableView, with: refreshControl)
             }
-            self.postsUnderReview = _postsUnderReview
-            self.downloadPosts()
         }
     }
     
-    func downloadPosts() {
+    func downloadPosts(forThis tableView: UITableView? = nil, with refreshControl: UIRefreshControl? = nil) {
         ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
             var posts = [Post]()
             for postSnapshot in snapshot.children {
@@ -316,6 +362,21 @@ class PostsModel {
                 }
             }
             self.posts = posts
+            
+            self.cachedPosts = self.posts.reversed()
+            self.findBookmarkedPosts()
+            self.findFollowingPosts()
+            self.findUsersPosts()
+            self.findGlobalPosts()
+            
+            if let tempTableView = tableView {
+                let block = {
+                    tempTableView.reloadData()
+                    refreshControl!.endRefreshing()
+                }
+                DispatchQueue.main.async(execute: block)
+            }
+            /*
             let block = {
                 self.cachedPosts = self.posts.reversed()
                 self.findBookmarkedPosts()
@@ -324,16 +385,17 @@ class PostsModel {
                 self.findGlobalPosts()
             }
             DispatchQueue.main.async(execute: block)
+            */
         }
     }
     
     func refreshContent(for tableView: UITableView, with refreshControl: UIRefreshControl?) {
         let block = {
-            //self.getReportedPosts()
+            self.getReportedPosts(forThis: tableView, with: refreshControl)
             self.cachedPosts = self.posts.reversed()
             // MARK - TODO: only reload data when all posts collection is done
-            tableView.reloadData()
-            refreshControl?.endRefreshing()
+            //tableView.reloadData()
+            //refreshControl?.endRefreshing()
         }
         DispatchQueue.main.async(execute: block)
     }
@@ -607,6 +669,25 @@ class PostsModel {
         
     }
     
+    func filterGlobalPostsForLocation(_ location: String) {
+        var _tempPosts = [Post]()
+        if searchingGlobalPosts.count > 0 {
+            self.globalPosts = self.searchingGlobalPosts
+        }
+        for post in globalPosts {
+            let locations = post.locations.keys
+            let stringRepresentation = (locations.joined() as String).lowercased()
+            //print(stringRepresentation)
+            if stringRepresentation.contains(location.lowercased()) || post.addedByUser.lowercased().contains(location.lowercased()){
+                _tempPosts.append(post)
+            }
+        }
+        self.searchingGlobalPosts = self.globalPosts
+        self.globalPosts = _tempPosts
+    }
+    func searchCanceled() {
+        self.globalPosts = self.searchingGlobalPosts
+    }
     func clearFollowingUsersAndBookmarks() {
         self.usersPosts = []
         self.followingPosts = []

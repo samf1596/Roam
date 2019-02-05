@@ -24,6 +24,8 @@ class IndividualSignupViewController: UIViewController, UITextFieldDelegate {
     }
     
     func registerUser() {
+        previousInfo["EmailAddress"]! = previousInfo["EmailAddress"]!.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        
         Auth.auth().createUser(withEmail: previousInfo["EmailAddress"]!, password: previousInfo["Password"]!) { (user, error) in
             if error == nil {
 

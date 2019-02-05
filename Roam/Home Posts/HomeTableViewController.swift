@@ -128,6 +128,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
+        
     }
 
     @objc func didSwipe(_ sender: UISwipeGestureRecognizer) {

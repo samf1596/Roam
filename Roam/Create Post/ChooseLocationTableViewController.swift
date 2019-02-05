@@ -166,7 +166,7 @@ class ChooseLocationTableViewController: UITableViewController, UISearchBarDeleg
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             let cell = tableView.cellForRow(at: indexPath) as! LocationTableViewCell
-            if cell.location != nil {
+            if cell.location != nil && !locationsSelected.contains(cell.location!) {
                 locationsSelected.append(cell.location!)
             }
             tableView.reloadData()
