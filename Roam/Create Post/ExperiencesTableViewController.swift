@@ -20,8 +20,8 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
     let model = Experiences.sharedExperiencesInstance
     
     struct TaskSection {
-        static let tasks = 0
-        static let add = 1
+        static let tasks = 1
+        static let add = 2
     }
     
     @objc func onNotification(notification:Notification) {
@@ -89,11 +89,20 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return isAdding ? 2 : 1
+        return isAdding ? 3 : 2
     }
 
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Add some things that you did..."
+        }
+        return nil
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
+        case 0:
+            return 0
         case TaskSection.tasks:
             return model.experiencesCount
         case TaskSection.add:
@@ -122,7 +131,10 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
  
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
+        if indexPath.section != 0 {
+            return .delete
+        }
+        return .none
     }
     
     
@@ -136,7 +148,11 @@ class ExperiencesTableViewController: UITableViewController, UITextFieldDelegate
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        if indexPath.section != 0 {
+            return true
+        } else {
+            return false
+        }
     }
     
     // Override to support editing the table view.

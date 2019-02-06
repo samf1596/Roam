@@ -19,8 +19,8 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
     let model = TravelInfo.sharedTravelsInstance
     
     struct TaskSection {
-        static let tasks = 0
-        static let add = 1
+        static let tasks = 1
+        static let add = 2
     }
     
     @objc func onNotification(notification:Notification) {
@@ -88,11 +88,13 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return isAdding ? 2 : 1
+        return isAdding ? 3 : 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
+        case 0:
+            return 0
         case TaskSection.tasks:
             return model.travelsCount
         case TaskSection.add:
@@ -101,6 +103,13 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
             assert(false, "Unhandled Section Number")
         }
         return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "How'd you get here? Where'd you stay?"
+        }
+        return nil
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -121,7 +130,10 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
     
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .delete
+        if indexPath.section != 0 {
+            return .delete
+        }
+        return .none
     }
     
     
@@ -134,7 +146,11 @@ class FlightsStaysTableViewController: UITableViewController, UITextFieldDelegat
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        if indexPath.section != 0 {
+            return true
+        } else {
+            return false
+        }
     }
     
     // Override to support editing the table view.
