@@ -101,10 +101,10 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalPostersName.textColor = UIColor.white
                 self.globalCommentTextView.keyboardAppearance = .dark
                 
-                self.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
-                self.viewCommentsButton.imageView?.image = UIImage(named: "comments-white")
-                self.infoButton.imageView?.image = UIImage(named: "ellipsis-white")
-                self.globalPostExperienceDetails.imageView?.image = UIImage(named: "details-white")
+                self.globalPostFavButton.setImage(UIImage(named: "bookmark-white"), for: .normal)
+                self.viewCommentsButton.setImage(UIImage(named: "comments-white"), for: .normal)
+                self.infoButton.setImage(UIImage(named: "ellipsis-white"), for: .normal)
+                self.globalPostExperienceDetails.setImage(UIImage(named: "details-white"), for: .normal)
                 
                 mapLocationButton.backgroundColor = UIColor.darkGray
                 mapLocationButton.setTitleColor(UIColor.white, for: .normal)
@@ -122,10 +122,10 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalPostersName.textColor = UIColor.darkText
                 self.globalCommentTextView.keyboardAppearance = .default
                 
-                self.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
-                self.viewCommentsButton.imageView?.image = UIImage(named: "comments")
-                self.infoButton.imageView?.image = UIImage(named: "ellipsis")
-                self.globalPostExperienceDetails.imageView?.image = UIImage(named: "details")
+                self.globalPostFavButton.setImage(UIImage(named: "bookmark"), for: .normal)
+                self.viewCommentsButton.setImage(UIImage(named: "comments"), for: .normal)
+                self.infoButton.setImage(UIImage(named: "ellipsis"), for: .normal)
+                self.globalPostExperienceDetails.setImage(UIImage(named: "details"), for: .normal)
                 
                 mapLocationButton.backgroundColor = UIColor.white
                 mapLocationButton.setTitleColor(UIColor.black, for: .normal)

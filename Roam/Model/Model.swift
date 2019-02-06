@@ -387,6 +387,7 @@ class PostsModel {
             DispatchQueue.main.async(execute: block)
             */
         }
+        
     }
     
     func refreshContent(for tableView: UITableView, with refreshControl: UIRefreshControl?) {
@@ -687,6 +688,7 @@ class PostsModel {
     }
     func searchCanceled() {
         self.globalPosts = self.searchingGlobalPosts
+        self.searchingGlobalPosts = []
     }
     func clearFollowingUsersAndBookmarks() {
         self.usersPosts = []

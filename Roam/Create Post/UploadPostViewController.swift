@@ -55,27 +55,28 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         let pageIndex = round(scrollView.contentOffset.x/view.frame.width)
         pageControl.currentPage = Int(pageIndex)
         
-        let maximumHorizontalOffset: CGFloat = scrollView.contentSize.width - scrollView.frame.width
-        let currentHorizontalOffset: CGFloat = scrollView.contentOffset.x
+        //let maximumHorizontalOffset: CGFloat = scrollView.contentSize.width - scrollView.frame.width
+        //let currentHorizontalOffset: CGFloat = scrollView.contentOffset.x
         
         // vertical
-        let maximumVerticalOffset: CGFloat = scrollView.contentSize.height - scrollView.frame.height
-        let currentVerticalOffset: CGFloat = scrollView.contentOffset.y
+        //let maximumVerticalOffset: CGFloat = scrollView.contentSize.height - scrollView.frame.height
+        //let currentVerticalOffset: CGFloat = scrollView.contentOffset.y
         
 
-        let percentageHorizontalOffset: CGFloat = currentHorizontalOffset / maximumHorizontalOffset
-        let percentageVerticalOffset: CGFloat = currentVerticalOffset / maximumVerticalOffset
+        //let percentageHorizontalOffset: CGFloat = currentHorizontalOffset / maximumHorizontalOffset
+        //let percentageVerticalOffset: CGFloat = currentVerticalOffset / maximumVerticalOffset
  
+        /*
         /*
          * below code changes the background color of view on paging the scrollview
          */
-        //        self.scrollView(scrollView, didScrollToPercentageOffset: percentageHorizontalOffset)
+        //self.scrollView(scrollView, didScrollToPercentageOffset: percentageHorizontalOffset)
         
         
         /*
          * below code scales the imageview on paging the scrollview
          */
-        /*
+        
         let percentOffset: CGPoint = CGPoint(x: percentageHorizontalOffset, y: percentageVerticalOffset)
         
         if(percentOffset.x > 0 && percentOffset.x <= 0.25) {
@@ -206,7 +207,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
         scrollView.delegate = self
         
-        resetScrollViewSlides()
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: UploadPostViewController.uploadedImage, object: nil)
         
@@ -237,6 +238,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         addImageGesture.numberOfTapsRequired = 1
         scrollView.addGestureRecognizer(addImageGesture)
         //uploadImageView.addGestureRecognizer(addImageGesture)
+        resetScrollViewSlides()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -481,8 +483,8 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             self.resetScrollViewSlides()
             self.descriptionTextView.text = "Add a description of your trip here..."
             self.textToUpload = "NOTEXT"
-            self.selectedPictures = [TLPHAsset]()
-            self.imageURLSforUpload = [String]()
+            self.selectedPictures = []
+            self.imageURLSforUpload = []
             self.uploadCount = 0
             self.selectedImageCount = 0
             self.travels = [""]

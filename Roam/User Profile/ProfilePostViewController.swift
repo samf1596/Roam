@@ -152,6 +152,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
         } else {
             if usersPosts {
                 followUserButton.setTitle("Delete", for: .normal)
+                followUserButton.backgroundColor = UIColor.red
                 self.title = "Your Post"
                 moreActionsButton.isHidden = true
             }

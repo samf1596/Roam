@@ -14,6 +14,27 @@ class ViewUserProfileCollectionViewController: UICollectionViewController {
     fileprivate var ref : DatabaseReference!
     fileprivate var storageRef : StorageReference!
     
+    @objc func onNotification(notification:Notification) {
+        if notification.name == Notification.Name("settingsChanged") {
+            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
+                self.view.tintColor = UIColor.white
+                self.view.backgroundColor = UIColor.darkGray
+                self.collectionView.backgroundView?.backgroundColor = UIColor.darkGray
+                self.collectionView.backgroundColor = UIColor.darkGray
+            }
+            else {
+                self.view.backgroundColor = UIColor.white
+                self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+                self.collectionView.backgroundView?.backgroundColor = UIColor.white
+                self.collectionView.backgroundColor = UIColor.white
+            }
+        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
+    }
+    
     let postModel = PostsModel.sharedInstance
     var cellSelected = IndexPath()
     
@@ -30,6 +51,15 @@ class ViewUserProfileCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
+        
+        if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
+        }
+        if UserDefaults.standard.bool(forKey: "DarkMode") == false {
+            NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
+        }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

@@ -464,6 +464,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="9w1-Vh-BAG">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="cancel" id="MNN-mg-CRZ">
+                            <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="deletePost:" destination="U6f-mX-jWo" id="bcp-pG-3u3"/>
                             </connections>

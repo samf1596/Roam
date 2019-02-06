@@ -253,13 +253,16 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         
         if postsModel.postIdBookmarked(post) {
             cell.globalPostFavButton.backgroundColor = UIColor.orange//init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
-            cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
-            cell.globalPostFavButton.imageView!.tintColor = UIColor.white
+            cell.globalPostFavButton.setImage(UIImage(named: "bookmark-white"), for: .normal)
         }
         else {
-            cell.globalPostFavButton.backgroundColor = UIColor.clear
-            cell.globalPostFavButton.imageView?.image = cell.globalPostFavButton.imageView!.image!.withRenderingMode(.alwaysTemplate)
-            cell.globalPostFavButton.imageView!.tintColor = UIColor.black
+            if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+                cell.globalPostFavButton.backgroundColor = UIColor.clear
+                cell.globalPostFavButton.setImage(UIImage(named: "bookmark-white"), for: .normal)
+            } else {
+                cell.globalPostFavButton.backgroundColor = UIColor.clear
+                cell.globalPostFavButton.setImage(UIImage(named: "bookmark"), for: .normal)
+            }
         }
         if postsModel.followingUser(post) {
             cell.unfollowButton.setTitle("Unfollow", for: .normal)

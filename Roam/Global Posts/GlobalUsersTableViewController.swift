@@ -176,6 +176,9 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         ref = Database.database().reference()
         storageRef = Storage.storage().reference()
         
+        self.refreshContent(self.refreshControl!)
+        self.tableView.reloadData()
+        
     }
     
     @objc func didSwipe(_ sender: UISwipeGestureRecognizer) {
@@ -204,15 +207,12 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        self.refreshControl?.attributedTitle = NSAttributedString(string: "Let's roam!")
-        self.tableView.isScrollEnabled = true
-        postsModel.findGlobalPosts()
-        postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
-        
+        super.viewWillAppear(animated)
+
+        //postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
         self.tabBarController?.delegate = self
         
-        super.viewWillAppear(animated)
+        //super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -224,6 +224,11 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         searchBar.placeholder = "Search locations and people"
         self.navigationController?.navigationBar.topItem?.titleView = searchBar
         super.viewDidAppear(animated)
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "Loading some sweet experiences!")
+        self.tableView.isScrollEnabled = true
+        //postsModel.findGlobalPosts()
+        self.refreshContent(self.refreshControl!)
+        self.tableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -312,8 +317,13 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
         }
         else {
-            cell.globalPostFavButton.backgroundColor = UIColor.clear
-            cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
+            if UserDefaults.standard.bool(forKey: "DarkMode") == true {
+                cell.globalPostFavButton.backgroundColor = UIColor.clear
+                cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
+            } else {
+                cell.globalPostFavButton.backgroundColor = UIColor.clear
+                cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark")
+            }
         }
         if postsModel.followingUser(post) {
             cell.followButton.setTitle("Unfollow", for: .normal)
