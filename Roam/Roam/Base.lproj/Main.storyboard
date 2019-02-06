@@ -177,6 +177,13 @@
                                                 <segue destination="L3L-nP-D0e" kind="show" identifier="ShowUserProfile" id="W3A-eh-Aqr"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AM1-GM-IYQ">
+                                            <rect key="frame" x="346" y="82" width="27" height="21.5"/>
+                                            <color key="backgroundColor" white="1" alpha="0.39680543664383561" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -211,6 +218,7 @@
                                         <constraint firstItem="fSd-PX-2nu" firstAttribute="top" secondItem="w2w-kY-DRe" secondAttribute="bottom" constant="12.5" id="fMu-H9-2MQ"/>
                                         <constraint firstItem="fSd-PX-2nu" firstAttribute="centerY" secondItem="j4X-lw-pDt" secondAttribute="centerY" id="hEQ-FV-Jih"/>
                                         <constraint firstItem="4Az-fK-qKs" firstAttribute="top" secondItem="ARq-ED-dA8" secondAttribute="bottom" constant="8.5" id="inj-uf-wA8"/>
+                                        <constraint firstItem="AM1-GM-IYQ" firstAttribute="trailing" secondItem="ShZ-hO-mDc" secondAttribute="trailingMargin" constant="6" id="jOu-dw-fJS"/>
                                         <constraint firstItem="MS3-oc-lUW" firstAttribute="leading" secondItem="ShZ-hO-mDc" secondAttribute="leading" constant="8" id="nLd-cp-LmA"/>
                                         <constraint firstItem="fSd-PX-2nu" firstAttribute="trailing" secondItem="ShZ-hO-mDc" secondAttribute="trailingMargin" id="ndj-bv-kx2"/>
                                         <constraint firstItem="ahd-w8-M2q" firstAttribute="top" secondItem="fwc-ll-kne" secondAttribute="bottom" constant="4" id="rKa-uv-MPQ"/>
@@ -220,6 +228,7 @@
                                         <constraint firstItem="fSd-PX-2nu" firstAttribute="top" secondItem="YPd-hv-7HY" secondAttribute="bottom" constant="4" id="uho-dD-mje"/>
                                         <constraint firstItem="ahd-w8-M2q" firstAttribute="leading" secondItem="ShZ-hO-mDc" secondAttribute="leading" constant="8" id="wB5-KW-m80"/>
                                         <constraint firstItem="fwc-ll-kne" firstAttribute="top" secondItem="ShZ-hO-mDc" secondAttribute="top" id="xGQ-R8-BSv"/>
+                                        <constraint firstItem="AM1-GM-IYQ" firstAttribute="top" secondItem="UlY-SZ-QAo" secondAttribute="bottom" constant="36" id="xKq-Jd-pOL"/>
                                         <constraint firstAttribute="trailing" secondItem="uDU-CD-ICl" secondAttribute="trailing" constant="8" id="yPJ-q3-Hqj"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -232,6 +241,7 @@
                                     <outlet property="globalPostImageView" destination="w2w-kY-DRe" id="5i8-K2-3vN"/>
                                     <outlet property="globalPosterUsername" destination="ARq-ED-dA8" id="P5T-cJ-nvn"/>
                                     <outlet property="globalPostersName" destination="MS3-oc-lUW" id="CJ3-Sd-oYW"/>
+                                    <outlet property="imageCountLabel" destination="AM1-GM-IYQ" id="Yiv-ZU-cm8"/>
                                     <outlet property="infoButton" destination="j4X-lw-pDt" id="qOp-AO-hgV"/>
                                     <outlet property="mapLocationButton" destination="fwc-ll-kne" id="Cgp-8V-kXa"/>
                                     <outlet property="segueButtonForImages" destination="4Az-fK-qKs" id="qdG-NH-G5T"/>
@@ -1727,6 +1737,13 @@
                                                 <segue destination="L3L-nP-D0e" kind="show" identifier="ShowUserProfile" id="A1B-8b-ru2"/>
                                             </connections>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILv-0M-Zp3">
+                                            <rect key="frame" x="348.5" y="88" width="22.5" height="21.5"/>
+                                            <color key="backgroundColor" white="1" alpha="0.39990903253424659" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -1753,6 +1770,7 @@
                                         <constraint firstAttribute="trailing" secondItem="puD-jf-i3x" secondAttribute="trailing" constant="8" id="SjZ-Yv-SgV"/>
                                         <constraint firstItem="ko7-05-p2S" firstAttribute="leading" secondItem="c34-i3-atr" secondAttribute="trailing" constant="20" id="T94-wy-NQy"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vlL-gf-Edi" secondAttribute="trailing" constant="175" id="USn-1G-0JP"/>
+                                        <constraint firstAttribute="trailing" secondItem="ILv-0M-Zp3" secondAttribute="trailing" constant="12" id="W9B-rw-nsD"/>
                                         <constraint firstItem="Fxv-EI-XLY" firstAttribute="leading" secondItem="OHX-vk-pvi" secondAttribute="leading" id="XMV-nH-aaw"/>
                                         <constraint firstAttribute="trailing" secondItem="PjM-68-t3w" secondAttribute="trailing" id="ZDN-yC-20S"/>
                                         <constraint firstItem="7cH-Vu-ubE" firstAttribute="leading" secondItem="OHX-vk-pvi" secondAttribute="leading" constant="15" id="aBf-H6-xuF"/>
@@ -1765,6 +1783,7 @@
                                         <constraint firstItem="ko7-05-p2S" firstAttribute="top" secondItem="zAt-Wp-Fz7" secondAttribute="bottom" constant="4" id="kov-TR-ly4"/>
                                         <constraint firstItem="aRi-Oj-5m0" firstAttribute="top" secondItem="ko7-05-p2S" secondAttribute="bottom" constant="14" id="lrQ-xP-dHm"/>
                                         <constraint firstItem="puD-jf-i3x" firstAttribute="leading" secondItem="OHX-vk-pvi" secondAttribute="leading" constant="8" id="oDP-6c-atx"/>
+                                        <constraint firstItem="ILv-0M-Zp3" firstAttribute="top" secondItem="x9k-kK-Erf" secondAttribute="bottom" constant="42" id="paa-MC-PCG"/>
                                         <constraint firstItem="vlL-gf-Edi" firstAttribute="leading" secondItem="OHX-vk-pvi" secondAttribute="leading" constant="8" id="qH0-aW-gDF"/>
                                         <constraint firstItem="Ad7-UY-9v3" firstAttribute="leading" secondItem="OHX-vk-pvi" secondAttribute="leading" id="qPr-ix-W56"/>
                                         <constraint firstItem="Ad7-UY-9v3" firstAttribute="top" secondItem="OHX-vk-pvi" secondAttribute="top" id="t1i-4l-h9U"/>
@@ -1783,6 +1802,7 @@
                                     <outlet property="globalPostImageView" destination="Fxv-EI-XLY" id="1BZ-ca-KXQ"/>
                                     <outlet property="globalPosterUsername" destination="J6p-10-j3W" id="Fx7-dB-0gj"/>
                                     <outlet property="globalPostersName" destination="vlL-gf-Edi" id="SrF-nI-DSH"/>
+                                    <outlet property="imageCountLabel" destination="ILv-0M-Zp3" id="7TB-LQ-dYP"/>
                                     <outlet property="infoButton" destination="7cH-Vu-ubE" id="t3m-c5-4jc"/>
                                     <outlet property="mapLocationButton" destination="Ad7-UY-9v3" id="Cxm-u2-Bwe"/>
                                     <outlet property="segueButtonForImages" destination="1Lj-FJ-eKz" id="ibY-dw-GnE"/>

@@ -43,6 +43,9 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var mapLocationButton: UIButton!
     @IBOutlet weak var viewUserProfileButton: UIButton!
     
+    @IBOutlet weak var imageCountLabel: UILabel!
+    
+    
     @IBAction func viewUserProfileAction(_ sender: Any) {
         print("did something")
     }
@@ -63,7 +66,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 globalPostDescriptionTextView.text = post.description == "NOTEXT" ? "" : post.description
                 globalCommentTextView.text = "Leave a comment"
                 postID = post.postID
-                
+                imageCountLabel.text = "+ " + String(post.imagePath.count-1)
                 let locationOne = Array(post.locations.keys)[0] as String
                 if locationOne == "NONE" {
                     mapLocationButton.setTitle("", for: .normal)
@@ -145,7 +148,8 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         databaseRef = Database.database().reference()
         //backgroundColorView.layer.cornerRadius = 3
         globalCommentTextView.layer.cornerRadius = 3
-        
+        imageCountLabel.layer.masksToBounds = true
+        imageCountLabel.layer.cornerRadius = 5
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
