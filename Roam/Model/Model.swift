@@ -169,6 +169,7 @@ class PostsModel {
     fileprivate var followingUsers = [String]()
     fileprivate var following = [String]()
     
+    fileprivate var blockedUsersFullNames = [String]()
     fileprivate var blockedUsers = [String]()
     fileprivate var hiddenPostIds = [String]()
     fileprivate var postsUnderReview = [String]()
@@ -304,14 +305,30 @@ class PostsModel {
         getReportedPosts()
     }
     
+    var blockedUserCount : Int {return blockedUsersFullNames.count}
+    
+    func blockedUserAtIndex(_ index: Int) -> String {
+        return self.blockedUsersFullNames[index]
+    }
+    
+    func deleteBlockedUserAtIndex(_ index: Int) {
+        let uid = self.blockedUsers[index]
+        self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Blocked").child(uid).removeValue()
+        self.blockedUsers.remove(at: index)
+        self.blockedUsersFullNames.remove(at: index)
+    }
+    
     func getBlockedUsers(_ download: Bool = true) {
         if Auth.auth().currentUser != nil {
             self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("Blocked").observe(.value) { (snapshot) in
                 var _blockedUsers = [String]()
+                var _names = [String]()
                 for postSnapshot in snapshot.children {
                     _blockedUsers.append((postSnapshot as! DataSnapshot).key)
+                    _names.append((postSnapshot as! DataSnapshot).value as! String)
                 }
                 self.blockedUsers = _blockedUsers
+                self.blockedUsersFullNames = _names
                 if download == true {
                     self.downloadPosts()
                 }

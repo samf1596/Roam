@@ -523,7 +523,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         account = NewUser(snapshot: snapshot)
         let postID = "\(Int(Date.timeIntervalSinceReferenceDate * 1000))"
             let isPublic = self.publicOrPrivateSegmentedControl.selectedSegmentIndex == 0 ? false : true
-            let post = Post(addedByUser: (account?.firstname)!, username: Auth.auth().currentUser!.uid, description: self.textToUpload, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: isPublic, postID: postID, locations: uploadLocations)
+            let post = Post(addedByUser: (account?.firstname)! + " " + (account?.lastname)!, username: Auth.auth().currentUser!.uid, description: self.textToUpload, imagePath: imagePath, experiences: self.experiences, travels: self.travels, isPublic: isPublic, postID: postID, locations: uploadLocations)
         
         self.databaseRef.child(FirebaseFields.Posts.rawValue).child(postID).setValue(post.toObject())
             self.descriptionTextView.text = "Add a description of your trip here..."

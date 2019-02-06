@@ -12,6 +12,7 @@
 		222BBA0F2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BBA0E2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift */; };
 		222BBA1D22079CD100756CF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 222BBA1C22079CD000756CF0 /* GoogleService-Info.plist */; };
 		222BBA1E22079CD100756CF0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 222BBA1C22079CD000756CF0 /* GoogleService-Info.plist */; };
+		222BBA20220B828800756CF0 /* BlockedUsersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222BBA1F220B828800756CF0 /* BlockedUsersTableViewController.swift */; };
 		224BB6BB21D549BE00E61EBC /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BB6BA21D549BE00E61EBC /* LocationTableViewCell.swift */; };
 		224FE81321DF0CEB0042B889 /* ProfilePostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FE81221DF0CEB0042B889 /* ProfilePostViewController.swift */; };
 		2253B78B251E96E817067F4D /* Pods_Roam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDBA419BF38FDBF08906C46E /* Pods_Roam.framework */; };
@@ -66,6 +67,7 @@
 		220EA52C21990200003ACC06 /* PostExperienceDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostExperienceDetailsTableViewController.swift; sourceTree = "<group>"; };
 		222BBA0E2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUserProfileCollectionViewController.swift; sourceTree = "<group>"; };
 		222BBA1C22079CD000756CF0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		222BBA1F220B828800756CF0 /* BlockedUsersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockedUsersTableViewController.swift; path = "User Profile/BlockedUsersTableViewController.swift"; sourceTree = SOURCE_ROOT; };
 		224BB6BA21D549BE00E61EBC /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		224FE81221DF0CEB0042B889 /* ProfilePostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePostViewController.swift; sourceTree = "<group>"; };
 		225A945E218E43D800C14B6B /* Roam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Roam.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +167,7 @@
 				22964CC821B4E9080096C6E8 /* MainTabBarViewController.swift */,
 				225A9461218E43D800C14B6B /* AppDelegate.swift */,
 				225A9465218E43D800C14B6B /* Main.storyboard */,
+				222BBA1F220B828800756CF0 /* BlockedUsersTableViewController.swift */,
 				222BBA0E2203742A00756CF0 /* ViewUserProfileCollectionViewController.swift */,
 				22F2BED121FD37E6000F47B6 /* DetailsTableViewCell.swift */,
 				22F2BECD21FD161B000F47B6 /* ImageSlide.swift */,
@@ -463,6 +466,7 @@
 				2264B69521952E4500A402A1 /* ExperiencesTableViewController.swift in Sources */,
 				22A18300218FF5F100DE3AC4 /* FirstViewController.swift in Sources */,
 				22B7516621A47FD6004B5FEC /* HomeTableViewController.swift in Sources */,
+				222BBA20220B828800756CF0 /* BlockedUsersTableViewController.swift in Sources */,
 				22964CC921B4E9080096C6E8 /* MainTabBarViewController.swift in Sources */,
 				22A4211321CC472200E64F3D /* MapViewController.swift in Sources */,
 				22F5E74B21B3428D00CBF135 /* ProfileHeaderCollectionViewCell.swift in Sources */,

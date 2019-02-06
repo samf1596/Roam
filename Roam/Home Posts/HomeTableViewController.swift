@@ -29,7 +29,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
                     let count = snapshot.value as! Int
                     
                     if count + 1 > 2 {
-                        self.ref.child(FirebaseFields.UnderReview.rawValue).child(post.postID).setValue(true)
+                        self.ref.child(FirebaseFields.UnderReview.rawValue).child(post.postID).setValue(post.addedByUser)
                     }
                     else {
                         let post = self.ref.child(FirebaseFields.Reported.rawValue).child(post.postID)
@@ -45,18 +45,21 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
             })
+            self.postsModel.getReportedPosts()
         })
         alert.addAction(UIAlertAction(title: "Hide Post", style: .destructive) { (action) in
             let currentUser = self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("Hidden").child(post.postID).setValue(true)
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+            self.postsModel.getReportedPosts()
         })
         alert.addAction(UIAlertAction(title: "Block User", style: .destructive) { (action) in
             let currentUser = self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("Blocked").child(post.username).setValue(true)
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+            self.postsModel.getReportedPosts()
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         

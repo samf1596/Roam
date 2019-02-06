@@ -47,6 +47,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
             })
+             self.postsModel.getReportedPosts()
         })
         alert.addAction(UIAlertAction(title: "Hide Post", style: .destructive) { (action) in
             let currentUser = self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
@@ -54,12 +55,14 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
             //self.tableView.deleteSections(IndexSet(arrayLiteral: senderTag), with: .automatic)
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+            self.postsModel.getReportedPosts()
         })
         alert.addAction(UIAlertAction(title: "Block User", style: .destructive) { (action) in
             let currentUser = self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
-            currentUser.child("Blocked").child(post.username).setValue(true)
+            currentUser.child("Blocked").child(post.username).setValue(post.addedByUser)
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
+            self.postsModel.getReportedPosts()
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
