@@ -173,9 +173,12 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.tableView.isScrollEnabled = false
+        //self.tableView.isScrollEnabled = false
     }
     
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 575
+    }
     
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
         postsModel.findFollowingPosts()

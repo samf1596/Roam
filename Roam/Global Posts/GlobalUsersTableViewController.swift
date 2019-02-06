@@ -208,7 +208,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        self.tableView.isScrollEnabled = true
         //postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
         self.tabBarController?.delegate = self
         
@@ -233,7 +233,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        self.tableView.isScrollEnabled = false
+        //self.tableView.isScrollEnabled = false
     }
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
         
@@ -243,6 +243,10 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     
     // MARK: - Table view data source
 
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 575
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return postsModel.cachedGlobalPostsCount
     }
@@ -354,6 +358,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 self.navigationController?.navigationBar.topItem?.titleView = nil
                 commentsViewController.configure(postID)
             case "ShowImages":
+                //self.tableView.isScrollEnabled = false
                 let viewController = segue.destination as! AllImagesTableViewController
                 let index = (sender as? UIButton)?.tag
                 viewController.configure(index!, "Global")

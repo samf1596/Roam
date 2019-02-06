@@ -139,6 +139,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     deinit {
         NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         globalPosterUsername.isHidden  = true
