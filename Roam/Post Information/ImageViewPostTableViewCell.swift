@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageViewPostTableViewCell: UITableViewCell {
+class ImageViewPostTableViewCell: UITableViewCell, UIScrollViewDelegate {
 
     @IBOutlet weak var postImageView: UIImageView!
     
@@ -31,7 +31,7 @@ class ImageViewPostTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])

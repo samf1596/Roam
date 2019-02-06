@@ -1419,22 +1419,19 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="511.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BNn-I2-Puc">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="gHx-X1-FmO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="511.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="511.5" id="PvL-Kq-ORN"/>
-                                            </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="BNn-I2-Puc" firstAttribute="top" secondItem="hNY-Hq-gmt" secondAttribute="top" id="6rb-qD-UU6"/>
-                                        <constraint firstItem="BNn-I2-Puc" firstAttribute="leading" secondItem="hNY-Hq-gmt" secondAttribute="leading" id="KI4-nV-Ckx"/>
-                                        <constraint firstAttribute="trailing" secondItem="BNn-I2-Puc" secondAttribute="trailing" id="hee-bb-uOd"/>
-                                        <constraint firstAttribute="bottom" secondItem="BNn-I2-Puc" secondAttribute="bottom" id="y80-4T-k37"/>
+                                        <constraint firstItem="gHx-X1-FmO" firstAttribute="leading" secondItem="hNY-Hq-gmt" secondAttribute="leading" id="Ngl-jR-H1R"/>
+                                        <constraint firstItem="gHx-X1-FmO" firstAttribute="top" secondItem="hNY-Hq-gmt" secondAttribute="top" id="WNj-4Y-BoN"/>
+                                        <constraint firstAttribute="bottom" secondItem="gHx-X1-FmO" secondAttribute="bottom" id="WP6-RS-hQx"/>
+                                        <constraint firstAttribute="trailing" secondItem="gHx-X1-FmO" secondAttribute="trailing" id="xBY-Ii-ydw"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="postImageView" destination="BNn-I2-Puc" id="hqt-EQ-R5y"/>
+                                    <outlet property="postImageView" destination="gHx-X1-FmO" id="oZ7-Fq-2yo"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1446,7 +1443,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qrp-9y-Nzg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3185" y="-1266"/>
+            <point key="canvasLocation" x="3184.8000000000002" y="-1266.1169415292354"/>
         </scene>
         <!--First View Controller-->
         <scene sceneID="7sm-Td-hxd">
@@ -2047,6 +2044,7 @@
     </scenes>
     <resources>
         <image name="AppIcon76x762x" width="152" height="152"/>
+        <image name="addPhoto" width="512" height="512"/>
         <image name="bookmark" width="50" height="50"/>
         <image name="cancel" width="50" height="50"/>
         <image name="comments" width="50" height="50"/>
