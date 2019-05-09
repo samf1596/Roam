@@ -1,14 +1,14 @@
-# Roum
+# Roum (Pronounced Roam)
 Socializing Travel
 
 This project was built to serve as a social media app for people enthusiastic about travel. It is a way to share experiences and include more in depth information about trips such as what to do and how to go about getting places.
 
-It is a fully functioning app, although there may be bugs here and there. Feel free to report these bugs and ask questions.
+It is a fully functioning app that allows you to explore swift and firebase, although there may be bugs here and there. Feel free to report these bugs and ask questions.
 
 
 
 
-### Instructions for running Roam
+### Instructions for running Roum
 First, you must create a Firebase project and add the plist file to this project.
 You all also need to enable Firebase Realtime Database, Firebase Storage, and Firebase Authentication.
 
