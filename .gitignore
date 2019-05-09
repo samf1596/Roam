@@ -5,6 +5,8 @@
 ## Google PLIST
 GoogleService-Info.plist
 
+*.DS_Store
+
 ## Build generated
 build/
 DerivedData/
