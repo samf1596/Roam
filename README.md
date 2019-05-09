@@ -41,8 +41,6 @@ Then once the pods have installed, open the project by opening Roam.xcworkspace 
 
 NOTE: It may take a little while to properly index/build due to the thirdparty library "TLPhotoPicker" and it's dependencies, but it will build without error.
 
-NOTE 2: When running the app, images may take a little while to initially show up due to their size and how the app sets itself up, but once downloading no other issues should be noticed.
-
 All buttons are operational at this time.
 
 BUGS: If you run into any errors, closing and restarting the app will fix it most likely. The phone will vibrate and the image will go back to the default when it has uploaded.
