@@ -36,7 +36,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     
     func setupScrollView(_ imageSlides: [ImageSlide]) {
-        //scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
         scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(imageSlides.count), height: scrollView.frame.height)
         scrollView.isPagingEnabled = true
         
@@ -53,49 +52,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = round(scrollView.contentOffset.x/view.frame.width)
         pageControl.currentPage = Int(pageIndex)
-        
-        //let maximumHorizontalOffset: CGFloat = scrollView.contentSize.width - scrollView.frame.width
-        //let currentHorizontalOffset: CGFloat = scrollView.contentOffset.x
-        
-        // vertical
-        //let maximumVerticalOffset: CGFloat = scrollView.contentSize.height - scrollView.frame.height
-        //let currentVerticalOffset: CGFloat = scrollView.contentOffset.y
-        
-
-        //let percentageHorizontalOffset: CGFloat = currentHorizontalOffset / maximumHorizontalOffset
-        //let percentageVerticalOffset: CGFloat = currentVerticalOffset / maximumVerticalOffset
- 
-        /*
-        /*
-         * below code changes the background color of view on paging the scrollview
-         */
-        //self.scrollView(scrollView, didScrollToPercentageOffset: percentageHorizontalOffset)
-        
-        
-        /*
-         * below code scales the imageview on paging the scrollview
-         */
-        
-        let percentOffset: CGPoint = CGPoint(x: percentageHorizontalOffset, y: percentageVerticalOffset)
-        
-        if(percentOffset.x > 0 && percentOffset.x <= 0.25) {
-         
-            slides[0].imageView.transform = CGAffineTransform(scaleX: (0.25-percentOffset.x)/0.25, y: (0.25-percentOffset.x)/0.25)
-            slides[1].imageView.transform = CGAffineTransform(scaleX: percentOffset.x/0.25, y: percentOffset.x/0.25)
-         
-        } else if(percentOffset.x > 0.25 && percentOffset.x <= 0.50) {
-            slides[1].imageView.transform = CGAffineTransform(scaleX: (0.50-percentOffset.x)/0.25, y: (0.50-percentOffset.x)/0.25)
-            slides[2].imageView.transform = CGAffineTransform(scaleX: percentOffset.x/0.50, y: percentOffset.x/0.50)
-         
-        } else if(percentOffset.x > 0.50 && percentOffset.x <= 0.75) {
-            slides[2].imageView.transform = CGAffineTransform(scaleX: (0.75-percentOffset.x)/0.25, y: (0.75-percentOffset.x)/0.25)
-            slides[3].imageView.transform = CGAffineTransform(scaleX: percentOffset.x/0.75, y: percentOffset.x/0.75)
-         
-        } else if(percentOffset.x > 0.75 && percentOffset.x <= 1) {
-            slides[3].imageView.transform = CGAffineTransform(scaleX: (1-percentOffset.x)/0.25, y: (1-percentOffset.x)/0.25)
-            slides[4].imageView.transform = CGAffineTransform(scaleX: percentOffset.x, y: percentOffset.x)
-        }
-        */
     }
     
     var selectedLocations = [MKMapItem]()
@@ -130,11 +86,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                 self.navigationController?.navigationBar.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 self.descriptionTextView.backgroundColor = UIColor.lightGray
                 self.descriptionTextView.keyboardAppearance = .dark
-                /*
-                self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.darkGray
-                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.black], for: .selected)
-                self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .normal)
-                */
                 
                 self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.darkGray
                 self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
@@ -149,9 +100,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
                 self.descriptionTextView.backgroundColor = UIColor(red: 0, green: 148.0/255.0, blue: 240.0/255.0, alpha: 0.1)
                 self.descriptionTextView.isOpaque = true
                 self.descriptionTextView.keyboardAppearance = .default
-                //self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.white
-                //self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
-                //self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)], for: .normal)
                 
                 self.publicOrPrivateSegmentedControl.backgroundColor = UIColor.white
                 self.publicOrPrivateSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
@@ -166,9 +114,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             if uploadCount >= selectedImageCount && imageURLSforUpload.count > 0 {
                 self.uploadSuccess(self.imageURLSforUpload)
                 self.showNetworkActivityIndicator = false
-                //self.uploadImageView.image = UIImage(named: "addPhoto")
                 resetScrollViewSlides()
-                //self.uploadImageView.alpha = 1.0
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
             }
@@ -205,8 +151,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
         scrollView.delegate = self
         
-        
-        
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: UploadPostViewController.uploadedImage, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: SettingsViewController.settingsChanged, object: nil)
@@ -235,7 +179,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         let addImageGesture = UITapGestureRecognizer(target: self, action: #selector(UploadPostViewController.selectImage(_:)))
         addImageGesture.numberOfTapsRequired = 1
         scrollView.addGestureRecognizer(addImageGesture)
-        //uploadImageView.addGestureRecognizer(addImageGesture)
         resetScrollViewSlides()
     }
     
@@ -332,7 +275,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
         // use selected order, fullresolution image
         self.selectedPictures = withTLPHAssets
-        //uploadImageView.image = self.selectedPictures[0].fullResolutionImage
         
         let slides = createSlides(selectedPictures)
         setupScrollView(slides)
@@ -343,11 +285,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         // if you want to used phasset.
     }
     func photoPickerDidCancel() {
-        /*
-        selectedPictures = []
-        slides = []
-        resetScrollViewSlides()
-        */
     }
     func dismissComplete() {
         // picker viewcontroller dismiss completion
@@ -384,7 +321,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         
         let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
         
-        //UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
         UIGraphicsBeginImageContext(newSize)
         image.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -404,14 +340,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             
             let image = imageToUploadResized.jpegData(compressionQuality: 0.65)
             let imagePath = "/\(Int(Date.timeIntervalSinceReferenceDate * 1000)).jpg"
-            
-            /*
-            let resizeRequirement = ResizeRequirement.init(mode: ResizeRequirementMode.exactOrSmaller, targetSize: CGSize(width: 800, height: 600))
-            let encodeRequirement = EncodeRequirement.init(format: .jpeg, mode: .lossy, quality: 80)
-            let options = EncodeOptions.init(encodeRequirement: encodeRequirement, transformations: Transformations.init(resizeRequirement: resizeRequirement, rotateRequirement: nil, cropRequirement: nil), metadata: nil, configuration: nil, outputPixelSpecificationRequirement: nil)
-            
-            let result = Spectrum.shared.encodeImage(selectedImage.fullResolutionImage!, options: options, error: nil)
-            */
             
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
@@ -558,14 +486,12 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
             impact.impactOccurred()
             self.textToUpload = self.textToUpload != "NOTEXT" ? self.descriptionTextView.text : "NOTEXT"
             let experiencesController = segue.destination as! ExperiencesTableViewController
-            //let experiencesController = navController.topViewController as! ExperiencesTableViewController
             experiencesController.delegate = self
          case "AddTravel":
             let impact = UIImpactFeedbackGenerator(style: .medium)
             impact.impactOccurred()
             self.textToUpload = self.textToUpload != "NOTEXT" ? self.descriptionTextView.text : "NOTEXT"
             let travelController = segue.destination as! FlightsStaysTableViewController
-            //let travelController = navController.topViewController as! FlightsStaysTableViewController
             travelController.delegate = self
          case "ChooseLocation":
             let backItem = UIBarButtonItem()

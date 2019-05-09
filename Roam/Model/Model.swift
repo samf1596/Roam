@@ -369,9 +369,6 @@ class PostsModel {
         let block = {
             self.getReportedPosts(forThis: tableView, with: refreshControl)
             self.cachedPosts = self.posts.reversed()
-            // MARK - TODO: only reload data when all posts collection is done
-            //tableView.reloadData()
-            //refreshControl?.endRefreshing()
         }
         DispatchQueue.main.async(execute: block)
     }
@@ -404,7 +401,6 @@ class PostsModel {
         return image
     }
     
-    
     func downloadImage(_ indexPath: IndexPath, _ imageURL: String, _ postID: String) {
         let numberOfImages = cachedPosts[indexPath.section].imagePath.count
         for index in 0..<numberOfImages {
@@ -413,7 +409,6 @@ class PostsModel {
                 let storage = storageRef.storage.reference(forURL: cachedPosts[indexPath.section].imagePath[index])
                 storage.getData(maxSize: 2*1024*1024) { (data, error) in
                     if error == nil {
-                        //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                         let image = UIImage(data: data!)
                         self.cacheImage(postID+"\(index).jpg", image!)
                         self.saveImageInDirectory(image!, postID+"\(index).jpg")
@@ -438,7 +433,6 @@ class PostsModel {
                 let storage = storageRef.storage.reference(forURL: globalPosts[indexPath.section].imagePath[index])
                 storage.getData(maxSize: 2*1024*1024) { (data, error) in
                     if error == nil {
-                        //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                         let image = UIImage(data: data!)
                         self.cacheImage(postID+"\(index).jpg", image!)
                         self.saveImageInDirectory(image!, postID+"\(index).jpg")
@@ -455,6 +449,7 @@ class PostsModel {
             
         }
     }
+    
     func downloadFollowingImage(_ indexPath: IndexPath, _ imageURL: String, _ postID: String) {
         let numberOfImages = followingPosts[indexPath.section].imagePath.count
         for index in 0..<numberOfImages {
@@ -463,7 +458,6 @@ class PostsModel {
                 let storage = storageRef.storage.reference(forURL: followingPosts[indexPath.section].imagePath[index])
                 storage.getData(maxSize: 2*1024*1024) { (data, error) in
                     if error == nil {
-                        //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                         let image = UIImage(data: data!)
                         self.cacheImage(postID+"\(index).jpg", image!)
                         self.saveImageInDirectory(image!, postID+"\(index).jpg")
@@ -479,6 +473,7 @@ class PostsModel {
             }
         }
     }
+    
     func downloadBookmarkedImage(_ postIndex: Int, _ imageURL: String, _ postID: String) {
         let numberOfImages = bookmarkedPosts[postIndex].imagePath.count
         
@@ -487,7 +482,6 @@ class PostsModel {
                 let storage = storageRef.storage.reference(forURL: bookmarkedPosts[postIndex].imagePath[index])
                 storage.getData(maxSize: 2*1024*1024) { (data, error) in
                     if error == nil {
-                        //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                         let image = UIImage(data: data!)
                         self.cacheImage(postID+"\(index).jpg", image!)
                         self.saveImageInDirectory(image!, postID+"\(index).jpg")
@@ -503,6 +497,7 @@ class PostsModel {
             }
         }
     }
+    
     func downloadUsersPostImage(_ postIndex: Int, _ imageURL: String, _ postID: String) {
         let numberOfImages = usersPosts[postIndex].imagePath.count
         
@@ -511,7 +506,6 @@ class PostsModel {
                 let storage = storageRef.storage.reference(forURL: usersPosts[postIndex].imagePath[index])
                 storage.getData(maxSize: 2*1024*1024) { (data, error) in
                     if error == nil {
-                        //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                         let image = UIImage(data: data!)
                         self.cacheImage(postID+"\(index).jpg", image!)
                         self.saveImageInDirectory(image!, postID+"\(index).jpg")
@@ -527,6 +521,7 @@ class PostsModel {
             }
         }
     }
+    
     func downloadUsersPostToViewImage(_ postIndex: Int, _ imageURL: String, _ postID: String) {
         let numberOfImages = userPostsToView[postIndex].imagePath.count
         
@@ -535,7 +530,6 @@ class PostsModel {
                 let storage = storageRef.storage.reference(forURL: userPostsToView[postIndex].imagePath[index])
                 storage.getData(maxSize: 2*1024*1024) { (data, error) in
                     if error == nil {
-                        //self.cachedPosts[indexPath.section].cachedImage = UIImage(data: data!)
                         let image = UIImage(data: data!)
                         self.cacheImage(postID+"\(index).jpg", image!)
                         self.saveImageInDirectory(image!, postID+"\(index).jpg")
@@ -573,6 +567,7 @@ class PostsModel {
             }
         }
     }
+    
     func findGlobalPosts() {
         if Auth.auth().currentUser != nil {
             ref.child(FirebaseFields.Accounts.rawValue).child(Auth.auth().currentUser!.uid).observe(.value) { (snapshot) in
@@ -588,6 +583,7 @@ class PostsModel {
             }
         }
     }
+    
     func findFollowingPosts() {
         if Auth.auth().currentUser != nil {
             ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid).child("following").observe(.value) { (snapshot) in
@@ -653,7 +649,6 @@ class PostsModel {
         for post in globalPosts {
             let locations = post.locations.keys
             let stringRepresentation = (locations.joined() as String).lowercased()
-            //print(stringRepresentation)
             if stringRepresentation.contains(location.lowercased()) || post.addedByUser.lowercased().contains(location.lowercased()){
                 _tempPosts.append(post)
             }
@@ -661,10 +656,12 @@ class PostsModel {
         self.searchingGlobalPosts = self.globalPosts
         self.globalPosts = _tempPosts
     }
+    
     func searchCanceled() {
         self.globalPosts = self.searchingGlobalPosts
         self.searchingGlobalPosts = []
     }
+    
     func clearFollowingUsersAndBookmarks() {
         self.usersPosts = []
         self.followingPosts = []

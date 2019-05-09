@@ -43,7 +43,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 }
                 let currentUser = self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
                 currentUser.child("Hidden").child(post.postID).setValue(true)
-                //self.tableView.deleteSections(IndexSet(arrayLiteral: senderTag), with: .automatic)
+                
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
             })
@@ -52,7 +52,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         alert.addAction(UIAlertAction(title: "Hide Post", style: .destructive) { (action) in
             let currentUser = self.ref.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("Hidden").child(post.postID).setValue(true)
-            //self.tableView.deleteSections(IndexSet(arrayLiteral: senderTag), with: .automatic)
+
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
             self.postsModel.getReportedPosts()
@@ -94,14 +94,12 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 self.globalTableView.backgroundColor = UIColor.gray
                 let proxy = UISearchBar.appearance()
                 proxy.keyboardAppearance = .dark
-                //(self.navigationController?.navigationBar.topItem?.titleView as! UISearchBar).keyboardAppearance = .dark
             }
             else {
                 self.globalTableView.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.globalTableView.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 let proxy = UISearchBar.appearance()
                 proxy.keyboardAppearance = .light
-                //(self.navigationController?.navigationBar.topItem?.titleView.keyboardAppearance = .light
             }
         }
     }
@@ -131,7 +129,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        //searchBar.setShowsCancelButton(false, animated: true)
+        
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -152,7 +150,6 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         searchBar.barStyle = .default
         searchBar.delegate = self
         searchBar.placeholder = "Search locations and people"
-        //searchBar.scopeButtonTitles = ["Locations", "People"]
         self.navigationController?.navigationBar.topItem?.titleView = searchBar
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(GlobalUsersTableViewController.didSwipe(_:)))
@@ -212,10 +209,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tableView.isScrollEnabled = true
-        //postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
         self.tabBarController?.delegate = self
-        
-        //super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -236,8 +230,8 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        //self.tableView.isScrollEnabled = false
     }
+    
     @IBAction func refreshContent(_ sender: UIRefreshControl) {
         
         postsModel.refreshContent(for: self.tableView, with: self.refreshControl)
@@ -287,7 +281,6 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
             cell.mapLocationButton.setTitleColor(UIColor.black, for: .normal)
         }
         
-        //downloadImage(indexPath, cachedPosts[indexPath.section].imagePath)
         let imagePath = postsModel.imagePathForGlobalPost(indexPath.section, 0)
         
         let post = postsModel.postForGlobalSection(indexPath.section)
@@ -320,7 +313,7 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
         cell.globalPostFavButton.layer.cornerRadius = 4.0
         cell.viewUserProfileButton.tag = indexPath.section
         if postsModel.postIdBookmarked(post) {
-            cell.globalPostFavButton.backgroundColor = UIColor.orange//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            cell.globalPostFavButton.backgroundColor = UIColor.orange
                 cell.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
         }
         else {
@@ -361,7 +354,6 @@ class GlobalUsersTableViewController: UITableViewController, UIGestureRecognizer
                 self.navigationController?.navigationBar.topItem?.titleView = nil
                 commentsViewController.configure(postID)
             case "ShowImages":
-                //self.tableView.isScrollEnabled = false
                 let viewController = segue.destination as! AllImagesTableViewController
                 let index = (sender as? UIButton)?.tag
                 viewController.configure(index!, "Global")

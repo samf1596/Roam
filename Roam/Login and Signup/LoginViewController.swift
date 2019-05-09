@@ -3,7 +3,7 @@
 //  Roam
 //
 //  Created by Samuel Fox on 11/4/18.
-//  Copyright © 2018 sof5207. All rights reserved.
+//
 //
 
 import UIKit
@@ -31,18 +31,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc func onNotification(notification:Notification) {
-        /*
-        if notification.name == Notification.Name("settingsChanged") {
-            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
-                self.view.tintColor = UIColor.white
-                self.view.backgroundColor = UIColor.darkGray
-            }
-            else {
-                self.view.backgroundColor = UIColor(red: 5.0/255.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
-                self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
-            }
-        }
-         */
+
     }
     
     deinit {

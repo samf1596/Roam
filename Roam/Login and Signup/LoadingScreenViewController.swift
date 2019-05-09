@@ -3,7 +3,7 @@
 //  Roam
 //
 //  Created by Samuel Fox on 12/8/18.
-//  Copyright © 2018 sof5207. All rights reserved.
+//
 //
 
 import UIKit
@@ -23,36 +23,7 @@ class LoadingScreenViewController: UIViewController {
     }
     
     @objc func onNotification(notification:Notification) {
-        /*
-        if notification.name == Notification.Name("settingsChanged") {
-            if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
-                self.view.tintColor = UIColor.white
-                self.view.backgroundColor = UIColor.darkGray
-                
-                let proxy = UINavigationBar.appearance()
-                proxy.barTintColor = UIColor.darkGray
-                proxy.tintColor = UIColor.white
-                proxy.barStyle = .blackOpaque
-                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
-                
-                let buttonProxy = UIButton.appearance()
-                buttonProxy.titleLabel?.textColor = UIColor.darkGray
-            }
-            else {
-                self.view.backgroundColor = UIColor(red: 60.0/255.0, green: 198.0/255.0, blue: 1.0, alpha: 1.0)
-                self.view.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
-                
-                let proxy = UINavigationBar.appearance()
-                proxy.barTintColor = UIColor.white
-                proxy.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
-                proxy.barStyle = .default
-                proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)]
-                
-                let buttonProxy = UIButton.appearance()
-                buttonProxy.titleLabel?.textColor = UIColor.white
-            }
-        }
-        */
+
     }
     
     deinit {

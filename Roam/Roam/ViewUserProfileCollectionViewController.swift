@@ -3,7 +3,7 @@
 //  Roam
 //
 //  Created by Samuel Fox on 1/31/19.
-//  Copyright © 2019 sof5207. All rights reserved.
+//
 //
 
 import UIKit
@@ -59,12 +59,6 @@ class ViewUserProfileCollectionViewController: UICollectionViewController {
         if UserDefaults.standard.bool(forKey: "DarkMode") == false {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Light.rawValue])
         }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ImageCell")
 
         collectionView.dataSource = self
         collectionView.delegate = self

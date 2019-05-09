@@ -3,7 +3,7 @@
 //  Roam
 //
 //  Created by Samuel Fox on 11/4/18.
-//  Copyright © 2018 sof5207. All rights reserved.
+//
 //
 
 import UIKit
@@ -60,6 +60,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     deinit {
         NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name:
