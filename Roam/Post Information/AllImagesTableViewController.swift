@@ -60,12 +60,10 @@ class AllImagesTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if whichPosts == "Global" {
             return postsModel.postForGlobalSection(postIndex).imagePath.count
         }
@@ -88,93 +86,43 @@ class AllImagesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Image", for: indexPath) as! ImageViewPostTableViewCell
         
         if whichPosts == "Global" {
-            let post = postsModel.postForGlobalSection(postIndex)
+            let _ = postsModel.postForGlobalSection(postIndex)
             
             let imagePath = postsModel.imagePathForGlobalPost(postIndex, indexPath.row)
-            //postsModel.downloadGlobalImage(indexPath, imagePath, post.postID)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
-            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         }
         if whichPosts == "Home" {
-            let post = postsModel.postForFollowingSection(postIndex)
+            let _ = postsModel.postForFollowingSection(postIndex)
             let imagePath = postsModel.imagePathForFollowingPost(postIndex, indexPath.row)
-            //postsModel.downloadFollowingImage(indexPath, imagePath, post.postID)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
-            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         }
         if whichPosts == "User" {
-            let post = postsModel.postForUsersSection(postIndex)
+            let _ = postsModel.postForUsersSection(postIndex)
             let imagePath = postsModel.imagePathForUsersPost(postIndex, indexPath.row)
-            //postsModel.downloadUsersPostImage(postIndex, imagePath, post.postID)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
-            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         }
         if whichPosts == "Bookmarked" {
-            let post = postsModel.postForBookmarkedSection(postIndex)
+            let _ = postsModel.postForBookmarkedSection(postIndex)
             let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, indexPath.row)
-            //postsModel.downloadBookmarkedImage(postIndex, imagePath, post.postID)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
-            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         }
         if whichPosts == "ViewUserProfile" {
-            let post = postsModel.postForUserPostToViewSection(postIndex)
+            let _ = postsModel.postForUserPostToViewSection(postIndex)
             let imagePath = postsModel.imagePathForUserToViewPost(postIndex, indexPath.row)
-            //postsModel.downloadUsersPostToViewImage(postIndex, imagePath, post.postID)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
-            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))//.image = postsModel.getCachedImage(post.postID+"\(indexPath.row)")
+            cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         }
 
         return cell
     }
     
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }

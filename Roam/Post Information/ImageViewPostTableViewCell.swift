@@ -39,13 +39,10 @@ class ImageViewPostTableViewCell: UITableViewCell, UIScrollViewDelegate {
         if UserDefaults.standard.bool(forKey: "DarkMode") == true {
             NotificationCenter.default.post(name: SettingsViewController.settingsChanged, object: nil, userInfo:["theme": Themes.Dark.rawValue])
         }
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

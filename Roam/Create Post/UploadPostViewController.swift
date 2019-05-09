@@ -10,7 +10,6 @@ import Firebase
 import Photos
 import TLPhotoPicker
 import MapKit
-//import SpectrumKit
 
 class UploadPostViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, TLPhotosPickerViewControllerDelegate, TravelDelegate, ExperiencesDelegate, UITextViewDelegate, ChooseLocationDelegate, UIScrollViewDelegate {
     
@@ -190,7 +189,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
         }
     }
     
-    @IBOutlet var uploadImageView: UIImageView!
     @IBOutlet weak var descriptionTextView: UITextView!
     
     func resetScrollViewSlides() {
@@ -329,6 +327,9 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     
     // TLPhotos delegate functions
     func dismissPhotoPicker(withTLPHAssets: [TLPHAsset]) {
+        
+        // MARK - TODO: What if no image selected or asset not recognized? handle here.
+        
         // use selected order, fullresolution image
         self.selectedPictures = withTLPHAssets
         //uploadImageView.image = self.selectedPictures[0].fullResolutionImage
@@ -351,6 +352,7 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     func dismissComplete() {
         // picker viewcontroller dismiss completion
     }
+
     func canSelectAsset(phAsset: PHAsset) -> Bool {
         //Custom Rules & Display
         //You can decide in which case the selection of the cell could be forbidden.
@@ -364,20 +366,6 @@ class UploadPostViewController: UIViewController, UINavigationControllerDelegate
     }
     func handleNoCameraPermissions(picker: TLPhotosPickerViewController) {
         // handle denied camera permissions case
-    }
-    
-    // ImagePickerView delegate
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            uploadImageView.alpha = 1.0
-            imageToUpload = image
-            uploadImageView.image = image
-        }
-        dismiss(animated: true, completion:nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion:nil)
     }
     
     // This function is adapted from https://stackoverflow.com/questions/31314412/how-to-resize-image-in-swift

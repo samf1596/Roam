@@ -15,6 +15,7 @@ protocol PostTableViewCellDelegate {
 
 class PostTableViewCell: UITableViewCell, UITextViewDelegate {
 
+    // MARK: delegate functions for presenting info button and unfollowing user
     func presentInfoController(senderTag:Int, whichView:String, post: Post) {
         delegate?.presentInfoController(senderTag: senderTag, whichView: whichView, post: post)
     }
@@ -22,6 +23,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         delegate?.unfollowedUser(senderTag: senderTag)
     }
     
+    // MARK: variable declarations
     var delegate : PostTableViewCellDelegate?
     
     fileprivate var storageRef : StorageReference!
@@ -44,23 +46,17 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet weak var viewUserProfileButton: UIButton!
     
     @IBOutlet weak var imageCountLabel: UILabel!
-    
-    
     @IBAction func viewUserProfileAction(_ sender: Any) {
         print("did something")
     }
     
-    
     var postID = String()
     
+    // MARK: set post information
     var post: Post? {
+        // make sure that the post's information has been updated once assigned
         didSet {
             if let post = post {
-                /*
-                if globalPostImageView.image == nil {
-                    downloadImage(from: post.imagePath[0])
-                }
-                */
                 globalPostersName.text = post.addedByUser
                 globalPosterUsername.text = post.username
                 globalPostDescriptionTextView.text = post.description == "NOTEXT" ? "" : post.description
@@ -78,23 +74,12 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         }
     }
     
-    func downloadImage(from imagePath: String) {
-        let storage = storageRef.storage.reference(forURL: imagePath)
-        storage.getData(maxSize: 2*1024*1024) { (data, error) in
-            if error == nil {
-                self.globalPostImageView.image = UIImage(data: data!)
-            }
-            else {
-                print("Error:\(error ?? "" as! Error)")
-            }
-        }
-    }
+    // MARK: theme information
     @objc func onNotification(notification:Notification) {
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.tintColor = UIColor.white
                 self.backgroundColor = UIColor.darkGray
-                //self.backgroundColorView.backgroundColor = UIColor.darkGray
                 self.contentView.backgroundColor = UIColor.darkGray
                 self.globalCommentTextView.backgroundColor = UIColor.white
                 self.globalPostDescriptionTextView.backgroundColor = UIColor.gray
@@ -103,7 +88,6 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalPosterUsername.textColor = UIColor.white
                 self.globalPostersName.textColor = UIColor.white
                 self.globalCommentTextView.keyboardAppearance = .dark
-                
                 self.globalPostFavButton.setImage(UIImage(named: "bookmark-white"), for: .normal)
                 self.viewCommentsButton.setImage(UIImage(named: "comments-white"), for: .normal)
                 self.infoButton.setImage(UIImage(named: "ellipsis-white"), for: .normal)
@@ -116,7 +100,6 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.backgroundColor = UIColor.white
                 self.tintColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
                 self.contentView.backgroundColor = UIColor.white
-                //self.backgroundColorView.backgroundColor = UIColor.white
                 self.globalCommentTextView.backgroundColor = UIColor.white
                 self.globalPostDescriptionTextView.backgroundColor = UIColor.white
                 self.globalPostExperienceDetails.setTitleColor(UIColor.black, for: .normal)
@@ -124,7 +107,6 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalPosterUsername.textColor = UIColor.lightGray
                 self.globalPostersName.textColor = UIColor.darkText
                 self.globalCommentTextView.keyboardAppearance = .default
-                
                 self.globalPostFavButton.setImage(UIImage(named: "bookmark"), for: .normal)
                 self.viewCommentsButton.setImage(UIImage(named: "comments"), for: .normal)
                 self.infoButton.setImage(UIImage(named: "ellipsis"), for: .normal)
@@ -140,6 +122,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         NotificationCenter.default.removeObserver(self, name: SettingsViewController.settingsChanged, object: nil)
     }
     
+    // MARK: cell is alive
     override func awakeFromNib() {
         super.awakeFromNib()
         globalPosterUsername.isHidden  = true
@@ -147,7 +130,6 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         globalCommentTextView.returnKeyType = .done
         storageRef = Storage.storage().reference()
         databaseRef = Database.database().reference()
-        //backgroundColorView.layer.cornerRadius = 3
         globalCommentTextView.layer.cornerRadius = 3
         imageCountLabel.layer.masksToBounds = true
         imageCountLabel.layer.cornerRadius = 5
@@ -187,10 +169,10 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         super.setSelected(selected, animated: animated)
     }
 
+    // MARK: allow user to bookmark post. Update views accordingly
     @IBAction func bookmarkPost(_ sender: Any) {
-        if globalPostFavButton.backgroundColor == UIColor.orange {//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0) {
+        if globalPostFavButton.backgroundColor == UIColor.orange {
             globalPostFavButton.backgroundColor = UIColor.clear
-            
             if UserDefaults.standard.bool(forKey: "DarkMode") == false {
                 self.globalPostFavButton.setImage(UIImage(named: "bookmark"), for: .normal)
                 self.globalPostFavButton.setImage(UIImage(named: "bookmark"), for: .selected)
@@ -205,7 +187,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
             selection.selectionChanged()
         }
         else {
-            globalPostFavButton.backgroundColor = UIColor.orange//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            globalPostFavButton.backgroundColor = UIColor.orange
             UIView.animate(withDuration: 0.1, delay: 0.0,
                            options: [AnimationOptions.curveEaseInOut], animations: {
                 self.globalPostFavButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
@@ -213,7 +195,6 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
                 self.globalPostFavButton.transform = CGAffineTransform.identity
                 self.globalPostFavButton.imageView?.image = UIImage(named: "bookmark-white")
             }
-
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
             currentUser.child("Bookmarks").child(postID).setValue(true)
             let selection = UISelectionFeedbackGenerator()
@@ -221,7 +202,7 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         }
     }
     
-    
+    // MARK: allow user to follow another. Update views accordingly
     @IBAction func followUser(_ sender: UIButton) {
         if sender.titleLabel?.text == "Follow" {
             let currentUser = databaseRef.child(FirebaseFields.Users.rawValue).child(Auth.auth().currentUser!.uid)
@@ -238,10 +219,12 @@ class PostTableViewCell: UITableViewCell, UITextViewDelegate {
         generator.notificationOccurred(UINotificationFeedbackGenerator.FeedbackType.success)
     }
     
+    // MARK: present info controller
     @IBAction func infoButtonPressed(_ sender: UIButton) {
         presentInfoController(senderTag: sender.tag, whichView: "Fix", post: post!)
     }
     
+    // MARK: clear old info when this cell dies
     override func prepareForReuse() {
         super.prepareForReuse()
         globalPostImageView.image = nil

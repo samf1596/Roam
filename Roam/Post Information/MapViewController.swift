@@ -33,7 +33,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         mapView.delegate = self
     }
     
@@ -84,15 +83,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             let coordinate = CLLocation(latitude: self.locations[location]!["lat"]!, longitude: self.locations[location]!["long"]!).coordinate
             let title = location
                 
-                /*
-                let span = MKCoordinateSpan(latitudeDelta: self.kSpanLatitudeDeltaZoom, longitudeDelta: self.kSpanLongitudeDeltaZoom)
-                
-                if changeRegion {
-                    let region = MKCoordinateRegion(center: coordinate, span: span)
-                    self.mapView.setRegion(region, animated: true)
-                }
-                */
-                
             let postLocation = PostLocation(title: title, coordinate: coordinate)
             self.allAnnotations.append(postLocation)
             self.mapView.addAnnotation(postLocation)
@@ -105,14 +95,5 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
