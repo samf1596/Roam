@@ -15,28 +15,26 @@ You all also need to enable Firebase Realtime Database, Firebase Storage, and Fi
 For Authentication: Enable Email/Password, Anonymous
 
 For Storage, set the rules as follows:
-`
+```
 service firebase.storage {
-  match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null;
-    }
-  }
+	match /b/{bucket}/o {
+		match /{allPaths=**} {
+			allow read: if request.auth != null;
+			allow write: if request.auth != null;
+			}
+		}
 }
-`
+```
 
 For Realtime Database, set the rules as follows:
-`
+```
 {
-  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
   "rules": {        
-			".read": "auth!=null",
-      ".write": "auth!=null"
-
-  }
+	".read": "auth!=null",
+	".write": "auth!=null"
+	}
 }
-`
+```
 
 I am using Firebase which is installed via Pods, so to install the pods, cd into the project directory and run "pod install"
 Then once the pods have installed, open the project by opening Roam.xcworkspace and build the Roam project as normal
