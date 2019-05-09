@@ -3,7 +3,6 @@
 //  Roam
 //
 //  Created by Samuel Fox on 12/2/18.
-//  Copyright © 2018 sof5207. All rights reserved.
 //
 
 import UIKit
@@ -27,7 +26,6 @@ class SettingsViewController: UIViewController {
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
                 
                 let proxy = UINavigationBar.appearance()
-                //proxy.barTintColor = UIColor.darkGray
                 proxy.tintColor = UIColor.white
                 proxy.barStyle = .blackOpaque
                 proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
@@ -45,7 +43,6 @@ class SettingsViewController: UIViewController {
                 self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
                 
                 let proxy = UINavigationBar.appearance()
-                //proxy.barTintColor = UIColor.white
                 proxy.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
                 proxy.barStyle = .default
                 proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
@@ -125,7 +122,6 @@ class SettingsViewController: UIViewController {
             UserDefaults.standard.set(true, forKey: "DarkMode")
             
             let proxy = UINavigationBar.appearance()
-            //proxy.barTintColor = UIColor.darkGray
             proxy.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
             proxy.barStyle = .blackOpaque
             proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
@@ -136,7 +132,6 @@ class SettingsViewController: UIViewController {
             UserDefaults.standard.set(false, forKey: "DarkMode")
             
             let proxy = UINavigationBar.appearance()
-            //proxy.barTintColor = UIColor.white
             proxy.tintColor = UIColor.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
             proxy.barStyle = .default
             proxy.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.orange]
@@ -148,7 +143,7 @@ class SettingsViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case "ShowBlockedUsers":
-            let viewBlockedUsers = segue.destination as! BlockedUsersTableViewController
+            _ = segue.destination as! BlockedUsersTableViewController
         default:
             assert(false, "Unhandled Segue")
         }

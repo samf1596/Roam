@@ -77,7 +77,6 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
         if notification.name == Notification.Name("settingsChanged") {
             if notification.userInfo!["theme"] as! String == Themes.Dark.rawValue {
                 self.view.backgroundColor = UIColor.darkGray
-                //self.backgroundColorView.backgroundColor = UIColor.darkGray
                 self.submitCommentTextView.backgroundColor = UIColor.white
                 self.postDetailsTextView.backgroundColor = UIColor.gray
                 self.submitCommentTextView.keyboardAppearance = .dark
@@ -90,7 +89,6 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
             }
             else {
                 self.view.backgroundColor = UIColor.white
-                //self.backgroundColorView.backgroundColor = UIColor.darkGray
                 self.submitCommentTextView.backgroundColor = UIColor.white
                 self.postDetailsTextView.backgroundColor = UIColor.white
                 self.submitCommentTextView.keyboardAppearance = .default
@@ -102,7 +100,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
                 self.bookmarkPostButton.setImage(UIImage(named: "bookmark"), for: .normal)
             }
             if postsModel.postIdBookmarked(post!) {
-                bookmarkPostButton.backgroundColor = UIColor.orange//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+                bookmarkPostButton.backgroundColor = UIColor.orange
                 bookmarkPostButton.setImage(UIImage(named: "bookmark-white"), for: .normal)
             }
         }
@@ -184,14 +182,8 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
         postDetailsTextView.text = post?.description
         if viewUserProfile {
                 let imagePath = postsModel.imagePathForUserToViewPost(postIndex, 0)
-                //postsModel.downloadUsersPostToViewImage(postIndex, imagePath, post!.postID)
                 let storageImagePath = storageRef.storage.reference(forURL: imagePath)
                 firstImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
-            
-                /*
-                let image = postsModel.getCachedImage(self.post!.postID+"\(0)")
-                firstImageView.image = image
-                */
         } else {
             if usersPosts {
                 let imagePath = postsModel.imagePathForUsersPost(postIndex, 0)
@@ -199,8 +191,6 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
                 
                 let storageImagePath = storageRef.storage.reference(forURL: imagePath)
                 firstImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
-                //postFirstImageButton.setBackgroundImage(image, for: .normal)
-                //postFirstImageButton.setBackgroundImage(image, for: .selected)
             }
             else {
                 let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, 0)
@@ -208,8 +198,6 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
 
                 let storageImagePath = storageRef.storage.reference(forURL: imagePath)
                 firstImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
-                //postFirstImageButton.setBackgroundImage(image, for: .normal)
-                //postFirstImageButton.setBackgroundImage(image, for: .selected)
             }
         }
     }
@@ -249,7 +237,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
     }
     
     @IBAction func bookmarkButtonPressed(_ sender: UIButton) {
-        if bookmarkPostButton.backgroundColor == UIColor.orange {//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0) {
+        if bookmarkPostButton.backgroundColor == UIColor.orange {
             bookmarkPostButton.backgroundColor = UIColor.clear
             if UserDefaults.standard.bool(forKey: "DarkMode") == true {
                 self.bookmarkPostButton.setImage(UIImage(named: "bookmark-white"), for: .normal)
@@ -263,7 +251,7 @@ class ProfilePostViewController: UIViewController, UINavigationBarDelegate, UITe
             selection.selectionChanged()
         }
         else {
-            bookmarkPostButton.backgroundColor = UIColor.orange//.init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            bookmarkPostButton.backgroundColor = UIColor.orange
             UIView.animate(withDuration: 0.1, delay: 0.0,
                            options: [UIView.AnimationOptions.curveEaseInOut], animations: {
                             self.bookmarkPostButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)

@@ -176,7 +176,6 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        //self.tableView.isScrollEnabled = false
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -236,7 +235,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         cell.infoButton.tag = indexPath.section
         
         let storageImagePath = storageRef.storage.reference(forURL: post.imagePath[0])
-        cell.globalPostImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto")) //.image = postsModel.getCachedImage(post.postID+"\(0)")
+        cell.globalPostImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         cell.post = post
         cell.globalPostExperienceDetails.tag = indexPath.section
         cell.viewCommentsButton.tag = indexPath.section
@@ -258,7 +257,7 @@ class HomeTableViewController: UITableViewController, UIGestureRecognizerDelegat
         }
         
         if postsModel.postIdBookmarked(post) {
-            cell.globalPostFavButton.backgroundColor = UIColor.orange//init(red: 105/255, green: 196/255, blue: 250/255, alpha: 1.0)
+            cell.globalPostFavButton.backgroundColor = UIColor.orange
             cell.globalPostFavButton.setImage(UIImage(named: "bookmark-white"), for: .normal)
         }
         else {

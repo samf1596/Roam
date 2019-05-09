@@ -3,7 +3,6 @@
 //  Roam
 //
 //  Created by Samuel Fox on 11/5/18.
-//  Copyright © 2018 sof5207. All rights reserved.
 //
 
 import UIKit
@@ -105,9 +104,7 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
         if collectionToShow == "BookmarkedPosts"{
             let imagePath = postModel.imagePathForBookmarkedPost(indexPath.row, 0)
             let post = postModel.postForBookmarkedSection(indexPath.row)
-            
-            //postModel.downloadBookmarkedImage(indexPath.row, imagePath, post.postID)
-            //cell.postImageView.image = postModel.getCachedImage(post.postID+"\(0)")
+
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
             cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
             cell.post = post
@@ -116,8 +113,6 @@ class ProfileViewController: UIViewController, UICollectionViewDelegate, UIColle
             let imagePath = postModel.imagePathForUsersPost(indexPath.row,0)
             let post = postModel.postForUsersSection(indexPath.row)
             
-            //postModel.downloadUsersPostImage(indexPath.row, imagePath, post.postID)
-            //cell.postImageView.image = postModel.getCachedImage(post.postID+"\(0)")
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
             cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
             cell.post = post

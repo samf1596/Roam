@@ -3,7 +3,6 @@
 //  Roam
 //
 //  Created by Samuel Fox on 11/21/18.
-//  Copyright © 2018 sof5207. All rights reserved.
 //
 
 import UIKit
@@ -34,13 +33,8 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var postImageView: UIImageView!
     var post: Post? {
         didSet {
-            if let post = post {
+            if let _ = post {
                 print("")
-                /*
-                if postImageView.image == nil {
-                    downloadImage(from: post.imagePath[0])
-                }
-                */
             }
         }
     }

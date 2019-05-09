@@ -86,36 +86,30 @@ class AllImagesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Image", for: indexPath) as! ImageViewPostTableViewCell
         
         if whichPosts == "Global" {
-            let _ = postsModel.postForGlobalSection(postIndex)
-            
             let imagePath = postsModel.imagePathForGlobalPost(postIndex, indexPath.row)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
             cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         }
         if whichPosts == "Home" {
-            let _ = postsModel.postForFollowingSection(postIndex)
             let imagePath = postsModel.imagePathForFollowingPost(postIndex, indexPath.row)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
             cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         }
         if whichPosts == "User" {
-            let _ = postsModel.postForUsersSection(postIndex)
             let imagePath = postsModel.imagePathForUsersPost(postIndex, indexPath.row)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
             cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         }
         if whichPosts == "Bookmarked" {
-            let _ = postsModel.postForBookmarkedSection(postIndex)
             let imagePath = postsModel.imagePathForBookmarkedPost(postIndex, indexPath.row)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)
             cell.postImageView.sd_setImage(with: storageImagePath, placeholderImage: UIImage(named: "addPhoto"))
         }
         if whichPosts == "ViewUserProfile" {
-            let _ = postsModel.postForUserPostToViewSection(postIndex)
             let imagePath = postsModel.imagePathForUserToViewPost(postIndex, indexPath.row)
             
             let storageImagePath = storageRef.storage.reference(forURL: imagePath)

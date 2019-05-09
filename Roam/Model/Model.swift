@@ -1,9 +1,8 @@
 //
-//  File.swift
+//  Model.swift
 //  Roam
 //
 //  Created by Samuel Fox on 11/3/18.
-//  Copyright © 2018 sof5207. All rights reserved.
 //
 
 import Foundation
@@ -271,37 +270,6 @@ class PostsModel {
         
         NotificationCenter.default.addObserver(self, selector: #selector(onNotification(notification:)), name: PostsModel.dataDownloaded, object: nil)
         
-        /*
-        getBlockedUsers()
-        getHiddenPosts()
-        getReportedPosts()
-        // Only call downloadPosts when all hidden/blocked posts have been collected
-        downloadPosts()
-        */
-        // This call will run getBlockedUsers/getHiddenPosts and then call downloadPosts once it is done it's own operation
-        // MARK - TODO: Make this better
-        /*
-        let allPosts = FUIArray(query:
-            ref.child(FirebaseFields.Posts.rawValue).observe(.value) { (snapshot) in
-                var posts = [Post]()
-                for postSnapshot in snapshot.children {
-                    let post = Post(snapshot: postSnapshot as! DataSnapshot)
-                    // only append if not in Hidden or Blocked Posts
-                    if !(self.blockedUsers.contains(post.username)) && !self.postsUnderReview.contains(post.postID) && !self.hiddenPostIds.contains(post.postID){
-                        posts.append(post)
-                    }
-                }
-                self.posts = posts
-                let block = {
-                    self.cachedPosts = self.posts.reversed()
-                    self.findBookmarkedPosts()
-                    self.findFollowingPosts()
-                    self.findUsersPosts()
-                    self.findGlobalPosts()
-                }
-                DispatchQueue.main.async(execute: block)
-                } as! FUIDataObservable)//[Post]()
-        */
         getReportedPosts()
     }
     
@@ -393,16 +361,6 @@ class PostsModel {
                 }
                 DispatchQueue.main.async(execute: block)
             }
-            /*
-            let block = {
-                self.cachedPosts = self.posts.reversed()
-                self.findBookmarkedPosts()
-                self.findFollowingPosts()
-                self.findUsersPosts()
-                self.findGlobalPosts()
-            }
-            DispatchQueue.main.async(execute: block)
-            */
         }
         
     }

@@ -3,7 +3,6 @@
 //  Roam
 //
 //  Created by Samuel Fox on 11/28/18.
-//  Copyright © 2018 sof5207. All rights reserved.
 //
 
 import UIKit
