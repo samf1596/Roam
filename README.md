@@ -5,8 +5,8 @@ This project was built to serve as a social media app for people enthusiastic ab
 
 It is a fully functioning app that allows you to explore swift and firebase, although there may be bugs here and there. Feel free to report these bugs and ask questions.
 
-![Pic One](/Simulator2.png?raw=true "Title") {:height="50%" width="50%"}
-![Pic Two](/Simulator1.png?raw=true "Title") {:height="50%" width="50%"}
+![Pic One](/Simulator2.png?raw=true "Title") {:height="10%" width="20%"}
+![Pic Two](/Simulator1.png?raw=true "Title") {:height="10%" width="20%"}
 
 
 ### Instructions for running Roum
